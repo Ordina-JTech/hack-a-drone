@@ -1,2 +1,3 @@
-# hack-a-drone
-Hack a Drone with Java
+# Hack a Drone
+
+Hack a Drone with Java.
