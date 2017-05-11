@@ -8,11 +8,29 @@
 
     <parent>
         <groupId>com.github.nberlijn</groupId>
-        <artifactId>hackadrone</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>hackadrone-parent</artifactId>
+        <version>1-SNAPSHOT</version>
+        <relativePath>../hackadrone-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>hackadrone-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.nberlijn</groupId>
+            <artifactId>hackadrone-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.nberlijn</groupId>
+            <artifactId>hackadrone-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
 </project>

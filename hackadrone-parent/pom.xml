@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.nberlijn</groupId>
+    <artifactId>hackadrone-parent</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Hackadrone Parent</name>
+    <description>This parent POM (Project Object Model) is used for all the Hackadrone modules.</description>
+    <url>https://github.com/nberlijn/hackadrone</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>nberlijn</id>
+            <name>Nils Berlijn</name>
+            <email>n.r.berlijn@outlook.com</email>
+            <url>https://github.com/nberlijn</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/nberlijn/hackadrone.git</connection>
+        <developerConnection>scm:git:git@github.com:nberlijn/hackadrone.git</developerConnection>
+        <url>https://github.com/nberlijn/hackadrone</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.nberlijn</groupId>
+                <artifactId>hackadrone-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.nberlijn</groupId>
+                <artifactId>hackadrone-core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.nberlijn</groupId>
+                <artifactId>hackadrone-persistence</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.nberlijn</groupId>
+                <artifactId>hackadrone-utils</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.nberlijn</groupId>
+                <artifactId>hackadrone-gui</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.strikerx3</groupId>
+                <artifactId>jxinput</artifactId>
+                <version>bb39935</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

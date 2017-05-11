@@ -7,93 +7,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.nberlijn</groupId>
-    <artifactId>hackadrone</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <artifactId>hackadrone-aggregator</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <name>Hack a Drone</name>
-    <description>Hack a Drone with Java.</description>
-    <url>https://github.com/nberlijn/hackadrone</url>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>nberlijn</id>
-            <name>Nils Berlijn</name>
-            <email>n.r.berlijn@outlook.com</email>
-            <url>https://github.com/nberlijn</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:https://github.com/nberlijn/hackadrone.git</connection>
-        <developerConnection>scm:git:git@github.com:nberlijn/hackadrone.git</developerConnection>
-        <url>https://github.com/nberlijn/hackadrone</url>
-        <tag>HEAD</tag>
-    </scm>
+    <name>Hackadrone Aggregator</name>
+    <description>This aggregator collects all the Hackadrone modules.</description>
 
     <modules>
+        <module>hackadrone-parent</module>
         <module>hackadrone-api</module>
         <module>hackadrone-core</module>
-        <module>hackadrone-dist</module>
-        <module>hackadrone-gui</module>
         <module>hackadrone-persistence</module>
         <module>hackadrone-utils</module>
+        <module>hackadrone-cli</module>
+        <module>hackadrone-gui</module>
+        <module>hackadrone-dist</module>
     </modules>
-
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>hackadrone-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>hackadrone-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>hackadrone-persistence</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>hackadrone-utils</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>hackadrone-gui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.github.strikerx3</groupId>
-                <artifactId>jxinput</artifactId>
-                <version>bb39935</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 </project>
