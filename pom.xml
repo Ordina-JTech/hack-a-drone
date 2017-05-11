@@ -15,6 +15,39 @@
     <description>Hack a Drone with Java.</description>
     <url>https://github.com/nberlijn/hack-a-drone</url>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>nberlijn</id>
+            <name>Nils Berlijn</name>
+            <email>n.r.berlijn@outlook.com</email>
+            <url>https://github.com/nberlijn</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/nberlijn/hack-a-drone.git</connection>
+        <developerConnection>scm:git:git@github.com:nberlijn/hack-a-drone.git</developerConnection>
+        <url>https://github.com/nberlijn/hack-a-drone</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>hack-a-drone-api</module>
+        <module>hack-a-drone-core</module>
+        <module>hack-a-drone-dist</module>
+        <module>hack-a-drone-gui</module>
+        <module>hack-a-drone-persistence</module>
+        <module>hack-a-drone-utils</module>
+    </modules>
+
     <repositories>
         <repository>
             <id>jitpack.io</id>
@@ -22,18 +55,45 @@
         </repository>
     </repositories>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.github.strikerx3</groupId>
-            <artifactId>jxinput</artifactId>
-            <version>bb39935</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>hack-a-drone-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>hack-a-drone-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>hack-a-drone-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>hack-a-drone-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>hack-a-drone-gui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.strikerx3</groupId>
+                <artifactId>jxinput</artifactId>
+                <version>bb39935</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
