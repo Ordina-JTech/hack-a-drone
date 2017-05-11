@@ -7,13 +7,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.nberlijn</groupId>
-    <artifactId>hack-a-drone</artifactId>
+    <artifactId>hackadrone</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Hack a Drone</name>
     <description>Hack a Drone with Java.</description>
-    <url>https://github.com/nberlijn/hack-a-drone</url>
+    <url>https://github.com/nberlijn/hackadrone</url>
 
     <licenses>
         <license>
@@ -33,19 +33,19 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/nberlijn/hack-a-drone.git</connection>
-        <developerConnection>scm:git:git@github.com:nberlijn/hack-a-drone.git</developerConnection>
-        <url>https://github.com/nberlijn/hack-a-drone</url>
+        <connection>scm:git:https://github.com/nberlijn/hackadrone.git</connection>
+        <developerConnection>scm:git:git@github.com:nberlijn/hackadrone.git</developerConnection>
+        <url>https://github.com/nberlijn/hackadrone</url>
         <tag>HEAD</tag>
     </scm>
 
     <modules>
-        <module>hack-a-drone-api</module>
-        <module>hack-a-drone-core</module>
-        <module>hack-a-drone-dist</module>
-        <module>hack-a-drone-gui</module>
-        <module>hack-a-drone-persistence</module>
-        <module>hack-a-drone-utils</module>
+        <module>hackadrone-api</module>
+        <module>hackadrone-core</module>
+        <module>hackadrone-dist</module>
+        <module>hackadrone-gui</module>
+        <module>hackadrone-persistence</module>
+        <module>hackadrone-utils</module>
     </modules>
 
     <repositories>
@@ -59,27 +59,27 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>hack-a-drone-api</artifactId>
+                <artifactId>hackadrone-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>hack-a-drone-core</artifactId>
+                <artifactId>hackadrone-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>hack-a-drone-persistence</artifactId>
+                <artifactId>hackadrone-persistence</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>hack-a-drone-utils</artifactId>
+                <artifactId>hackadrone-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>hack-a-drone-gui</artifactId>
+                <artifactId>hackadrone-gui</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
