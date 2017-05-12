@@ -1,15 +1,15 @@
 package com.github.nberlijn.hackadrone.cli;
 
-import com.github.nberlijn.hackadrone.CX10WD;
-import com.github.nberlijn.hackadrone.Drone;
-import com.github.nberlijn.hackadrone.exceptions.DroneException;
+import com.github.nberlijn.hackadrone.api.CX10;
+import com.github.nberlijn.hackadrone.core.CX10WD;
+import com.github.nberlijn.hackadrone.exceptions.CX10Exception;
 import com.github.nberlijn.hackadrone.utils.ANSI;
 
 import java.util.Scanner;
 
 final class CLI {
 
-    private final Drone cx10WD = new CX10WD();
+    private final CX10 cx10 = new CX10WD();
 
     public static void main(String[] args) {
         CLI cli = new CLI();
@@ -17,8 +17,7 @@ final class CLI {
     }
 
     private void launch() {
-        System.out.println(ANSI.BLUE + "Welcome to the " + cx10WD.getName() + " Command Line Interface." + ANSI.RESET);
-
+        System.out.println(ANSI.BLUE + "Welcome to the " + cx10.getName() + " Command Line Interface." + ANSI.RESET);
         options();
     }
 
@@ -32,11 +31,11 @@ final class CLI {
             case "disconnect":
                 disconnect();
                 break;
-            case "help":
-                help();
-                break;
             case "exit":
                 exit();
+                break;
+            case "help":
+                help();
                 break;
         }
     }
@@ -44,9 +43,10 @@ final class CLI {
     private void connect() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to establish a new connection..." + ANSI.RESET);
-            cx10WD.connect();
+            cx10.connect();
+            cx10.sendMessages();
             System.out.println(ANSI.GREEN + "Connection successfully established" + ANSI.RESET);
-        } catch (DroneException e) {
+        } catch (CX10Exception e) {
             System.out.println(ANSI.RED + "Connection failed!" + ANSI.RESET);
         }
 
@@ -56,13 +56,18 @@ final class CLI {
     private void disconnect() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to disconnect..." + ANSI.RESET);
-            cx10WD.disconnect();
+            cx10.disconnect();
             System.out.println(ANSI.GREEN + "Disconnection successful" + ANSI.RESET);
-        } catch (DroneException e) {
+        } catch (CX10Exception e) {
             System.out.println(ANSI.RED + "Disconnection failed!" + ANSI.RESET);
         }
 
         options();
+    }
+
+    private void exit() {
+        System.out.println(ANSI.YELLOW + "Exiting..." + ANSI.RESET);
+        System.exit(0);
     }
 
     private void help() {
@@ -71,13 +76,7 @@ final class CLI {
         System.out.println(ANSI.WHITE + "- disconnect" + ANSI.RESET);
         System.out.println(ANSI.WHITE + "- help" + ANSI.RESET);
         System.out.println(ANSI.WHITE + "- exit" + ANSI.RESET);
-
         options();
-    }
-
-    private void exit() {
-        System.out.println(ANSI.YELLOW + "Exiting..." + ANSI.RESET);
-        System.exit(0);
     }
 
 }

@@ -24,6 +24,10 @@
             <groupId>com.github.nberlijn</groupId>
             <artifactId>hackadrone-exceptions</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.nberlijn</groupId>
+            <artifactId>hackadrone-persistence</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

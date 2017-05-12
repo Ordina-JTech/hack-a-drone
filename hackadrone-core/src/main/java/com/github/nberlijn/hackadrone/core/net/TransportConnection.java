@@ -1,6 +1,6 @@
-package com.github.nberlijn.hackadrone.net;
+package com.github.nberlijn.hackadrone.core.net;
 
-import com.github.nberlijn.hackadrone.Connection;
+import com.github.nberlijn.hackadrone.api.Connection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,9 +20,8 @@ public final class TransportConnection implements Connection {
     }
 
     public void connect() throws IOException {
-        if (socket == null || !socket.isConnected()) {
-            InetAddress inetAddress = InetAddress.getByName(host);
-            socket = new Socket(inetAddress, port);
+        if (socket == null || socket.isClosed()) {
+            socket = new Socket(InetAddress.getByName(host), port);
         } else {
             throw new IOException("Connection failed!");
         }
@@ -31,6 +30,7 @@ public final class TransportConnection implements Connection {
     public void disconnect() throws IOException {
         if (socket != null && !socket.isClosed()) {
             socket.close();
+            System.out.println("hoi");
         } else {
             throw new IOException("Disconnection failed!");
         }

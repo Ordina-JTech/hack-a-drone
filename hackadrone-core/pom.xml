@@ -26,11 +26,15 @@
         </dependency>
         <dependency>
             <groupId>com.github.nberlijn</groupId>
-            <artifactId>hackadrone-utils</artifactId>
+            <artifactId>hackadrone-persistence</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.nberlijn</groupId>
             <artifactId>hackadrone-exceptions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.nberlijn</groupId>
+            <artifactId>hackadrone-utils</artifactId>
         </dependency>
     </dependencies>
 

@@ -2,13 +2,13 @@ package com.github.nberlijn.hackadrone.exceptions;
 
 import java.io.IOException;
 
-public class DroneException extends IOException {
+public class CX10Exception extends IOException {
 
-    public DroneException() {
+    public CX10Exception() {
         super();
     }
 
-    public DroneException(String message) {
+    public CX10Exception(String message) {
         super(message);
     }
 
