@@ -20,17 +20,19 @@ public final class TransportConnection implements Connection {
     }
 
     public void connect() throws IOException {
-        if (socket != null && socket.isConnected()) {
-            throw new IOException("The socket is already open and connected.");
+        if (socket == null || !socket.isConnected()) {
+            InetAddress inetAddress = InetAddress.getByName(host);
+            socket = new Socket(inetAddress, port);
+        } else {
+            throw new IOException("Connection failed!");
         }
-
-        InetAddress inetAddress = InetAddress.getByName(host);
-        socket = new Socket(inetAddress, port);
     }
 
     public void disconnect() throws IOException {
         if (socket != null && !socket.isClosed()) {
             socket.close();
+        } else {
+            throw new IOException("Disconnection failed!");
         }
     }
 

@@ -1,9 +1,11 @@
 package com.github.nberlijn.hackadrone;
 
+import java.io.IOException;
+
 public interface Connection {
 
-    void connect() throws Exception;
+    void connect() throws IOException;
 
-    void disconnect() throws Exception;
+    void disconnect() throws IOException;
 
 }
