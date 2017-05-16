@@ -21,9 +21,7 @@
         <module>hackadrone-persistence</module>
         <module>hackadrone-exceptions</module>
         <module>hackadrone-utils</module>
-        <module>hackadrone-cli</module>
         <module>hackadrone-gui</module>
-        <module>hackadrone-dist</module>
     </modules>
 
 </project>

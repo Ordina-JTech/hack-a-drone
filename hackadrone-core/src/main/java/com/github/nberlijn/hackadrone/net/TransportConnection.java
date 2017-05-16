@@ -1,6 +1,4 @@
-package com.github.nberlijn.hackadrone.core.net;
-
-import com.github.nberlijn.hackadrone.api.Connection;
+package com.github.nberlijn.hackadrone.net;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,7 +28,6 @@ public final class TransportConnection implements Connection {
     public void disconnect() throws IOException {
         if (socket != null && !socket.isClosed()) {
             socket.close();
-            System.out.println("hoi");
         } else {
             throw new IOException("Disconnection failed!");
         }

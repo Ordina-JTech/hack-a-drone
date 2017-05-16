@@ -1,4 +1,4 @@
-package com.github.nberlijn.hackadrone.persistence.models;
+package com.github.nberlijn.hackadrone.models;
 
 public class Command {
 
@@ -13,7 +13,7 @@ public class Command {
         this(0, 0, 0, 0);
     }
 
-    public Command(int pitch, int yaw, int roll, int throttle) {
+    private Command(int pitch, int yaw, int roll, int throttle) {
         this.pitch = pitch;
         this.yaw = yaw;
         this.throttle = throttle;
@@ -44,6 +44,7 @@ public class Command {
         } else if (yaw > 127) {
             yaw = 127;
         }
+
         this.yaw = yaw;
     }
 
@@ -57,6 +58,7 @@ public class Command {
         } else if (roll > 127) {
             roll = 127;
         }
+
         this.roll = roll;
     }
 
@@ -70,6 +72,7 @@ public class Command {
         } else if (throttle > 127) {
             throttle = 127;
         }
+
         this.throttle = throttle;
     }
 
@@ -102,29 +105,30 @@ public class Command {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
 
-        Command command = (Command) o;
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
 
-        if (pitch != command.pitch) return false;
-        if (yaw != command.yaw) return false;
-        if (roll != command.roll) return false;
-        if (throttle != command.throttle) return false;
-        if (takeOff != command.takeOff) return false;
-        return land == command.land;
+        Command command = (Command) object;
 
+        return pitch == command.pitch && yaw == command.yaw && roll == command.roll && throttle == command.throttle && takeOff == command.takeOff && land == command.land;
     }
 
     @Override
     public int hashCode() {
         int result = pitch;
+
         result = 31 * result + yaw;
         result = 31 * result + roll;
         result = 31 * result + throttle;
         result = 31 * result + (takeOff ? 1 : 0);
         result = 31 * result + (land ? 1 : 0);
+
         return result;
     }
 

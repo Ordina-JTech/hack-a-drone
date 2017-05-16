@@ -6,35 +6,36 @@ import java.io.InputStream;
 
 public final class ByteUtils {
 
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
+    public static byte[] asUnsigned(int... values) {
+        byte[] bytes = new byte[values.length];
 
-    public static String bytesToHex(byte[] bytes) {
-        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            int value = values[i];
 
-        for (byte aByte : bytes) {
-            int value = aByte & 0xFF;
-            output.append(hexArray[value >>> 4]);
-            output.append(hexArray[value & 0x0F]);
-            output.append(" ");
+            if (value > Byte.MAX_VALUE) {
+                bytes[i] = (byte) value;
+            } else {
+                bytes[i] = (byte) (value & 0xff);
+            }
         }
 
-        return output.toString();
+        return bytes;
     }
 
     public static byte[] loadMessageFromFile(String fileName) throws IOException {
-        InputStream resourceAsStream = ByteUtils.class.getResourceAsStream("/" + fileName);
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        InputStream inputStream = ByteUtils.class.getResourceAsStream("/" + fileName);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        int nRead;
+        int read;
         byte[] data = new byte[4096];
 
-        while ((nRead = resourceAsStream.read(data, 0, data.length)) > 0) {
-            buffer.write(data, 0, nRead);
+        while ((read = inputStream.read(data, 0, data.length)) > 0) {
+            byteArrayOutputStream.write(data, 0, read);
         }
 
-        buffer.flush();
+        byteArrayOutputStream.flush();
 
-        return buffer.toByteArray();
+        return byteArrayOutputStream.toByteArray();
     }
 
 }

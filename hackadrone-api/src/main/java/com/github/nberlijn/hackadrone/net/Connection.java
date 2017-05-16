@@ -1,4 +1,4 @@
-package com.github.nberlijn.hackadrone.api;
+package com.github.nberlijn.hackadrone.net;
 
 import java.io.IOException;
 
