@@ -21,8 +21,8 @@ public final class Heartbeat extends Thread {
         try {
             socket = new Socket(host, port);
             super.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
+
         }
     }
     
@@ -32,10 +32,8 @@ public final class Heartbeat extends Thread {
             try {
                 sendHeartBeat();
                 Thread.sleep(5000);
-            } catch (IOException e) {
-                System.err.println("Unable to send heartbeat (no WiFi connection?)");
-            } catch (InterruptedException e) {
-                System.err.println("Heartbeat interrupted");
+            } catch (IOException | InterruptedException ignored) {
+
             }
         }
     }

@@ -135,15 +135,18 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, W
             model.setLblStatusText("Trying to disconnect...");
             updateModel(model);
 
+            stopControls();
+
             cx10.stopHeartbeat();
             cx10.disconnect();
 
             model = getModel();
+            model.setBtnControlsEnabled(false);
+            model.setBtnControlsText("Start Controls");
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Connect");
             model.setLblStatusForeground(Color.GREEN);
             model.setLblStatusText("Disconnection successful");
-            model.setBtnControlsEnabled(false);
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Disconnection successful" + ANSI.RESET);
@@ -205,8 +208,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, W
             System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
 
             model = getModel();
-            model.setBtnConnectEnabled(false);
-            model.setBtnConnectText("Stopping controls...");
+            model.setBtnControlsEnabled(false);
+            model.setBtnControlsText("Stopping controls...");
             model.setLblStatusForeground(Color.YELLOW);
             model.setLblStatusText("Trying to stop the controls...");
             updateModel(model);

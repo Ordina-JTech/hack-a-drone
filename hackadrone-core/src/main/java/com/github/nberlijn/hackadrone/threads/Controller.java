@@ -34,10 +34,8 @@ public final class Controller extends Thread implements CommandListener {
             try {
                 commandConnection.sendCommand(command);
                 Thread.sleep(5000);
-            } catch (IOException e) {
-                System.err.println("Unable to send command (no WiFi connection?)");
-            } catch (InterruptedException e) {
-                System.err.println("Controller interrupted");
+            } catch (IOException | InterruptedException ignored) {
+
             }
         }
     }
