@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public final class MainWindow extends JFrame implements Frame, ActionListener, Window {
+public final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
 
     private final Drone cx10 = new CX10();
 

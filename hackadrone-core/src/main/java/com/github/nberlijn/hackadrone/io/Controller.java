@@ -1,7 +1,5 @@
-package com.github.nberlijn.hackadrone.threads;
+package com.github.nberlijn.hackadrone.io;
 
-import com.github.nberlijn.hackadrone.io.CommandListener;
-import com.github.nberlijn.hackadrone.io.Device;
 import com.github.nberlijn.hackadrone.models.Command;
 import com.github.nberlijn.hackadrone.net.CommandConnection;
 
@@ -33,9 +31,11 @@ public final class Controller extends Thread implements CommandListener {
         while (!isInterrupted()) {
             try {
                 commandConnection.sendCommand(command);
-                Thread.sleep(5000);
-            } catch (IOException | InterruptedException ignored) {
-
+                Thread.sleep(50);
+            } catch (IOException e) {
+                System.err.println("Unable to send command");;
+            } catch (InterruptedException e) {
+                System.err.println("Command interrupted");
             }
         }
     }

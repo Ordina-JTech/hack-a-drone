@@ -6,6 +6,6 @@ public interface Device {
 
     void stop();
 
-    void setListener(CommandListener controlListener);
+    void setListener(CommandListener commandListener);
 
 }

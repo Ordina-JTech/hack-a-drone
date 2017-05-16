@@ -17,18 +17,22 @@ public final class Keyboard implements Device, KeyEventDispatcher {
         this.focusManager = focusManager;
     }
 
+    @Override
     public void start() {
         focusManager.addKeyEventDispatcher(this);
     }
 
+    @Override
     public void stop() {
         focusManager.removeKeyEventDispatcher(this);
     }
 
+    @Override
     public void setListener(CommandListener commandListener) {
         this.commandListener = commandListener;
     }
 
+    @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
         if (e.getID() == KEY_PRESSED) {
             onKeyEvent(e, true);

@@ -1,6 +1,6 @@
 package com.github.nberlijn.hackadrone.gui;
 
-public interface Window {
+public interface ClickEvent {
 
     void onConnectClicked();
 

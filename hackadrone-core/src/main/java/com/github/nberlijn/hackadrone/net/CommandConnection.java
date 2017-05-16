@@ -8,7 +8,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public final class CommandConnection {
+public final class CommandConnection implements Execute {
 
     private final DatagramSocket socket = new DatagramSocket();
     private final InetAddress host;
@@ -19,6 +19,7 @@ public final class CommandConnection {
         this.port = port;
     }
 
+    @Override
     public void sendCommand(Command command) throws IOException {
         byte[] data = asByteArray(command);
         DatagramPacket packet = new DatagramPacket(data, 0, data.length, host, port);

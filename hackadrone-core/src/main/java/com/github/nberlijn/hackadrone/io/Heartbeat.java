@@ -1,4 +1,4 @@
-package com.github.nberlijn.hackadrone.threads;
+package com.github.nberlijn.hackadrone.io;
 
 import com.github.nberlijn.hackadrone.utils.ByteUtils;
 
@@ -21,8 +21,8 @@ public final class Heartbeat extends Thread {
         try {
             socket = new Socket(host, port);
             super.start();
-        } catch (IOException ignored) {
-
+        } catch (IOException e) {
+            System.err.println("Connection failed!");
         }
     }
     
@@ -32,8 +32,10 @@ public final class Heartbeat extends Thread {
             try {
                 sendHeartBeat();
                 Thread.sleep(5000);
-            } catch (IOException | InterruptedException ignored) {
-
+            } catch (IOException e) {
+                System.err.println("Unable to send heartbeat");;
+            } catch (InterruptedException e) {
+                System.err.println("Heartbeat interrupted");
             }
         }
     }

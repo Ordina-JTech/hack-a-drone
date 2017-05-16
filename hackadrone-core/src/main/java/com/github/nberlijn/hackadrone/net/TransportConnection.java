@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public final class TransportConnection implements Connection {
+public final class TransportConnection implements Connection, Transport {
 
     private final String host;
     private final int port;
@@ -17,6 +17,7 @@ public final class TransportConnection implements Connection {
         this.port = port;
     }
 
+    @Override
     public void connect() throws IOException {
         if (socket == null || socket.isClosed()) {
             socket = new Socket(InetAddress.getByName(host), port);
@@ -25,6 +26,7 @@ public final class TransportConnection implements Connection {
         }
     }
 
+    @Override
     public void disconnect() throws IOException {
         if (socket != null && !socket.isClosed()) {
             socket.close();
@@ -33,6 +35,7 @@ public final class TransportConnection implements Connection {
         }
     }
 
+    @Override
     public void sendMessage(byte[] bytes, int responseSize) throws IOException {
         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
         dataOutputStream.write(bytes);

@@ -3,8 +3,8 @@ package com.github.nberlijn.hackadrone;
 import com.github.nberlijn.hackadrone.io.Device;
 import com.github.nberlijn.hackadrone.net.CommandConnection;
 import com.github.nberlijn.hackadrone.net.TransportConnection;
-import com.github.nberlijn.hackadrone.threads.Controller;
-import com.github.nberlijn.hackadrone.threads.Heartbeat;
+import com.github.nberlijn.hackadrone.io.Controller;
+import com.github.nberlijn.hackadrone.io.Heartbeat;
 import com.github.nberlijn.hackadrone.utils.ByteUtils;
 
 import java.io.IOException;
@@ -19,6 +19,7 @@ public final class CX10 implements Drone {
     private Controller controller;
     private Heartbeat heartbeat;
 
+    @Override
     public void connect() throws DroneException {
         try {
             if (transportConnection == null) {
@@ -31,6 +32,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public void disconnect() throws DroneException {
         try {
             transportConnection.disconnect();
@@ -39,6 +41,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public void sendMessages() throws DroneException {
         try {
             transportConnection.sendMessage(ByteUtils.loadMessageFromFile("message1.bin"), 106);
@@ -51,6 +54,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public void startHeartbeat() throws DroneException {
         if (heartbeat == null) {
             heartbeat = new Heartbeat(HOST, PORT);
@@ -60,6 +64,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public void stopHeartbeat() throws DroneException {
         if (heartbeat != null) {
             heartbeat.interrupt();
@@ -69,6 +74,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public void startControls(Device device) throws DroneException {
         try {
             if (controller == null) {
@@ -81,6 +87,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public void stopControls() throws DroneException {
         if (controller != null) {
             controller.interrupt();
@@ -90,6 +97,7 @@ public final class CX10 implements Drone {
         }
     }
 
+    @Override
     public String getName() {
         return NAME;
     }
