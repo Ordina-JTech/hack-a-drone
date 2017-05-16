@@ -40,7 +40,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         btnControls.addActionListener(this);
 
         add(panel);
-        setTitle("CX-10WD-TX");
+        setTitle(cx10.getName());
         setPreferredSize(new Dimension(400,150));
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

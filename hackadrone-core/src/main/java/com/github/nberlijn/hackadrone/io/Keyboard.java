@@ -43,40 +43,40 @@ public final class Keyboard implements Device, KeyEventDispatcher {
         return false;
     }
 
-    private void onKeyEvent(KeyEvent e, boolean isPressed) {
+    private void onKeyEvent(KeyEvent keyEvent, boolean isPressed) {
         int value = isPressed ? 127 : 0;
         boolean input = true;
 
-        switch (e.getKeyCode()) {
+        switch (keyEvent.getKeyCode()) {
             case VK_W:
-                command.setThrottle(value);
-                break;
-            case VK_S:
-                command.setThrottle(-value);
-                break;
-            case VK_D:
-                command.setYaw(value);
-                break;
-            case VK_A:
-                command.setYaw(-value);
-                break;
-            case VK_I:
                 command.setPitch(value);
                 break;
-            case VK_K:
+            case VK_S:
                 command.setPitch(-value);
                 break;
-            case VK_L:
-                command.setRoll(value);
-                break;
-            case VK_J:
+            case VK_A:
                 command.setRoll(-value);
                 break;
-            case VK_UP:
+            case VK_D:
+                command.setRoll(value);
+                break;
+            case VK_Q:
+                command.setYaw(-value);
+                break;
+            case VK_E:
+                command.setYaw(value);
+                break;
+            case VK_LEFT:
                 command.setTakeOff(isPressed);
                 break;
-            case VK_DOWN:
+            case VK_RIGHT:
                 command.setLand(isPressed);
+                break;
+            case VK_UP:
+                command.setThrottle(value);
+                break;
+            case VK_DOWN:
+                command.setThrottle(-value);
                 break;
             default:
                 input = false;
@@ -86,7 +86,7 @@ public final class Keyboard implements Device, KeyEventDispatcher {
             commandListener.onCommandReceived(command);
         }
 
-        e.consume();
+        keyEvent.consume();
     }
 
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public final class CX10 implements Drone {
 
-    private static final String NAME = "CX-10WD-TX";
+    private static final String NAME = "Cheerson CX-10WD-TX Mini FPV Drone";
     private static final String HOST = "172.16.10.1";
     private static final int PORT = 8888;
     private static final int IO_PORT = 8895;

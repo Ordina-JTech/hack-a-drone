@@ -92,44 +92,4 @@ public class Command {
         this.land = land;
     }
 
-    @Override
-    public String toString() {
-        return "Command{" +
-                "pitch=" + pitch +
-                ", yaw=" + yaw +
-                ", roll=" + roll +
-                ", throttle=" + throttle +
-                ", takeOff=" + takeOff +
-                ", land=" + land +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-
-        Command command = (Command) object;
-
-        return pitch == command.pitch && yaw == command.yaw && roll == command.roll && throttle == command.throttle && takeOff == command.takeOff && land == command.land;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = pitch;
-
-        result = 31 * result + yaw;
-        result = 31 * result + roll;
-        result = 31 * result + throttle;
-        result = 31 * result + (takeOff ? 1 : 0);
-        result = 31 * result + (land ? 1 : 0);
-
-        return result;
-    }
-
 }
