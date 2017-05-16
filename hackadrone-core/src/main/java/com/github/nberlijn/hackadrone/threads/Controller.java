@@ -11,12 +11,11 @@ public final class Controller extends Thread implements CommandListener {
 
     private final Device device;
     private final CommandConnection commandConnection;
-    private Command command;
+    private Command command = new Command();
 
     public Controller(Device device, CommandConnection commandConnection) {
         this.device = device;
         this.commandConnection = commandConnection;
-        command = new Command();
     }
 
     @Override
@@ -34,21 +33,16 @@ public final class Controller extends Thread implements CommandListener {
         while (!isInterrupted()) {
             try {
                 commandConnection.sendCommand(command);
-                hold();
+                Thread.sleep(5000);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Unable to send command (no WiFi connection?)");
+            } catch (InterruptedException e) {
+                System.err.println("Controller interrupted");
             }
         }
     }
 
-    private void hold() {
-        try {
-            sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
+    @Override
     public void onCommandReceived(Command command) {
         if (command == null) {
             this.command = new Command();

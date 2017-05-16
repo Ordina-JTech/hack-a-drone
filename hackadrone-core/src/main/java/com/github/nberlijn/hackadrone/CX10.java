@@ -90,4 +90,8 @@ public final class CX10 implements Drone {
         }
     }
 
+    public String getName() {
+        return NAME;
+    }
+
 }

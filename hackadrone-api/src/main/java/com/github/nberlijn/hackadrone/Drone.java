@@ -5,6 +5,12 @@ import com.github.nberlijn.hackadrone.net.Connection;
 
 public interface Drone extends Connection {
 
+    @Override
+    void connect() throws DroneException;
+
+    @Override
+    void disconnect() throws DroneException;
+
     void sendMessages() throws DroneException;
 
     void startHeartbeat() throws DroneException;
@@ -14,5 +20,7 @@ public interface Drone extends Connection {
     void startControls(Device device) throws DroneException;
 
     void stopControls() throws DroneException;
+
+    String getName();
 
 }

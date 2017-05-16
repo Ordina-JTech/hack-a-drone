@@ -83,11 +83,6 @@
                 <artifactId>hackadrone-gui</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.strikerx3</groupId>
-                <artifactId>jxinput</artifactId>
-                <version>bb39935</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

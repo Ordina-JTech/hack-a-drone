@@ -25,27 +25,17 @@ public final class Heartbeat extends Thread {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void interrupt() {
-        try {
-            socket.close();
-            socket = null;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        super.interrupt();
-    }
-
+    
     @Override
     public void run() {
         while (!isInterrupted()) {
             try {
                 sendHeartBeat();
                 Thread.sleep(5000);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+                System.err.println("Unable to send heartbeat (no WiFi connection?)");
+            } catch (InterruptedException e) {
+                System.err.println("Heartbeat interrupted");
             }
         }
     }

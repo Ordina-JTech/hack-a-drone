@@ -1,8 +1,11 @@
 package com.github.nberlijn.hackadrone.gui;
 
 import com.github.nberlijn.hackadrone.CX10;
+import com.github.nberlijn.hackadrone.Drone;
 import com.github.nberlijn.hackadrone.DroneException;
 import com.github.nberlijn.hackadrone.io.Keyboard;
+import com.github.nberlijn.hackadrone.utils.ANSI;
+import com.github.nberlijn.hackadrone.utils.Color;
 
 import javax.swing.*;
 
@@ -11,9 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class MainWindow extends JFrame implements ActionListener {
+public final class MainWindow extends JFrame implements Frame, ActionListener, Window {
 
-    private final CX10 cx10;
+    private final Drone cx10 = new CX10();
 
     private JPanel panel;
     private JButton btnConnect;
@@ -24,8 +27,11 @@ public class MainWindow extends JFrame implements ActionListener {
     private boolean isControlled = false;
 
     MainWindow() {
-        this.cx10 = new CX10();
+        init();
+    }
 
+    @Override
+    public void init() {
         btnConnect.setEnabled(true);
         btnControls.setEnabled(false);
         lblStatus.setEnabled(true);
@@ -43,6 +49,8 @@ public class MainWindow extends JFrame implements ActionListener {
         panel.setVisible(true);
         setVisible(true);
         pack();
+
+        System.out.println(ANSI.BLUE + "Welcome to the " + cx10.getName() + " Graphical User Interface (GUI)" + ANSI.RESET);
     }
 
     @Override
@@ -50,103 +58,181 @@ public class MainWindow extends JFrame implements ActionListener {
         new Thread(() -> {
             if (actionEvent.getSource() == btnConnect) {
                 onConnectClicked();
-            }
-
-            if (actionEvent.getSource() == btnControls) {
+            } else if (actionEvent.getSource() == btnControls) {
                 onControlsClicked();
             }
         }).start();
     }
 
-    private void onConnectClicked() {
-        MainWindowModel model;
-
+    @Override
+    public void onConnectClicked() {
         if (!isConnected) {
-            try {
-                model = getModel();
-                model.setBtnConnectEnabled(false);
-                model.setBtnConnectText("Connecting...");
-                model.setLblStatusForeground(Color.ORANGE);
-                model.setLblStatusText("Trying to establish a new connection...");
-                setModel(model);
-
-                cx10.connect();
-                cx10.sendMessages();
-                cx10.startHeartbeat();
-
-                isConnected = true;
-
-                model = getModel();
-                model.setBtnConnectEnabled(true);
-                model.setBtnConnectText("Disconnect");
-                model.setLblStatusForeground(Color.GREEN);
-                model.setLblStatusText("Connection successfully established");
-                model.setBtnControlsEnabled(true);
-                setModel(model);
-            } catch (DroneException e) {
-                model = getModel();
-                model.setBtnConnectEnabled(true);
-                model.setBtnConnectText("Connect");
-                model.setLblStatusForeground(Color.RED);
-                model.setLblStatusText("Connection failed!");
-                setModel(model);
-            }
+            connect();
         } else {
-            try {
-                model = getModel();
-                model.setBtnConnectEnabled(false);
-                model.setBtnConnectText("Disconnecting...");
-                model.setLblStatusForeground(Color.ORANGE);
-                model.setLblStatusText("Trying to disconnect...");
-                setModel(model);
-
-                cx10.stopHeartbeat();
-                cx10.disconnect();
-
-                isConnected = false;
-
-                model = getModel();
-                model.setBtnConnectEnabled(true);
-                model.setBtnConnectText("Connect");
-                model.setLblStatusForeground(Color.GREEN);
-                model.setLblStatusText("Disconnection successful");
-                model.setBtnControlsEnabled(false);
-                setModel(model);
-            } catch (DroneException e) {
-                model = getModel();
-                model.setBtnConnectEnabled(true);
-                model.setBtnConnectText("Disconnect");
-                model.setLblStatusForeground(Color.RED);
-                model.setLblStatusText("Disconnection failed!");
-                setModel(model);
-            }
+            disconnect();
         }
     }
 
-    private void onControlsClicked() {
+    @Override
+    public void onControlsClicked() {
+        if (!isControlled) {
+            startControls();
+        } else {
+            stopControls();
+        }
+    }
+
+    private void connect() {
         MainWindowModel model;
 
-        if (!isControlled) {
-            try {
-                cx10.startControls(new Keyboard(KeyboardFocusManager.getCurrentKeyboardFocusManager()));
-                isControlled = true;
-                model = getModel();
-                setModel(model);
-            } catch (IOException e) {
-                model = getModel();
-                setModel(model);
-            }
-        } else {
-            try {
-                cx10.stopControls();
-            } catch (DroneException e) {
-                e.printStackTrace();
-            }
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to establish a new connection..." + ANSI.RESET);
 
-            isControlled = false;
             model = getModel();
-            setModel(model);
+            model.setBtnConnectEnabled(false);
+            model.setBtnConnectText("Connecting...");
+            model.setLblStatusForeground(Color.YELLOW);
+            model.setLblStatusText("Trying to establish a new connection...");
+            updateModel(model);
+
+            cx10.connect();
+            cx10.sendMessages();
+            cx10.startHeartbeat();
+
+            model = getModel();
+            model.setBtnConnectEnabled(true);
+            model.setBtnConnectText("Disconnect");
+            model.setLblStatusForeground(Color.GREEN);
+            model.setLblStatusText("Connection successfully established");
+            model.setBtnControlsEnabled(true);
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Connection successfully established" + ANSI.RESET);
+        } catch (DroneException e) {
+            model = getModel();
+            model.setBtnConnectEnabled(true);
+            model.setBtnConnectText("Connect");
+            model.setLblStatusForeground(Color.RED);
+            model.setLblStatusText("Connection failed!");
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Connection failed!" + ANSI.RESET);
         }
+
+        isConnected = true;
+    }
+
+    private void disconnect() {
+        MainWindowModel model;
+
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to disconnect..." + ANSI.RESET);
+
+            model = getModel();
+            model.setBtnConnectEnabled(false);
+            model.setBtnConnectText("Disconnecting...");
+            model.setLblStatusForeground(Color.YELLOW);
+            model.setLblStatusText("Trying to disconnect...");
+            updateModel(model);
+
+            cx10.stopHeartbeat();
+            cx10.disconnect();
+
+            model = getModel();
+            model.setBtnConnectEnabled(true);
+            model.setBtnConnectText("Connect");
+            model.setLblStatusForeground(Color.GREEN);
+            model.setLblStatusText("Disconnection successful");
+            model.setBtnControlsEnabled(false);
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Disconnection successful" + ANSI.RESET);
+        } catch (DroneException e) {
+            model = getModel();
+            model.setBtnConnectEnabled(true);
+            model.setBtnConnectText("Disconnect");
+            model.setLblStatusForeground(Color.RED);
+            model.setLblStatusText("Disconnection failed!");
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Disconnection failed!" + ANSI.RESET);
+        }
+
+        isConnected = false;
+    }
+
+    private void startControls() {
+        MainWindowModel model;
+
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to start the controls..." + ANSI.RESET);
+
+            model = getModel();
+            model.setBtnControlsEnabled(false);
+            model.setBtnControlsText("Starting controls...");
+            model.setLblStatusForeground(Color.YELLOW);
+            model.setLblStatusText("Trying to start the controls...");
+            updateModel(model);
+
+            cx10.startControls(new Keyboard(KeyboardFocusManager.getCurrentKeyboardFocusManager()));
+
+            model = getModel();
+            model.setBtnControlsEnabled(true);
+            model.setBtnControlsText("Stop Controls");
+            model.setLblStatusForeground(Color.GREEN);
+            model.setLblStatusText("Controls successfully started");
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Controls successfully started" + ANSI.RESET);
+        } catch (IOException e) {
+            model = getModel();
+            model.setBtnControlsEnabled(true);
+            model.setBtnControlsText("Start Controls");
+            model.setLblStatusForeground(Color.GREEN);
+            model.setLblStatusText("Starting the controls failed!");
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Starting the controls failed!" + ANSI.RESET);
+        }
+
+        isControlled = true;
+    }
+
+    private void stopControls() {
+        MainWindowModel model;
+
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
+
+            model = getModel();
+            model.setBtnConnectEnabled(false);
+            model.setBtnConnectText("Stopping controls...");
+            model.setLblStatusForeground(Color.YELLOW);
+            model.setLblStatusText("Trying to stop the controls...");
+            updateModel(model);
+
+            cx10.stopControls();
+
+            model = getModel();
+            model.setBtnControlsEnabled(true);
+            model.setBtnControlsText("Start Controls");
+            model.setLblStatusForeground(Color.GREEN);
+            model.setLblStatusText("Controls successfully stopped");
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Controls successfully stopped" + ANSI.RESET);
+        } catch (DroneException e) {
+            model = getModel();
+            model.setBtnControlsEnabled(true);
+            model.setBtnControlsText("Stop Controls");
+            model.setLblStatusForeground(Color.RED);
+            model.setLblStatusText("Stopping the controls failed!");
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Stopping the controls failed!" + ANSI.RESET);
+        }
+
+        isControlled = false;
     }
 
     private MainWindowModel getModel() {
@@ -165,7 +251,7 @@ public class MainWindow extends JFrame implements ActionListener {
         return model;
     }
 
-    private void setModel(final MainWindowModel model) {
+    private void updateModel(final MainWindowModel model) {
         SwingUtilities.invokeLater(() -> {
             btnConnect.setEnabled(model.isBtnConnectEnabled());
             btnConnect.setText(model.getBtnConnectText());
