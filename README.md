@@ -1,3 +1,8 @@
-# Hack a Drone
+# Hack a Drone meetup
 
-Hack a Drone with Java.
+
+##  Getting started
+
+- A live introduction from us
+- The [presentation slides](https://ordina-jtech.github.io/hack-a-drone)
+
