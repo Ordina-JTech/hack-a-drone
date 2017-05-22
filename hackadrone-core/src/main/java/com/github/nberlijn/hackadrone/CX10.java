@@ -44,11 +44,11 @@ public final class CX10 implements Drone {
     @Override
     public void sendMessages() throws DroneException {
         try {
-            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("message1.bin"), 106);
-            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("message2.bin"), 106);
-            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("message3.bin"), 170);
-            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("message4.bin"), 106);
-            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("message5.bin"), 106);
+            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("bin/message1.bin"), 106);
+            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("bin/message2.bin"), 106);
+            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("bin/message3.bin"), 170);
+            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("bin/message4.bin"), 106);
+            transportConnection.sendMessage(ByteUtils.loadMessageFromFile("bin/message5.bin"), 106);
         } catch (IOException e) {
             throw new DroneException("Sending messages to the " + NAME + " failed!");
         }

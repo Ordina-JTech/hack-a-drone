@@ -41,7 +41,7 @@ public final class Heartbeat extends Thread {
     }
 
     private void sendHeartBeat() throws IOException {
-        byte[] heartbeatData = ByteUtils.loadMessageFromFile("heartbeat.bin");
+        byte[] heartbeatData = ByteUtils.loadMessageFromFile("bin/heartbeat.bin");
         int start = 0;
         int length = heartbeatData.length;
 
