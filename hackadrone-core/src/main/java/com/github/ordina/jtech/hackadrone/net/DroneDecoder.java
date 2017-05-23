@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
-public class DroneDecoder implements Decoder {
+public final class DroneDecoder implements Decoder {
 
     private static byte[] PH = ByteUtils.asUnsigned(
             0x00, 0x00, 0x00, 0x19, 0xD0,
@@ -54,6 +54,7 @@ public class DroneDecoder implements Decoder {
 
             byte[] response = new byte[106];
             inputStream.read(response);
+
             initialized = true;
         }
 

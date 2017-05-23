@@ -10,9 +10,9 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class VideoPlayer implements Player {
+public final class VideoPlayer implements Player {
 
-    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video/";
+    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
 
     private final String droneHost;
     private final int dronePort;
@@ -37,7 +37,7 @@ public class VideoPlayer implements Player {
                 stop();
             }
 
-            videoPlayer = new ProcessBuilder(createVideoPath(), "-fflags", "nobuffer", "tcp://" + videoHost + ":" + videoPort + "?listen").start();
+            startVideoPlayer();
 
             Thread.sleep(1000);
 
@@ -56,6 +56,22 @@ public class VideoPlayer implements Player {
         if (videoPlayer != null) {
             videoPlayer.destroy();
             videoPlayer = null;
+        }
+    }
+
+    private void startVideoPlayer() throws IOException {
+        String output = "tcp://" + videoHost + ":" + videoPort + "?listen";
+
+        switch (OS.getOS()) {
+            case "win":
+                videoPlayer = new ProcessBuilder("cmd", "/c", "start", VIDEO_PATH + "/win/ffplay.exe", "-probesize", "64", "-sync", "ext", output).start();
+                break;
+            case "unix":
+                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/unix/ffplay", "-fflags", "nobuffer", output).start();
+                break;
+            case "osx":
+                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/osx/ffplay", "-fflags", "nobuffer", output).start();
+                break;
         }
     }
 
@@ -91,24 +107,6 @@ public class VideoPlayer implements Player {
         });
 
         thread.start();
-    }
-
-    private String createVideoPath() {
-        String path = VIDEO_PATH;
-
-        switch (OS.getOS()) {
-            case "unix":
-                path += "unix/ffplay";
-                break;
-            case "mac":
-                path += "mac/ffplay";
-                break;
-            case "win":
-                path += "win/ffplay.exe";
-                break;
-        }
-
-        return path;
     }
 
 }

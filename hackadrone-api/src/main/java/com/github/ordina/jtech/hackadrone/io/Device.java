@@ -1,10 +1,6 @@
 package com.github.ordina.jtech.hackadrone.io;
 
-public interface Device {
-
-    void start();
-
-    void stop();
+public interface Device extends Player {
 
     void setListener(CommandListener commandListener);
 
