@@ -5,7 +5,7 @@ import com.github.ordina.jtech.hackadrone.Drone;
 import com.github.ordina.jtech.hackadrone.DroneException;
 import com.github.ordina.jtech.hackadrone.io.Keyboard;
 import com.github.ordina.jtech.hackadrone.utils.ANSI;
-import com.github.ordina.jtech.hackadrone.utils.AwtColor;
+import com.github.ordina.jtech.hackadrone.utils.SpecialColor;
 
 import javax.swing.*;
 
@@ -107,7 +107,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnConnectEnabled(false);
             model.setBtnConnectText("Connecting...");
-            model.setLblStatusForeground(AwtColor.YELLOW);
+            model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to establish a new connection...");
             updateModel(model);
 
@@ -119,7 +119,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Disconnect");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Connection successfully established");
 
             model.setBtnControlsEnabled(true);
@@ -132,7 +132,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Connect");
-            model.setLblStatusForeground(AwtColor.RED);
+            model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Connection failed!");
             updateModel(model);
 
@@ -149,7 +149,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnConnectEnabled(false);
             model.setBtnConnectText("Disconnecting...");
-            model.setLblStatusForeground(AwtColor.YELLOW);
+            model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to disconnect...");
             updateModel(model);
 
@@ -170,7 +170,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Connect");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Disconnection successful");
             updateModel(model);
 
@@ -179,7 +179,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Disconnect");
-            model.setLblStatusForeground(AwtColor.RED);
+            model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Disconnection failed!");
             updateModel(model);
 
@@ -196,7 +196,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnControlsEnabled(false);
             model.setBtnControlsText("Starting controls...");
-            model.setLblStatusForeground(AwtColor.YELLOW);
+            model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to start the controls...");
             updateModel(model);
 
@@ -206,7 +206,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Stop Controls");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Controls successfully started");
             updateModel(model);
 
@@ -215,7 +215,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Start Controls");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Starting the controls failed!");
             updateModel(model);
 
@@ -232,7 +232,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnControlsEnabled(false);
             model.setBtnControlsText("Stopping controls...");
-            model.setLblStatusForeground(AwtColor.YELLOW);
+            model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to stop the controls...");
             updateModel(model);
 
@@ -242,7 +242,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Start Controls");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Controls successfully stopped");
             updateModel(model);
 
@@ -251,7 +251,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Stop Controls");
-            model.setLblStatusForeground(AwtColor.RED);
+            model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Stopping the controls failed!");
             updateModel(model);
 
@@ -268,7 +268,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnVideoEnabled(false);
             model.setBtnVideoText("Starting video...");
-            model.setLblStatusForeground(AwtColor.YELLOW);
+            model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to start the video stream...");
             updateModel(model);
 
@@ -278,7 +278,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Stop Video");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Video stream successfully started");
             model.setBtnControlsEnabled(true);
             updateModel(model);
@@ -288,7 +288,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Start Video");
-            model.setLblStatusForeground(AwtColor.RED);
+            model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Starting the video stream failed!");
             updateModel(model);
 
@@ -305,7 +305,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnVideoEnabled(false);
             model.setBtnVideoText("Stopping video stream...");
-            model.setLblStatusForeground(AwtColor.YELLOW);
+            model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to stop the video stream...");
             updateModel(model);
 
@@ -315,7 +315,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Start Video");
-            model.setLblStatusForeground(AwtColor.GREEN);
+            model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Video stream successfully stopped");
             model.setBtnControlsEnabled(true);
             updateModel(model);
@@ -325,7 +325,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model = getModel();
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Stop Video");
-            model.setLblStatusForeground(AwtColor.RED);
+            model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Stopping the video stream failed!");
             updateModel(model);
 
