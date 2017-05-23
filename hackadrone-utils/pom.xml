@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.nberlijn</groupId>
+        <groupId>com.github.ordina.jtech</groupId>
         <artifactId>hackadrone-parent</artifactId>
         <version>1-SNAPSHOT</version>
         <relativePath>../hackadrone-parent/pom.xml</relativePath>

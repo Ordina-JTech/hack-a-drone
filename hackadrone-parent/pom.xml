@@ -6,14 +6,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.nberlijn</groupId>
+    <groupId>com.github.ordina.jtech</groupId>
     <artifactId>hackadrone-parent</artifactId>
     <version>1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Hackadrone Parent</name>
     <description>This parent POM (Project Object Model) is used for all the Hackadrone modules.</description>
-    <url>https://github.com/nberlijn/hackadrone</url>
+    <url>https://github.com/ordina-jtech/hack-a-drone</url>
 
     <licenses>
         <license>
@@ -54,32 +54,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.github.nberlijn</groupId>
+                <groupId>com.github.ordina.jtech</groupId>
                 <artifactId>hackadrone-api</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.nberlijn</groupId>
+                <groupId>com.github.ordina.jtech</groupId>
                 <artifactId>hackadrone-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.nberlijn</groupId>
+                <groupId>com.github.ordina.jtech</groupId>
                 <artifactId>hackadrone-persistence</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.nberlijn</groupId>
+                <groupId>com.github.ordina.jtech</groupId>
                 <artifactId>hackadrone-exceptions</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.nberlijn</groupId>
+                <groupId>com.github.ordina.jtech</groupId>
                 <artifactId>hackadrone-utils</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.nberlijn</groupId>
+                <groupId>com.github.ordina.jtech</groupId>
                 <artifactId>hackadrone-gui</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
