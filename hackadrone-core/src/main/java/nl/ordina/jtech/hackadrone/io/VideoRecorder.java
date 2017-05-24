@@ -76,7 +76,7 @@ public final class VideoRecorder implements Recorder {
     private void startRecordVideo() throws IOException {
         String output = "tcp://" + recordHost + ":" + recordPort + "?listen";
         String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        String fileName = ("output-" + timestamp + ".mp4");
+        String fileName = ("record-" + timestamp + ".mp4");
 
         switch (OS.getOS()) {
             case "win":

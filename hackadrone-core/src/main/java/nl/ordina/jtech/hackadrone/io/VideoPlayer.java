@@ -47,7 +47,6 @@ public final class VideoPlayer implements Player {
 
             startVideo();
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
             System.err.println("Unable to start the video player");
         }
     }

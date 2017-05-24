@@ -330,6 +330,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model.setBtnVideoEnabled(false);
             model.setBtnVideoText("Starting video...");
 
+            model.setBtnRecordVideoEnabled(false);
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to start the video stream...");
 
@@ -344,8 +346,6 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Stop Video");
 
-            model.setBtnRecordVideoEnabled(false);
-
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Video stream successfully started");
 
@@ -357,6 +357,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Start Video");
+
+            model.setBtnRecordVideoEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Starting the video stream failed!");
@@ -423,6 +425,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
+            model.setBtnVideoEnabled(false);
+
             model.setBtnRecordVideoEnabled(false);
             model.setBtnRecordVideoText("Starting recording video...");
 
@@ -437,8 +441,6 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
-            model.setBtnVideoEnabled(false);
-
             model.setBtnRecordVideoEnabled(true);
             model.setBtnRecordVideoText("Stop Record");
 
@@ -450,6 +452,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.GREEN + "Recording a video successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
+
+            model.setBtnVideoEnabled(true);
 
             model.setBtnRecordVideoEnabled(true);
             model.setBtnRecordVideoText("Record Video");
