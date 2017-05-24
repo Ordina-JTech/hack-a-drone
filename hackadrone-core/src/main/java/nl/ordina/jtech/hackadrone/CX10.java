@@ -10,17 +10,24 @@ import java.io.IOException;
 public final class CX10 implements Drone {
 
     private static final String NAME = "Cheerson CX-10WD-TX Mini FPV Drone";
+
     private static final String DRONE_HOST = "172.16.10.1";
     private static final int DRONE_PORT = 8888;
+
     private static final String IO_HOST = "172.16.10.1";
     private static final int IO_PORT = 8895;
+
     private static final String VIDEO_HOST = "127.0.0.1";
     private static final int VIDEO_PORT = 8889;
+
+    private static final String RECORDER_HOST = "127.0.0.1";
+    private static final int RECORDER_PORT = 8890;
 
     private TransportConnection transportConnection;
     private Controller controller;
     private Heartbeat heartbeat;
     private Player player;
+    private Recorder recorder;
 
     @Override
     public void connect() throws DroneException {
@@ -117,6 +124,26 @@ public final class CX10 implements Drone {
             player = null;
         } else {
             throw new DroneException("Stopping the video stream of the " + NAME + " failed!");
+        }
+    }
+
+    @Override
+    public void startVideoRecord() throws DroneException {
+        if (recorder == null) {
+            recorder = new VideoRecorder(DRONE_HOST, DRONE_PORT, RECORDER_HOST, RECORDER_PORT);
+            recorder.start();
+        } else {
+            throw new DroneException("Starting recording a video from the " + NAME + " failed!");
+        }
+    }
+
+    @Override
+    public void stopVideoRecord() throws DroneException {
+        if (recorder != null) {
+            recorder.stop();
+            recorder = null;
+        } else {
+            throw new DroneException("Stopping recording a video from the " + NAME + " failed!");
         }
     }
 

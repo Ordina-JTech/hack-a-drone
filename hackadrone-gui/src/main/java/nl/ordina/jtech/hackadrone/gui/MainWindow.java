@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadrone.gui.Frame, ActionListener, ClickEvent {
+public final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
 
     private final Drone cx10 = new CX10();
 
@@ -22,11 +22,13 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
     private JButton btnConnect;
     private JButton btnControls;
     private JButton btnVideo;
+    private JButton btnRecordVideo;
     private JLabel lblStatus;
 
     private boolean isConnected = false;
     private boolean isControlled = false;
     private boolean isVideoStreaming = false;
+    private boolean isVideoRecording = false;
 
     MainWindow() {
         init();
@@ -37,16 +39,18 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
         btnConnect.setEnabled(true);
         btnControls.setEnabled(false);
         btnVideo.setEnabled(false);
+        btnRecordVideo.setEnabled(false);
 
         lblStatus.setEnabled(true);
 
         btnConnect.addActionListener(this);
         btnControls.addActionListener(this);
         btnVideo.addActionListener(this);
+        btnRecordVideo.addActionListener(this);
 
         add(panel);
         setTitle(cx10.getName());
-        setPreferredSize(new Dimension(550,150));
+        setPreferredSize(new Dimension(600,150));
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -67,6 +71,8 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
                 onControlsClicked();
             } else if (actionEvent.getSource() == btnVideo) {
                 onVideoClicked();
+            } else if (actionEvent.getSource() == btnRecordVideo) {
+                onRecordVideoClicked();
             }
         }).start();
     }
@@ -98,6 +104,15 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
         }
     }
 
+    @Override
+    public void onRecordVideoClicked() {
+        if (!isVideoRecording) {
+            startRecordVideo();
+        } else {
+            stopRecordVideo();
+        }
+    }
+
     private void connect() {
         MainWindowModel model;
 
@@ -105,35 +120,47 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
             System.out.println(ANSI.YELLOW + "Trying to establish a new connection..." + ANSI.RESET);
 
             model = getModel();
+
             model.setBtnConnectEnabled(false);
             model.setBtnConnectText("Connecting...");
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to establish a new connection...");
+
             updateModel(model);
 
             cx10.connect();
             cx10.sendMessages();
             cx10.startHeartbeat();
+
             isConnected = true;
 
             model = getModel();
+
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Disconnect");
-            model.setLblStatusForeground(SpecialColor.GREEN);
-            model.setLblStatusText("Connection successfully established");
 
             model.setBtnControlsEnabled(true);
+
             model.setBtnVideoEnabled(true);
+
+            model.setBtnRecordVideoEnabled(true);
+
+            model.setLblStatusForeground(SpecialColor.GREEN);
+            model.setLblStatusText("Connection successfully established");
 
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Connection successfully established" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
+
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Connect");
+
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Connection failed!");
+
             updateModel(model);
 
             System.out.println(ANSI.RED + "Connection failed!" + ANSI.RESET);
@@ -147,40 +174,53 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
             System.out.println(ANSI.YELLOW + "Trying to disconnect..." + ANSI.RESET);
 
             model = getModel();
+
             model.setBtnConnectEnabled(false);
             model.setBtnConnectText("Disconnecting...");
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to disconnect...");
+
             updateModel(model);
 
+            stopRecordVideo();
             stopVideo();
             stopControls();
 
             cx10.stopHeartbeat();
             cx10.disconnect();
+
             isConnected = false;
 
             model = getModel();
 
-            model.setBtnVideoEnabled(false);
-            model.setBtnVideoText("Start Video");
+            model.setBtnConnectEnabled(true);
+            model.setBtnConnectText("Connect");
 
             model.setBtnControlsEnabled(false);
             model.setBtnControlsText("Start Controls");
 
-            model.setBtnConnectEnabled(true);
-            model.setBtnConnectText("Connect");
+            model.setBtnVideoEnabled(false);
+            model.setBtnVideoText("Start Video");
+
+            model.setBtnRecordVideoEnabled(false);
+            model.setBtnRecordVideoText("Record Video");
+
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Disconnection successful");
+
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Disconnection successful" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
+
             model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Disconnect");
+
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Disconnection failed!");
+
             updateModel(model);
 
             System.out.println(ANSI.RED + "Disconnection failed!" + ANSI.RESET);
@@ -194,29 +234,39 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
             System.out.println(ANSI.YELLOW + "Trying to start the controls..." + ANSI.RESET);
 
             model = getModel();
+
             model.setBtnControlsEnabled(false);
             model.setBtnControlsText("Starting controls...");
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to start the controls...");
+
             updateModel(model);
 
             cx10.startControls(new Keyboard(KeyboardFocusManager.getCurrentKeyboardFocusManager()));
+
             isControlled = true;
 
             model = getModel();
+
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Stop Controls");
+
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Controls successfully started");
+
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Controls successfully started" + ANSI.RESET);
         } catch (IOException e) {
             model = getModel();
+
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Start Controls");
+
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Starting the controls failed!");
+
             updateModel(model);
 
             System.out.println(ANSI.RED + "Starting the controls failed!" + ANSI.RESET);
@@ -230,29 +280,39 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
             System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
 
             model = getModel();
+
             model.setBtnControlsEnabled(false);
             model.setBtnControlsText("Stopping controls...");
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to stop the controls...");
+
             updateModel(model);
 
             cx10.stopControls();
+
             isControlled = false;
 
             model = getModel();
+
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Start Controls");
+
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Controls successfully stopped");
+
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Controls successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
+
             model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Stop Controls");
+
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Stopping the controls failed!");
+
             updateModel(model);
 
             System.out.println(ANSI.RED + "Stopping the controls failed!" + ANSI.RESET);
@@ -266,30 +326,41 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
             System.out.println(ANSI.YELLOW + "Trying to start the video stream..." + ANSI.RESET);
 
             model = getModel();
+
             model.setBtnVideoEnabled(false);
             model.setBtnVideoText("Starting video...");
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to start the video stream...");
+
             updateModel(model);
 
             cx10.startVideoStream();
+
             isVideoStreaming = true;
 
             model = getModel();
+
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Stop Video");
+
+            model.setBtnRecordVideoEnabled(false);
+
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Video stream successfully started");
-            model.setBtnControlsEnabled(true);
+
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Video stream successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
+
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Start Video");
+
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Starting the video stream failed!");
+
             updateModel(model);
 
             System.out.println(ANSI.RED + "Starting the video stream failed!" + ANSI.RESET);
@@ -303,33 +374,140 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
             System.out.println(ANSI.YELLOW + "Trying to stop the video stream..." + ANSI.RESET);
 
             model = getModel();
+
             model.setBtnVideoEnabled(false);
             model.setBtnVideoText("Stopping video stream...");
+
             model.setLblStatusForeground(SpecialColor.YELLOW);
             model.setLblStatusText("Trying to stop the video stream...");
+
             updateModel(model);
 
             cx10.stopVideoStream();
+
             isVideoStreaming = false;
 
             model = getModel();
+
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Start Video");
+
+            model.setBtnRecordVideoEnabled(true);
+
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Video stream successfully stopped");
-            model.setBtnControlsEnabled(true);
+
             updateModel(model);
 
             System.out.println(ANSI.GREEN + "Video stream successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
+
             model.setBtnVideoEnabled(true);
             model.setBtnVideoText("Stop Video");
+
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Stopping the video stream failed!");
+
             updateModel(model);
 
             System.out.println(ANSI.RED + "Stopping the video stream failed!" + ANSI.RESET);
+        }
+    }
+
+    private void startRecordVideo() {
+        MainWindowModel model;
+
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to start recording a video..." + ANSI.RESET);
+
+            model = getModel();
+
+            model.setBtnRecordVideoEnabled(false);
+            model.setBtnRecordVideoText("Starting recording video...");
+
+            model.setLblStatusForeground(SpecialColor.YELLOW);
+            model.setLblStatusText("Trying to start recording a video...");
+
+            updateModel(model);
+
+            cx10.startVideoRecord();
+
+            isVideoRecording = true;
+
+            model = getModel();
+
+            model.setBtnVideoEnabled(false);
+
+            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecordVideoText("Stop Record");
+
+            model.setLblStatusForeground(SpecialColor.GREEN);
+            model.setLblStatusText("Recording a video successfully started");
+
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Recording a video successfully started" + ANSI.RESET);
+        } catch (DroneException e) {
+            model = getModel();
+
+            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecordVideoText("Record Video");
+
+            model.setLblStatusForeground(SpecialColor.RED);
+            model.setLblStatusText("Starting recording a video failed!");
+
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Starting recording a video failed!" + ANSI.RESET);
+        }
+    }
+
+    private void stopRecordVideo() {
+        MainWindowModel model;
+
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to stop recording a video..." + ANSI.RESET);
+
+            model = getModel();
+
+            model.setBtnRecordVideoEnabled(false);
+            model.setBtnRecordVideoText("Stopping recording a video...");
+
+            model.setLblStatusForeground(SpecialColor.YELLOW);
+            model.setLblStatusText("Trying to stop recording a video..");
+
+            updateModel(model);
+
+            cx10.stopVideoRecord();
+
+            isVideoRecording = false;
+
+            model = getModel();
+
+            model.setBtnVideoEnabled(true);
+
+            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecordVideoText("Record Video");
+
+            model.setLblStatusForeground(SpecialColor.GREEN);
+            model.setLblStatusText("Recording a video successfully stopped");
+
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Recording a video successfully stopped" + ANSI.RESET);
+        } catch (DroneException e) {
+            model = getModel();
+
+            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecordVideoText("Stop Record");
+
+            model.setLblStatusForeground(SpecialColor.RED);
+            model.setLblStatusText("Stopping recording a video failed!");
+
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Stopping recording a video failed!" + ANSI.RESET);
         }
     }
 
@@ -344,6 +522,9 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
 
         model.setBtnVideoEnabled(btnVideo.isEnabled());
         model.setBtnVideoText(btnVideo.getText());
+
+        model.setBtnRecordVideoEnabled(btnRecordVideo.isEnabled());
+        model.setBtnRecordVideoText(btnRecordVideo.getText());
 
         model.setLblStatusEnabled(lblStatus.isEnabled());
         model.setLblStatusText(lblStatus.getText());
@@ -362,6 +543,9 @@ public final class MainWindow extends JFrame implements nl.ordina.jtech.hackadro
 
             btnVideo.setEnabled(model.isBtnVideoEnabled());
             btnVideo.setText(model.getBtnVideoText());
+
+            btnRecordVideo.setEnabled(model.isBtnRecordVideoEnabled());
+            btnRecordVideo.setText(model.getBtnRecordVideoText());
 
             lblStatus.setEnabled(model.isLblStatusEnabled());
             lblStatus.setText(model.getLblStatusText());

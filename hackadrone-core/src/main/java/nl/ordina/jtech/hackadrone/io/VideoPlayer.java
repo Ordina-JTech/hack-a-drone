@@ -20,6 +20,7 @@ public final class VideoPlayer implements Player {
     private final int videoPort;
 
     private Process videoPlayer;
+    private Socket videoSocket;
     private OutputStream videoOutputStream;
     private Decoder decoder;
 
@@ -41,12 +42,12 @@ public final class VideoPlayer implements Player {
 
             Thread.sleep(1000);
 
-            InetAddress videoAddress = InetAddress.getByName(videoHost);
-            Socket videoSocket = new Socket(videoAddress, videoPort);
+            videoSocket = new Socket(InetAddress.getByName(videoHost), videoPort);
             videoOutputStream = new BufferedOutputStream(videoSocket.getOutputStream());
 
             startVideo();
-        } catch (IOException | InterruptedException | NullPointerException e) {
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
             System.err.println("Unable to start the video player");
         }
     }
@@ -56,6 +57,18 @@ public final class VideoPlayer implements Player {
         if (videoPlayer != null) {
             videoPlayer.destroy();
             videoPlayer = null;
+        }
+
+        if (videoOutputStream != null && videoSocket != null) {
+            try {
+                videoOutputStream.close();
+                videoSocket.close();
+            } catch (IOException e) {
+                System.err.println("Unable to stop the video player");
+            }
+
+            videoOutputStream = null;
+            videoSocket = null;
         }
     }
 

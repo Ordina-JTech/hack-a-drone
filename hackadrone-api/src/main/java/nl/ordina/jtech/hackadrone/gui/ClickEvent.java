@@ -8,4 +8,6 @@ public interface ClickEvent {
 
     void onVideoClicked();
 
+    void onRecordVideoClicked();
+
 }
