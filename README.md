@@ -3,15 +3,6 @@
 - De [presentatie] slides
 
 
-## Doelstellingen
-
-- Uitpakken en opladen van de drone
-- Initialiseren van de Java code
-- Het besturen van de drone met je toetsenbord
-- Automatische piloot programmeren met Java
-- Wedstrijd met jouw drone tegen andere drones
-
-
 ## Benodigdheden
 
 - Een drone
@@ -32,14 +23,6 @@
 - Weight 18 gram
 - Flying time 4–5 minutes
 - Charging time 20–30 minutes
-
-
-## Uitpakken en opladen van de drone
-
-- Haal de drone uit de verpakking
-- Laad de drone op via USB met de meegeleverde kabel
-  - Het opladen duurt ongeveer 20 minuten
-- Laat de drone nog even uitstaan!
 
 
 ## De Java code
