@@ -32,7 +32,7 @@
 ## Benodigdheden
 
 - Een drone
-- Laptop met daarop geinstalleerd:
+- Laptop met daarop geïnstalleerd:
   - Java
   - Maven
   - IDE
