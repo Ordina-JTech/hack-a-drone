@@ -65,7 +65,7 @@
 - Schrijf je eigen AI om de drone aan te sturen
 - Maak jouw AI intelligent genoeg voor het wedstrijdparkour
 - Gebruik hiervoor de basis Java code van de AI:
-  - nl.ordina.jtech.hackadrone.core.AI
+  - nl.ordina.jtech.hackadrone.core.io.AI
 
 
 [presentatie]: https://ordina-jtech.github.io/hack-a-drone
