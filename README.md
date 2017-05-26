@@ -42,7 +42,7 @@
   - nl.ordina.jtech.hackadrone.gui.GUI
 
 
-## Gebruik van de GUI
+## Het gebruik van de GUI
   
 - Klik op "Connect" om verbinding met de drone te maken
 - Klik op "Start Controls" om de toetsenbordbesturing in te schakelen
