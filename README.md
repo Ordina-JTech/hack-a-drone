@@ -34,7 +34,7 @@
 - Initialiseer de Java code in jouw favoriete IDE
 
 
-## Verbinding maken met de Drone
+## Verbinding maken met de drone
 
 - Zet de drone aan
 - Maak verbinding met de drone over WiFi
@@ -51,7 +51,7 @@
 - Klik op "Start AI" om de automatische piloot te starten
 
 
-## Het besturen van de Drone
+## Het besturen van de drone
 
 - Gebruik de linker pijltjestoets om op te stijgen
 - Gebruik de rechter pijltjestoets om te landen
