@@ -8,10 +8,10 @@ class MainWindowModel {
     private String btnConnectText;
     private boolean btnControlsEnabled;
     private String btnControlsText;
-    private boolean btnVideoEnabled;
-    private String btnVideoText;
-    private boolean btnRecordVideoEnabled;
-    private String btnRecordVideoText;
+    private boolean btnCameraEnabled;
+    private String btnCameraText;
+    private boolean btnRecorderEnabled;
+    private String btnRecorderText;
     private boolean btnAiEnabled;
     private String btnAiText;
     private boolean lblStatusEnabled;
@@ -50,36 +50,36 @@ class MainWindowModel {
         this.btnControlsText = btnControlsText;
     }
 
-    boolean isBtnVideoEnabled() {
-        return btnVideoEnabled;
+    boolean isBtnCameraEnabled() {
+        return btnCameraEnabled;
     }
 
-    void setBtnVideoEnabled(boolean btnVideoEnabled) {
-        this.btnVideoEnabled = btnVideoEnabled;
+    void setBtnCameraEnabled(boolean btnCameraEnabled) {
+        this.btnCameraEnabled = btnCameraEnabled;
     }
 
-    String getBtnVideoText() {
-        return btnVideoText;
+    String getBtnCameraText() {
+        return btnCameraText;
     }
 
-    void setBtnVideoText(String btnVideoText) {
-        this.btnVideoText = btnVideoText;
+    void setBtnCameraText(String btnCameraText) {
+        this.btnCameraText = btnCameraText;
     }
 
-    boolean isBtnRecordVideoEnabled() {
-        return btnRecordVideoEnabled;
+    boolean isBtnRecorderEnabled() {
+        return btnRecorderEnabled;
     }
 
-    void setBtnRecordVideoEnabled(boolean btnRecordVideoEnabled) {
-        this.btnRecordVideoEnabled = btnRecordVideoEnabled;
+    void setBtnRecorderEnabled(boolean btnRecorderEnabled) {
+        this.btnRecorderEnabled = btnRecorderEnabled;
     }
 
-    String getBtnRecordVideoText() {
-        return btnRecordVideoText;
+    String getBtnRecorderText() {
+        return btnRecorderText;
     }
 
-    void setBtnRecordVideoText(String btnRecordVideoText) {
-        this.btnRecordVideoText = btnRecordVideoText;
+    void setBtnRecorderText(String btnRecorderText) {
+        this.btnRecorderText = btnRecorderText;
     }
 
     boolean isBtnAiEnabled() {

@@ -1,6 +1,6 @@
 package nl.ordina.jtech.hackadrone.io;
 
-public interface Player {
+public interface Handler {
 
     void start();
 

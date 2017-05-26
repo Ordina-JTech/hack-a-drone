@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public final class VideoPlayer implements Player {
+public final class Camera implements Handler {
 
     private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
 
@@ -24,7 +24,7 @@ public final class VideoPlayer implements Player {
     private OutputStream videoOutputStream;
     private Decoder decoder;
 
-    public VideoPlayer(String droneHost, int dronePort, String videoHost, int videoPort) {
+    public Camera(String droneHost, int dronePort, String videoHost, int videoPort) {
         this.droneHost = droneHost;
         this.dronePort = dronePort;
         this.videoHost = videoHost;
@@ -38,7 +38,7 @@ public final class VideoPlayer implements Player {
                 stop();
             }
 
-            startVideoPlayer();
+            startVideoCamera();
 
             Thread.sleep(1000);
 
@@ -71,7 +71,7 @@ public final class VideoPlayer implements Player {
         }
     }
 
-    private void startVideoPlayer() throws IOException {
+    private void startVideoCamera() throws IOException {
         String output = "tcp://" + videoHost + ":" + videoPort + "?listen";
 
         switch (OS.getOS()) {

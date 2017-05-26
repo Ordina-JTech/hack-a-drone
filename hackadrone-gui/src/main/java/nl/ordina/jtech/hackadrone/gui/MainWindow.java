@@ -24,15 +24,15 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
     private JPanel panel;
     private JButton btnConnect;
     private JButton btnControls;
-    private JButton btnVideo;
-    private JButton btnRecordVideo;
+    private JButton btnCamera;
+    private JButton btnRecorder;
     private JLabel lblStatus;
     private JButton btnAi;
 
     private boolean isConnected = false;
     private boolean isControlled = false;
-    private boolean isVideoStreaming = false;
-    private boolean isVideoRecording = false;
+    private boolean isStreaming = false;
+    private boolean isRecording = false;
     private boolean isAi = false;
 
     MainWindow() {
@@ -43,23 +43,23 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
     public void init() {
         btnConnect.setEnabled(true);
         btnControls.setEnabled(false);
-        btnVideo.setEnabled(false);
-        btnRecordVideo.setEnabled(false);
+        btnCamera.setEnabled(false);
+        btnRecorder.setEnabled(false);
         btnAi.setEnabled(false);
 
         lblStatus.setEnabled(true);
 
         btnConnect.addActionListener(this);
         btnControls.addActionListener(this);
-        btnVideo.addActionListener(this);
-        btnRecordVideo.addActionListener(this);
+        btnCamera.addActionListener(this);
+        btnRecorder.addActionListener(this);
         btnAi.addActionListener(this);
 
         add(panel);
         setTitle(cx10.getName());
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setAlwaysOnTop(true);
         setLocationByPlatform(true);
         panel.setVisible(true);
@@ -76,10 +76,10 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
                 onConnectClicked();
             } else if (actionEvent.getSource() == btnControls) {
                 onControlsClicked();
-            } else if (actionEvent.getSource() == btnVideo) {
-                onVideoClicked();
-            } else if (actionEvent.getSource() == btnRecordVideo) {
-                onRecordVideoClicked();
+            } else if (actionEvent.getSource() == btnCamera) {
+                onCameraClicked();
+            } else if (actionEvent.getSource() == btnRecorder) {
+                onRecorderClicked();
             } else if (actionEvent.getSource() == btnAi) {
                 onAiClicked();
             }
@@ -105,20 +105,20 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
     }
 
     @Override
-    public void onVideoClicked() {
-        if (!isVideoStreaming) {
-            startVideo();
+    public void onCameraClicked() {
+        if (!isStreaming) {
+            startCamera();
         } else {
-            stopVideo();
+            stopCamera();
         }
     }
 
     @Override
-    public void onRecordVideoClicked() {
-        if (!isVideoRecording) {
-            startRecordVideo();
+    public void onRecorderClicked() {
+        if (!isRecording) {
+            startRecorder();
         } else {
-            stopRecordVideo();
+            stopRecorder();
         }
     }
 
@@ -155,14 +155,14 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
-            model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Disconnect");
+            model.setBtnConnectEnabled(true);
 
             model.setBtnControlsEnabled(true);
 
-            model.setBtnVideoEnabled(true);
+            model.setBtnCameraEnabled(true);
 
-            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecorderEnabled(true);
 
             model.setBtnAiEnabled(true);
 
@@ -175,8 +175,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Connect");
+            model.setBtnConnectEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Connection failed!");
@@ -203,8 +203,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             updateModel(model);
 
-            stopRecordVideo();
-            stopVideo();
+            stopRecorder();
+            stopCamera();
             stopControls();
 
             cx10.stopHeartbeat();
@@ -214,17 +214,17 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
-            model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Connect");
+            model.setBtnConnectEnabled(true);
 
-            model.setBtnControlsEnabled(false);
             model.setBtnControlsText("Start Controls");
+            model.setBtnControlsEnabled(false);
 
-            model.setBtnVideoEnabled(false);
-            model.setBtnVideoText("Start Video");
+            model.setBtnCameraText("Start Camera");
+            model.setBtnCameraEnabled(false);
 
-            model.setBtnRecordVideoEnabled(false);
-            model.setBtnRecordVideoText("Record Video");
+            model.setBtnRecorderText("Start Reader");
+            model.setBtnRecorderEnabled(false);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Disconnection successful");
@@ -235,8 +235,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnConnectEnabled(true);
             model.setBtnConnectText("Disconnect");
+            model.setBtnConnectEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Disconnection failed!");
@@ -269,8 +269,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
-            model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Stop Controls");
+            model.setBtnControlsEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Controls successfully started");
@@ -281,8 +281,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         } catch (IOException e) {
             model = getModel();
 
-            model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Start Controls");
+            model.setBtnControlsEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Starting the controls failed!");
@@ -315,8 +315,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
-            model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Start Controls");
+            model.setBtnControlsEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Controls successfully stopped");
@@ -327,8 +327,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnControlsEnabled(true);
             model.setBtnControlsText("Stop Controls");
+            model.setBtnControlsEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Stopping the controls failed!");
@@ -339,199 +339,199 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
-    private void startVideo() {
+    private void startCamera() {
         MainWindowModel model;
 
         try {
-            System.out.println(ANSI.YELLOW + "Trying to start the video stream..." + ANSI.RESET);
+            System.out.println(ANSI.YELLOW + "Trying to start the camera..." + ANSI.RESET);
 
             model = getModel();
 
-            model.setBtnVideoEnabled(false);
-            model.setBtnVideoText("Starting video...");
+            model.setBtnCameraEnabled(false);
+            model.setBtnCameraText("Starting camera...");
 
-            model.setBtnRecordVideoEnabled(false);
+            model.setBtnRecorderEnabled(false);
 
             model.setLblStatusForeground(SpecialColor.YELLOW);
-            model.setLblStatusText("Trying to start the video stream...");
+            model.setLblStatusText("Trying to start the camera...");
 
             updateModel(model);
 
-            cx10.startVideoStream();
+            cx10.startCamera();
 
-            isVideoStreaming = true;
+            isStreaming = true;
 
             model = getModel();
 
-            model.setBtnVideoEnabled(true);
-            model.setBtnVideoText("Stop Video");
+            model.setBtnCameraText("Stop Camera");
+            model.setBtnCameraEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
-            model.setLblStatusText("Video stream successfully started");
+            model.setLblStatusText("Camera successfully started");
 
             updateModel(model);
 
-            System.out.println(ANSI.GREEN + "Video stream successfully started" + ANSI.RESET);
+            System.out.println(ANSI.GREEN + "Camera successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnVideoEnabled(true);
-            model.setBtnVideoText("Start Video");
+            model.setBtnCameraText("Start Camera");
+            model.setBtnCameraEnabled(true);
 
-            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecorderEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
-            model.setLblStatusText("Starting the video stream failed!");
+            model.setLblStatusText("Starting the camera failed!");
 
             updateModel(model);
 
-            System.out.println(ANSI.RED + "Starting the video stream failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Starting the camera failed!" + ANSI.RESET);
         }
     }
 
-    private void stopVideo() {
+    private void stopCamera() {
         MainWindowModel model;
 
         try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the video stream..." + ANSI.RESET);
+            System.out.println(ANSI.YELLOW + "Trying to stop the camera..." + ANSI.RESET);
 
             model = getModel();
 
-            model.setBtnVideoEnabled(false);
-            model.setBtnVideoText("Stopping video stream...");
+            model.setBtnCameraEnabled(false);
+            model.setBtnCameraText("Stopping camera...");
 
             model.setLblStatusForeground(SpecialColor.YELLOW);
-            model.setLblStatusText("Trying to stop the video stream...");
+            model.setLblStatusText("Trying to stop the camera...");
 
             updateModel(model);
 
-            cx10.stopVideoStream();
+            cx10.stopCamera();
 
-            isVideoStreaming = false;
+            isStreaming = false;
 
             model = getModel();
 
-            model.setBtnVideoEnabled(true);
-            model.setBtnVideoText("Start Video");
+            model.setBtnCameraText("Start Camera");
+            model.setBtnCameraEnabled(true);
 
-            model.setBtnRecordVideoEnabled(true);
+            model.setBtnRecorderEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
-            model.setLblStatusText("Video stream successfully stopped");
+            model.setLblStatusText("Camera successfully stopped");
 
             updateModel(model);
 
-            System.out.println(ANSI.GREEN + "Video stream successfully stopped" + ANSI.RESET);
+            System.out.println(ANSI.GREEN + "Camera successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnVideoEnabled(true);
-            model.setBtnVideoText("Stop Video");
+            model.setBtnCameraText("Stop Camera");
+            model.setBtnCameraEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
-            model.setLblStatusText("Stopping the video stream failed!");
+            model.setLblStatusText("Stopping the camera failed!");
 
             updateModel(model);
 
-            System.out.println(ANSI.RED + "Stopping the video stream failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Stopping the camera failed!" + ANSI.RESET);
         }
     }
 
-    private void startRecordVideo() {
+    private void startRecorder() {
         MainWindowModel model;
 
         try {
-            System.out.println(ANSI.YELLOW + "Trying to start recording a video..." + ANSI.RESET);
+            System.out.println(ANSI.YELLOW + "Trying to start the recorder.." + ANSI.RESET);
 
             model = getModel();
 
-            model.setBtnVideoEnabled(false);
+            model.setBtnCameraEnabled(false);
 
-            model.setBtnRecordVideoEnabled(false);
-            model.setBtnRecordVideoText("Starting recording video...");
+            model.setBtnRecorderEnabled(false);
+            model.setBtnRecorderText("Starting recorder...");
 
             model.setLblStatusForeground(SpecialColor.YELLOW);
-            model.setLblStatusText("Trying to start recording a video...");
+            model.setLblStatusText("Trying to start the recorder...");
 
             updateModel(model);
 
-            cx10.startVideoRecord();
+            cx10.startRecorder();
 
-            isVideoRecording = true;
+            isRecording = true;
 
             model = getModel();
 
-            model.setBtnRecordVideoEnabled(true);
-            model.setBtnRecordVideoText("Stop Record");
+            model.setBtnRecorderText("Stop Reader");
+            model.setBtnRecorderEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
-            model.setLblStatusText("Recording a video successfully started");
+            model.setLblStatusText("Reader successfully started");
 
             updateModel(model);
 
-            System.out.println(ANSI.GREEN + "Recording a video successfully started" + ANSI.RESET);
+            System.out.println(ANSI.GREEN + "Reader successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnVideoEnabled(true);
+            model.setBtnCameraEnabled(true);
 
-            model.setBtnRecordVideoEnabled(true);
-            model.setBtnRecordVideoText("Record Video");
+            model.setBtnRecorderText("Start Reader");
+            model.setBtnRecorderEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
-            model.setLblStatusText("Starting recording a video failed!");
+            model.setLblStatusText("Starting recording failed!");
 
             updateModel(model);
 
-            System.out.println(ANSI.RED + "Starting recording a video failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Starting recording failed!" + ANSI.RESET);
         }
     }
 
-    private void stopRecordVideo() {
+    private void stopRecorder() {
         MainWindowModel model;
 
         try {
-            System.out.println(ANSI.YELLOW + "Trying to stop recording a video..." + ANSI.RESET);
+            System.out.println(ANSI.YELLOW + "Trying to stop the recorder..." + ANSI.RESET);
 
             model = getModel();
 
-            model.setBtnRecordVideoEnabled(false);
-            model.setBtnRecordVideoText("Stopping recording a video...");
+            model.setBtnRecorderEnabled(false);
+            model.setBtnRecorderText("Stopping recorder...");
 
             model.setLblStatusForeground(SpecialColor.YELLOW);
-            model.setLblStatusText("Trying to stop recording a video..");
+            model.setLblStatusText("Trying to stop the recorder.");
 
             updateModel(model);
 
-            cx10.stopVideoRecord();
+            cx10.stopRecorder();
 
-            isVideoRecording = false;
+            isRecording = false;
 
             model = getModel();
 
-            model.setBtnVideoEnabled(true);
+            model.setBtnCameraEnabled(true);
 
-            model.setBtnRecordVideoEnabled(true);
-            model.setBtnRecordVideoText("Record Video");
+            model.setBtnRecorderText("Start Reader");
+            model.setBtnRecorderEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
-            model.setLblStatusText("Recording a video successfully stopped");
+            model.setLblStatusText("Reader successfully stopped");
 
             updateModel(model);
 
-            System.out.println(ANSI.GREEN + "Recording a video successfully stopped" + ANSI.RESET);
+            System.out.println(ANSI.GREEN + "Reader successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             model = getModel();
 
-            model.setBtnRecordVideoEnabled(true);
-            model.setBtnRecordVideoText("Stop Record");
+            model.setBtnRecorderText("Stop Reader");
+            model.setBtnRecorderEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.RED);
-            model.setLblStatusText("Stopping recording a video failed!");
+            model.setLblStatusText("Stopping the recorder failed!");
 
             updateModel(model);
 
-            System.out.println(ANSI.RED + "Stopping recording a video failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Stopping the recorder failed!" + ANSI.RESET);
         }
     }
 
@@ -559,8 +559,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model = getModel();
 
-            model.setBtnAiEnabled(true);
             model.setBtnAiText("Stop AI");
+            model.setBtnAiEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Starting AI successfully started");
@@ -573,8 +573,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             model.setBtnControlsEnabled(true);
 
+            model.setBtnAiText("Start AI");
             model.setBtnAiEnabled(true);
-            model.setBtnRecordVideoText("Start AI");
 
             model.setLblStatusForeground(SpecialColor.RED);
             model.setLblStatusText("Starting AI failed!");
@@ -598,11 +598,11 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         model.setBtnControlsEnabled(btnControls.isEnabled());
         model.setBtnControlsText(btnControls.getText());
 
-        model.setBtnVideoEnabled(btnVideo.isEnabled());
-        model.setBtnVideoText(btnVideo.getText());
+        model.setBtnCameraEnabled(btnCamera.isEnabled());
+        model.setBtnCameraText(btnCamera.getText());
 
-        model.setBtnRecordVideoEnabled(btnRecordVideo.isEnabled());
-        model.setBtnRecordVideoText(btnRecordVideo.getText());
+        model.setBtnRecorderEnabled(btnRecorder.isEnabled());
+        model.setBtnRecorderText(btnRecorder.getText());
 
         model.setBtnAiEnabled(btnAi.isEnabled());
         model.setBtnAiText(btnAi.getText());
@@ -622,11 +622,11 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             btnControls.setEnabled(model.isBtnControlsEnabled());
             btnControls.setText(model.getBtnControlsText());
 
-            btnVideo.setEnabled(model.isBtnVideoEnabled());
-            btnVideo.setText(model.getBtnVideoText());
+            btnCamera.setEnabled(model.isBtnCameraEnabled());
+            btnCamera.setText(model.getBtnCameraText());
 
-            btnRecordVideo.setEnabled(model.isBtnRecordVideoEnabled());
-            btnRecordVideo.setText(model.getBtnRecordVideoText());
+            btnRecorder.setEnabled(model.isBtnRecorderEnabled());
+            btnRecorder.setText(model.getBtnRecorderText());
 
             btnAi.setEnabled(model.isBtnAiEnabled());
             btnAi.setText(model.getBtnAiText());

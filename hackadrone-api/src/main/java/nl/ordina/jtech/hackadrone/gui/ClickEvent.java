@@ -6,9 +6,9 @@ public interface ClickEvent {
 
     void onControlsClicked();
 
-    void onVideoClicked();
+    void onCameraClicked();
 
-    void onRecordVideoClicked();
+    void onRecorderClicked();
 
     void onAiClicked();
 

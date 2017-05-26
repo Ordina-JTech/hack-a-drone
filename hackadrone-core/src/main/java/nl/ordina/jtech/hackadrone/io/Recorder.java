@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public final class VideoRecorder implements Recorder {
+public final class Recorder implements Handler {
 
     private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
 
@@ -26,7 +26,7 @@ public final class VideoRecorder implements Recorder {
     private OutputStream recordOutputStream;
     private Decoder decoder;
 
-    public VideoRecorder(String droneHost, int dronePort, String recordHost, int recordPort) {
+    public Recorder(String droneHost, int dronePort, String recordHost, int recordPort) {
         this.droneHost = droneHost;
         this.dronePort = dronePort;
         this.recordHost = recordHost;
@@ -40,14 +40,14 @@ public final class VideoRecorder implements Recorder {
                 stop();
             }
 
-            startRecordVideo();
+            startVideoRecorder();
 
             Thread.sleep(1000);
 
             recordSocket = new Socket(InetAddress.getByName(recordHost), recordPort);
             recordOutputStream = new BufferedOutputStream(recordSocket.getOutputStream());
 
-            startRecord();
+            startRecorder();
         } catch (IOException | InterruptedException e) {
             System.err.println("Unable to start recording a video");
         }
@@ -73,7 +73,7 @@ public final class VideoRecorder implements Recorder {
         }
     }
 
-    private void startRecordVideo() throws IOException {
+    private void startVideoRecorder() throws IOException {
         String output = "tcp://" + recordHost + ":" + recordPort + "?listen";
         String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         String fileName = ("record-" + timestamp + ".mp4");
@@ -91,7 +91,7 @@ public final class VideoRecorder implements Recorder {
         }
     }
 
-    private void startRecord() throws IOException {
+    private void startRecorder() throws IOException {
         if (decoder != null) {
             throw new IOException("Starting recording a video failed!");
         }

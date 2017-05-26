@@ -1,6 +1,6 @@
 package nl.ordina.jtech.hackadrone.io;
 
-public final class AI implements Intelligence {
+public final class AI implements Handler {
 
     @Override
     public void start() {

@@ -26,9 +26,9 @@ public final class CX10 implements Drone {
     private TransportConnection transportConnection;
     private Controller controller;
     private Heartbeat heartbeat;
-    private Player player;
-    private Recorder recorder;
-    private Intelligence intelligence;
+    private Handler camera;
+    private Handler recorder;
+    private Handler ai;
 
     @Override
     public void connect() throws DroneException {
@@ -109,50 +109,50 @@ public final class CX10 implements Drone {
     }
 
     @Override
-    public void startVideoStream() throws DroneException {
-        if (player == null) {
-            player = new VideoPlayer(DRONE_HOST, DRONE_PORT, VIDEO_HOST, VIDEO_PORT);
-            player.start();
+    public void startCamera() throws DroneException {
+        if (camera == null) {
+            camera = new Camera(DRONE_HOST, DRONE_PORT, VIDEO_HOST, VIDEO_PORT);
+            camera.start();
         } else {
-            throw new DroneException("Starting the video stream of the " + NAME + " failed!");
+            throw new DroneException("Starting the camera of the " + NAME + " failed!");
         }
     }
 
     @Override
-    public void stopVideoStream() throws DroneException {
-        if (player != null) {
-            player.stop();
-            player = null;
+    public void stopCamera() throws DroneException {
+        if (camera != null) {
+            camera.stop();
+            camera = null;
         } else {
-            throw new DroneException("Stopping the video stream of the " + NAME + " failed!");
+            throw new DroneException("Stopping the camera of the " + NAME + " failed!");
         }
     }
 
     @Override
-    public void startVideoRecord() throws DroneException {
+    public void startRecorder() throws DroneException {
         if (recorder == null) {
-            recorder = new VideoRecorder(DRONE_HOST, DRONE_PORT, RECORDER_HOST, RECORDER_PORT);
+            recorder = new Recorder(DRONE_HOST, DRONE_PORT, RECORDER_HOST, RECORDER_PORT);
             recorder.start();
         } else {
-            throw new DroneException("Starting recording a video from the " + NAME + " failed!");
+            throw new DroneException("Starting the recorder of the " + NAME + " failed!");
         }
     }
 
     @Override
-    public void stopVideoRecord() throws DroneException {
+    public void stopRecorder() throws DroneException {
         if (recorder != null) {
             recorder.stop();
             recorder = null;
         } else {
-            throw new DroneException("Stopping recording a video from the " + NAME + " failed!");
+            throw new DroneException("Stopping the recorder of the " + NAME + " failed!");
         }
     }
 
     @Override
     public void startAi() throws DroneException {
-        if (intelligence == null) {
-            intelligence = new AI();
-            intelligence.start();
+        if (ai == null) {
+            ai = new AI();
+            ai.start();
         } else {
             throw new DroneException("Starting AI of the " + NAME + " failed!");
         }
@@ -160,9 +160,9 @@ public final class CX10 implements Drone {
 
     @Override
     public void stopAi() throws DroneException {
-        if (intelligence != null) {
-            intelligence.stop();
-            intelligence = null;
+        if (ai != null) {
+            ai.stop();
+            ai = null;
         } else {
             throw new DroneException("Stopping AI of the " + NAME + " failed!");
         }

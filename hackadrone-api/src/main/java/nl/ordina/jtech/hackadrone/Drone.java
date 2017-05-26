@@ -21,13 +21,13 @@ public interface Drone extends Connection {
 
     void stopControls() throws DroneException;
 
-    void startVideoStream() throws DroneException;
+    void startCamera() throws DroneException;
 
-    void stopVideoStream() throws DroneException;
+    void stopCamera() throws DroneException;
 
-    void startVideoRecord() throws DroneException;
+    void startRecorder() throws DroneException;
 
-    void stopVideoRecord() throws DroneException;
+    void stopRecorder() throws DroneException;
 
     void startAi() throws DroneException;
 
