@@ -12,6 +12,8 @@ class MainWindowModel {
     private String btnVideoText;
     private boolean btnRecordVideoEnabled;
     private String btnRecordVideoText;
+    private boolean btnAiEnabled;
+    private String btnAiText;
     private boolean lblStatusEnabled;
     private String lblStatusText;
     private Color lblStatusForeground;
@@ -78,6 +80,22 @@ class MainWindowModel {
 
     void setBtnRecordVideoText(String btnRecordVideoText) {
         this.btnRecordVideoText = btnRecordVideoText;
+    }
+
+    boolean isBtnAiEnabled() {
+        return btnAiEnabled;
+    }
+
+    void setBtnAiEnabled(boolean btnAiEnabled) {
+        this.btnAiEnabled = btnAiEnabled;
+    }
+
+    String getBtnAiText() {
+        return btnAiText;
+    }
+
+    void setBtnAiText(String btnAiText) {
+        this.btnAiText = btnAiText;
     }
 
     boolean isLblStatusEnabled() {

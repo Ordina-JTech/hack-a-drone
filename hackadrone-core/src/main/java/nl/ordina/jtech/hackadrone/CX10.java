@@ -28,6 +28,7 @@ public final class CX10 implements Drone {
     private Heartbeat heartbeat;
     private Player player;
     private Recorder recorder;
+    private Intelligence intelligence;
 
     @Override
     public void connect() throws DroneException {
@@ -144,6 +145,26 @@ public final class CX10 implements Drone {
             recorder = null;
         } else {
             throw new DroneException("Stopping recording a video from the " + NAME + " failed!");
+        }
+    }
+
+    @Override
+    public void startAi() throws DroneException {
+        if (intelligence == null) {
+            intelligence = new AI();
+            intelligence.start();
+        } else {
+            throw new DroneException("Starting AI of the " + NAME + " failed!");
+        }
+    }
+
+    @Override
+    public void stopAi() throws DroneException {
+        if (intelligence != null) {
+            intelligence.stop();
+            intelligence = null;
+        } else {
+            throw new DroneException("Stopping AI of the " + NAME + " failed!");
         }
     }
 

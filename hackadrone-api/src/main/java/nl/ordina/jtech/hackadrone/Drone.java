@@ -29,6 +29,10 @@ public interface Drone extends Connection {
 
     void stopVideoRecord() throws DroneException;
 
+    void startAi() throws DroneException;
+
+    void stopAi() throws DroneException;
+
     String getName();
 
 }

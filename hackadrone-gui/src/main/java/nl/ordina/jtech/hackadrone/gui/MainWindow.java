@@ -16,6 +16,9 @@ import java.io.IOException;
 
 public final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
 
+    private static final int WIDTH = 750;
+    private static final int HEIGHT = 150;
+
     private final Drone cx10 = new CX10();
 
     private JPanel panel;
@@ -24,11 +27,13 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
     private JButton btnVideo;
     private JButton btnRecordVideo;
     private JLabel lblStatus;
+    private JButton btnAi;
 
     private boolean isConnected = false;
     private boolean isControlled = false;
     private boolean isVideoStreaming = false;
     private boolean isVideoRecording = false;
+    private boolean isAi = false;
 
     MainWindow() {
         init();
@@ -40,6 +45,7 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         btnControls.setEnabled(false);
         btnVideo.setEnabled(false);
         btnRecordVideo.setEnabled(false);
+        btnAi.setEnabled(false);
 
         lblStatus.setEnabled(true);
 
@@ -47,10 +53,11 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         btnControls.addActionListener(this);
         btnVideo.addActionListener(this);
         btnRecordVideo.addActionListener(this);
+        btnAi.addActionListener(this);
 
         add(panel);
         setTitle(cx10.getName());
-        setPreferredSize(new Dimension(600,150));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -73,6 +80,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
                 onVideoClicked();
             } else if (actionEvent.getSource() == btnRecordVideo) {
                 onRecordVideoClicked();
+            } else if (actionEvent.getSource() == btnAi) {
+                onAiClicked();
             }
         }).start();
     }
@@ -113,6 +122,15 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    @Override
+    public void onAiClicked() {
+        if (!isAi) {
+            startAi();
+        } else {
+            stopAi();
+        }
+    }
+
     private void connect() {
         MainWindowModel model;
 
@@ -145,6 +163,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             model.setBtnVideoEnabled(true);
 
             model.setBtnRecordVideoEnabled(true);
+
+            model.setBtnAiEnabled(true);
 
             model.setLblStatusForeground(SpecialColor.GREEN);
             model.setLblStatusText("Connection successfully established");
@@ -515,6 +535,60 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    private void startAi() {
+        MainWindowModel model;
+
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to start the AI..." + ANSI.RESET);
+
+            model = getModel();
+
+            model.setBtnControlsEnabled(false);
+
+            model.setBtnAiEnabled(false);
+            model.setBtnAiText("Starting AI...");
+
+            model.setLblStatusForeground(SpecialColor.YELLOW);
+            model.setLblStatusText("Trying to start AI...");
+
+            updateModel(model);
+
+            cx10.startAi();
+
+            isAi = true;
+
+            model = getModel();
+
+            model.setBtnAiEnabled(true);
+            model.setBtnAiText("Stop AI");
+
+            model.setLblStatusForeground(SpecialColor.GREEN);
+            model.setLblStatusText("Starting AI successfully started");
+
+            updateModel(model);
+
+            System.out.println(ANSI.GREEN + "Starting AI successfully started" + ANSI.RESET);
+        } catch (DroneException e) {
+            model = getModel();
+
+            model.setBtnControlsEnabled(true);
+
+            model.setBtnAiEnabled(true);
+            model.setBtnRecordVideoText("Start AI");
+
+            model.setLblStatusForeground(SpecialColor.RED);
+            model.setLblStatusText("Starting AI failed!");
+
+            updateModel(model);
+
+            System.out.println(ANSI.RED + "Starting AI failed!" + ANSI.RESET);
+        }
+    }
+
+    private void stopAi() {
+
+    }
+
     private MainWindowModel getModel() {
         MainWindowModel model = new MainWindowModel();
 
@@ -529,6 +603,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
         model.setBtnRecordVideoEnabled(btnRecordVideo.isEnabled());
         model.setBtnRecordVideoText(btnRecordVideo.getText());
+
+        model.setBtnAiEnabled(btnAi.isEnabled());
+        model.setBtnAiText(btnAi.getText());
 
         model.setLblStatusEnabled(lblStatus.isEnabled());
         model.setLblStatusText(lblStatus.getText());
@@ -550,6 +627,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             btnRecordVideo.setEnabled(model.isBtnRecordVideoEnabled());
             btnRecordVideo.setText(model.getBtnRecordVideoText());
+
+            btnAi.setEnabled(model.isBtnAiEnabled());
+            btnAi.setText(model.getBtnAiText());
 
             lblStatus.setEnabled(model.isLblStatusEnabled());
             lblStatus.setText(model.getLblStatusText());

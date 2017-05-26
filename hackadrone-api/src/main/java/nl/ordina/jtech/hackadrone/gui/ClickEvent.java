@@ -10,4 +10,6 @@ public interface ClickEvent {
 
     void onRecordVideoClicked();
 
+    void onAiClicked();
+
 }
