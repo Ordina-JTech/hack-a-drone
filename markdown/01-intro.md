@@ -5,8 +5,8 @@
 | 17:00 – 17:15 | Inloop en kennismaking
 | 17:15 – 17:30 | Drone uitpakken en opladen
 | 17:30 – 18:00 | Samen eten
-| 18:00 – 20:30 | Hack a drone
-| 19:30 – 20:30 | Battle of the drones
+| 18:00 – 20:30 | Drone programmeren
+| 19:30 – 20:30 | Drone wedstrijd
 | 20:30 – 21:00 | Borrel en napraten
 
 
