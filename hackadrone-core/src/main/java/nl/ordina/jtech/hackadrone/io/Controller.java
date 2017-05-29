@@ -33,7 +33,7 @@ public final class Controller extends Thread implements CommandListener {
                 commandConnection.sendCommand(command);
                 Thread.sleep(50);
             } catch (IOException e) {
-                System.err.println("Unable to send command");;
+                System.err.println("Unable to send command");
             } catch (InterruptedException e) {
                 System.err.println("Command interrupted");
             }

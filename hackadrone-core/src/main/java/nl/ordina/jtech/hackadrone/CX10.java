@@ -28,7 +28,7 @@ public final class CX10 implements Drone {
     private Heartbeat heartbeat;
     private Handler camera;
     private Handler recorder;
-    private Handler ai;
+    private Controller ai;
 
     @Override
     public void connect() throws DroneException {
@@ -150,18 +150,21 @@ public final class CX10 implements Drone {
 
     @Override
     public void startAi() throws DroneException {
-        if (ai == null) {
-            ai = new AI();
+        try {
+            if (ai == null) {
+                ai = new Controller(new AI(), new CommandConnection(IO_HOST, IO_PORT));
+            }
+
             ai.start();
-        } else {
-            throw new DroneException("Starting AI of the " + NAME + " failed!");
+        } catch (IOException | IllegalThreadStateException e) {
+            throw new DroneException("Starting the AI of the " + NAME + " failed!");
         }
     }
 
     @Override
     public void stopAi() throws DroneException {
         if (ai != null) {
-            ai.stop();
+            ai.interrupt();
             ai = null;
         } else {
             throw new DroneException("Stopping AI of the " + NAME + " failed!");

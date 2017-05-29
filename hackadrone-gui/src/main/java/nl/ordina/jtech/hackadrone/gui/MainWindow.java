@@ -192,10 +192,10 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             updateModel(model -> {
                 model.setBtnConnectContext(true, "Connect");
-                model.setBtnConnectContext(false, "Start Controls");
+                model.setBtnControlsContext(false, "Start Controls");
                 model.setBtnCameraContext(false, "Start Camera");
                 model.setBtnRecorderContext(false, "Start Recorder");
-                model.setBtnConnectContext(false, "Start AI");
+                model.setBtnAiContext(false, "Start AI");
                 model.setLblStatusContext(SpecialColor.GREEN, "Disconnection successful");
             });
 
@@ -447,10 +447,10 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         } catch (DroneException e) {
             updateModel(model -> {
                 model.setBtnAiContext(true, "Stop AI");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping the recorder failed!");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping the AI failed!");
             });
 
-            System.out.println(ANSI.RED + "Stopping the recorder failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Stopping the AI failed!" + ANSI.RESET);
         }
     }
 
