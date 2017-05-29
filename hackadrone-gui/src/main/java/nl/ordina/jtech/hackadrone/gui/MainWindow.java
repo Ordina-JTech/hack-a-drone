@@ -58,6 +58,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         btnRecorder.addActionListener(this);
         btnAi.addActionListener(this);
 
+        initModel();
+
         add(panel);
         setTitle(cx10.getName());
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -68,8 +70,6 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         panel.setVisible(true);
         setVisible(true);
         pack();
-
-        initModel();
 
         System.out.println(ANSI.BLUE + "Welcome to the " + cx10.getName() + " Graphical User Interface (GUI)" + ANSI.RESET);
     }
@@ -215,14 +215,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.YELLOW + "Trying to start the controls..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnControlsEnabled(false);
-                model.setBtnControlsText("Starting controls...");
-
+                model.setBtnControlsContext(false, "Starting controls...");
                 model.setBtnAiEnabled(false);
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to start the controls...");
-
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start the controls...");
             });
 
             cx10.startControls(new Keyboard(KeyboardFocusManager.getCurrentKeyboardFocusManager()));
@@ -230,23 +225,16 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             isControlled = true;
 
             updateModel(model -> {
-                model.setBtnControlsText("Stop Controls");
-                model.setBtnControlsEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Controls successfully started");
+                model.setBtnControlsContext(true, "Stop Controls");
+                model.setLblStatusContext(SpecialColor.GREEN, "Controls successfully started");
             });
 
             System.out.println(ANSI.GREEN + "Controls successfully started" + ANSI.RESET);
         } catch (IOException e) {
             updateModel(model -> {
-                model.setBtnControlsText("Start Controls");
-                model.setBtnControlsEnabled(true);
-
+                model.setBtnControlsContext(true, "Start Controls");
                 model.setBtnAiEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Starting the controls failed!");
+                model.setLblStatusContext(SpecialColor.RED, "Starting the controls failed!");
             });
 
             System.out.println(ANSI.RED + "Starting the controls failed!" + ANSI.RESET);
@@ -258,11 +246,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnControlsEnabled(false);
-                model.setBtnControlsText("Stopping controls...");
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to stop the controls...");
+                model.setBtnControlsContext(false, "Stopping controls...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the controls...");
             });
 
             cx10.stopControls();
@@ -270,23 +255,16 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             isControlled = false;
 
             updateModel(model -> {
-                model.setBtnControlsText("Start Controls");
-                model.setBtnControlsEnabled(true);
-
+                model.setBtnControlsContext(true, "Start Controls");
                 model.setBtnAiEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Controls successfully stopped");
+                model.setLblStatusContext(SpecialColor.GREEN, "Controls successfully stopped");
             });
 
             System.out.println(ANSI.GREEN + "Controls successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
-                model.setBtnControlsText("Stop Controls");
-                model.setBtnControlsEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Stopping the controls failed!");
+                model.setBtnControlsContext(true, "Stop Controls");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping the controls failed!");
             });
 
             System.out.println(ANSI.RED + "Stopping the controls failed!" + ANSI.RESET);
@@ -298,13 +276,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.YELLOW + "Trying to start the camera..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnCameraEnabled(false);
-                model.setBtnCameraText("Starting camera...");
-
+                model.setBtnCameraContext(false, "Starting camera...");
                 model.setBtnRecorderEnabled(false);
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to start the camera...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start the camera...");
             });
 
             cx10.startCamera();
@@ -312,23 +286,16 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             isStreaming = true;
 
             updateModel(model -> {
-                model.setBtnCameraText("Stop Camera");
-                model.setBtnCameraEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Camera successfully started");
+                model.setBtnCameraContext(true, "Stop Camera");
+                model.setLblStatusContext(SpecialColor.GREEN, "Camera successfully started");
             });
 
             System.out.println(ANSI.GREEN + "Camera successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
-                model.setBtnCameraText("Start Camera");
-                model.setBtnCameraEnabled(true);
-
+                model.setBtnCameraContext(true, "Start Camera");
                 model.setBtnRecorderEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Starting the camera failed!");
+                model.setLblStatusContext(SpecialColor.RED, "Starting the camera failed!");
             });
 
             System.out.println(ANSI.RED + "Starting the camera failed!" + ANSI.RESET);
@@ -340,11 +307,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.YELLOW + "Trying to stop the camera..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnCameraEnabled(false);
-                model.setBtnCameraText("Stopping camera...");
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to stop the camera...");
+                model.setBtnCameraContext(false, "Stopping camera...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the camera...");
             });
 
             cx10.stopCamera();
@@ -352,23 +316,16 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             isStreaming = false;
 
             updateModel(model -> {
-                model.setBtnCameraText("Start Camera");
-                model.setBtnCameraEnabled(true);
-
+                model.setBtnCameraContext(true, "Start Camera");
                 model.setBtnRecorderEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Camera successfully stopped");
+                model.setLblStatusContext(SpecialColor.GREEN, "Camera successfully stopped");
             });
 
             System.out.println(ANSI.GREEN + "Camera successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
-                model.setBtnCameraText("Stop Camera");
-                model.setBtnCameraEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Stopping the camera failed!");
+                model.setBtnCameraContext(true, "Stop Camera");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping the camera failed!");
             });
 
             System.out.println(ANSI.RED + "Stopping the camera failed!" + ANSI.RESET);
@@ -377,40 +334,29 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
     private void startRecorder() {
         try {
+            System.out.println(ANSI.YELLOW + "Trying to start the recorder.." + ANSI.RESET);
+
             updateModel(model -> {
                 model.setBtnCameraEnabled(false);
-
-                model.setBtnRecorderEnabled(false);
-                model.setBtnRecorderText("Starting recorder...");
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to start the recorder...");
+                model.setBtnRecorderContext(false, "Starting recorder...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start the recorder...");
             });
-
-            System.out.println(ANSI.YELLOW + "Trying to start the recorder.." + ANSI.RESET);
 
             cx10.startRecorder();
 
             isRecording = true;
 
             updateModel(model -> {
-                model.setBtnRecorderText("Stop Recorder");
-                model.setBtnRecorderEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Recorder successfully started");
+                model.setBtnRecorderContext(true, "Stop Recorder");
+                model.setLblStatusContext(SpecialColor.GREEN, "Recorder successfully started");
             });
 
             System.out.println(ANSI.GREEN + "Recorder successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
                 model.setBtnCameraEnabled(true);
-
-                model.setBtnRecorderText("Start Recorder");
-                model.setBtnRecorderEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Starting recording failed!");
+                model.setBtnRecorderContext(true, "Start Recorder");
+                model.setLblStatusContext(SpecialColor.RED, "Starting recording failed!");
             });
 
             System.out.println(ANSI.RED + "Starting recording failed!" + ANSI.RESET);
@@ -422,11 +368,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.YELLOW + "Trying to stop the recorder..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnRecorderEnabled(false);
-                model.setBtnRecorderText("Stopping recorder...");
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to stop the recorder.");
+                model.setBtnRecorderContext(false, "Stopping recorder...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the recorder.");
             });
 
             cx10.stopRecorder();
@@ -435,22 +378,15 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             updateModel(model -> {
                 model.setBtnCameraEnabled(true);
-
-                model.setBtnRecorderText("Start Reader");
-                model.setBtnRecorderEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Recorder successfully stopped");
+                model.setBtnRecorderContext(true, "Start Recorder");
+                model.setLblStatusContext(SpecialColor.GREEN, "Recorder successfully stopped");
             });
 
             System.out.println(ANSI.GREEN + "Recorder successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
-                model.setBtnRecorderText("Stop Recorder");
-                model.setBtnRecorderEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Stopping the recorder failed!");
+                model.setBtnRecorderContext(true, "Stop Recorder");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping the recorder failed!");
             });
 
             System.out.println(ANSI.RED + "Stopping the recorder failed!" + ANSI.RESET);
@@ -463,12 +399,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             updateModel(model -> {
                 model.setBtnControlsEnabled(false);
-
-                model.setBtnAiEnabled(false);
-                model.setBtnAiText("Starting AI...");
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to start AI...");
+                model.setBtnAiContext(false, "Starting AI...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start AI...");
             });
 
             cx10.startAi();
@@ -476,23 +408,16 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             isAi = true;
 
             updateModel(model -> {
-                model.setBtnAiText("Stop AI");
-                model.setBtnAiEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("Starting AI successfully started");
+                model.setBtnAiContext(true, "Stop AI");
+                model.setLblStatusContext(SpecialColor.GREEN, "Starting AI successfully started");
             });
 
             System.out.println(ANSI.GREEN + "Starting AI successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
                 model.setBtnControlsEnabled(true);
-
-                model.setBtnAiText("Start AI");
-                model.setBtnAiEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Starting AI failed!");
+                model.setBtnAiContext(true, "Start AI");
+                model.setLblStatusContext(SpecialColor.RED, "Starting AI failed!");
             });
 
             System.out.println(ANSI.RED + "Starting AI failed!" + ANSI.RESET);
@@ -504,11 +429,8 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
             System.out.println(ANSI.YELLOW + "Trying to stop the AI..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnAiEnabled(false);
-                model.setBtnAiText("Stopping AI...");
-
-                model.setLblStatusForeground(SpecialColor.YELLOW);
-                model.setLblStatusText("Trying to stop the AI.");
+                model.setBtnAiContext(false, "Stopping AI...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the AI.");
             });
 
             cx10.stopAi();
@@ -517,22 +439,15 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
 
             updateModel(model -> {
                 model.setBtnControlsEnabled(true);
-
-                model.setBtnAiText("Start AI");
-                model.setBtnAiEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.GREEN);
-                model.setLblStatusText("AI successfully stopped");
+                model.setBtnAiContext(true, "Start AI");
+                model.setLblStatusContext(SpecialColor.GREEN, "AI successfully stopped");
             });
 
             System.out.println(ANSI.GREEN + "AI successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
-                model.setBtnAiText("Stop AI");
-                model.setBtnAiEnabled(true);
-
-                model.setLblStatusForeground(SpecialColor.RED);
-                model.setLblStatusText("Stopping the recorder failed!");
+                model.setBtnAiContext(true, "Stop AI");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping the recorder failed!");
             });
 
             System.out.println(ANSI.RED + "Stopping the recorder failed!" + ANSI.RESET);
