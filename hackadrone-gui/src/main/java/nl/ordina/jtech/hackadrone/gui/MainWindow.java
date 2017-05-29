@@ -15,33 +15,105 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+/**
+ * Class representing a main window that exists within a Graphical User Interface (GUI).
+ *
+ * @author Nils Berlijn
+ * @version 1.0
+ * @since 1.0
+ */
 public final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
 
+    /**
+     * The width of the main window.
+     */
     private static final int WIDTH = 750;
+
+    /**
+     * The height of the main window.
+     */
     private static final int HEIGHT = 150;
 
+    /**
+     * The core code of the CX10 drone.
+     */
     private final Drone cx10 = new CX10();
 
+    /**
+     * The main window model.
+     */
     private MainWindowModel model = new MainWindowModel();
 
+    /**
+     * The default panel.
+     */
     private JPanel panel;
+
+    /**
+     * The connect button.
+     */
     private JButton btnConnect;
+
+    /**
+     * The controls button.
+     */
     private JButton btnControls;
+
+    /**
+     * The camera button.
+     */
     private JButton btnCamera;
+
+    /**
+     * The recorder button.
+     */
     private JButton btnRecorder;
+
+    /**
+     * The AI button.
+     */
     private JButton btnAi;
+
+    /**
+     * The status button.
+     */
     private JLabel lblStatus;
 
+    /**
+     * The connected status.
+     */
     private boolean isConnected = false;
+
+    /**
+     * The controlled status.
+     */
     private boolean isControlled = false;
+
+    /**
+     * The streaming status.
+     */
     private boolean isStreaming = false;
+
+    /**
+     * The recording status.
+     */
     private boolean isRecording = false;
+
+    /**
+     * The AI status.
+     */
     private boolean isAi = false;
 
+    /**
+     * A main window constructor.
+     */
     MainWindow() {
         init();
     }
 
+    /**
+     * Initializes the main window.
+     */
     @Override
     public void init() {
         btnConnect.setEnabled(true);
@@ -74,6 +146,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         System.out.println(ANSI.BLUE + "Welcome to the " + cx10.getName() + " Graphical User Interface (GUI)" + ANSI.RESET);
     }
 
+    /**
+     * Handles a performed action when a source is triggered.
+     */
     @Override
     public void actionPerformed(final ActionEvent actionEvent) {
         new Thread(() -> {
@@ -91,6 +166,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }).start();
     }
 
+    /**
+     * Handles the connect button.
+     */
     @Override
     public void onConnectClicked() {
         if (!isConnected) {
@@ -100,6 +178,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Handles the controls button.
+     */
     @Override
     public void onControlsClicked() {
         if (!isControlled) {
@@ -109,6 +190,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Handles the camera button.
+     */
     @Override
     public void onCameraClicked() {
         if (!isStreaming) {
@@ -118,6 +202,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Handles the recorder button.
+     */
     @Override
     public void onRecorderClicked() {
         if (!isRecording) {
@@ -127,6 +214,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Handles AI button.
+     */
     @Override
     public void onAiClicked() {
         if (!isAi) {
@@ -136,6 +226,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Connects.
+     */
     private void connect() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to establish a new connection..." + ANSI.RESET);
@@ -171,6 +264,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Disconnects.
+     */
     private void disconnect() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to disconnect..." + ANSI.RESET);
@@ -210,6 +306,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Starts the controls.
+     */
     private void startControls() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to start the controls..." + ANSI.RESET);
@@ -241,6 +340,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Stops the controls.
+     */
     private void stopControls() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
@@ -271,6 +373,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Starts the camera.
+     */
     private void startCamera() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to start the camera..." + ANSI.RESET);
@@ -302,6 +407,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Stops the camera.
+     */
     private void stopCamera() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to stop the camera..." + ANSI.RESET);
@@ -332,6 +440,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Starts the recorder.
+     */
     private void startRecorder() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to start the recorder.." + ANSI.RESET);
@@ -363,6 +474,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Stops the recorder.
+     */
     private void stopRecorder() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to stop the recorder..." + ANSI.RESET);
@@ -393,6 +507,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Starts the AI.
+     */
     private void startAi() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to start the AI..." + ANSI.RESET);
@@ -424,6 +541,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Stops the AI.
+     */
     private void stopAi() {
         try {
             System.out.println(ANSI.YELLOW + "Trying to stop the AI..." + ANSI.RESET);
@@ -454,6 +574,9 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         }
     }
 
+    /**
+     * Initializes the default model.
+     */
     private void initModel() {
         model.setBtnConnectEnabled(btnConnect.isEnabled());
         model.setBtnConnectText(btnConnect.getText());
@@ -475,6 +598,11 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         model.setLblStatusForeground(lblStatus.getForeground());
     }
 
+    /**
+     * Updates the model.
+     *
+     * @param modelConsumer the model consumer
+     */
     private void updateModel(Consumer<MainWindowModel> modelConsumer){
         MainWindowModel model = this.model.copy();
         modelConsumer.accept(model);
@@ -482,6 +610,11 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
         this.model = model;
     }
 
+    /**
+     * Updates the model to the view.
+     *
+     * @param model the model
+     */
     private void updateModel(final MainWindowModel model) {
         SwingUtilities.invokeLater(() -> {
             btnConnect.setEnabled(model.isBtnConnectEnabled());
