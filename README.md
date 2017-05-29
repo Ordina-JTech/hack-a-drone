@@ -1,6 +1,6 @@
 # Hack a Drone
 
-- De [presentatie] slides
+- Bijhorende [presentatie] slides
 
 
 ## Benodigdheden
@@ -63,7 +63,6 @@
 ## Uitbreiden van de drone
 
 - Schrijf je eigen AI om de drone aan te sturen
-- Maak jouw AI intelligent genoeg voor het wedstrijdparkour
 - Gebruik hiervoor de basis Java code van de AI:
   - nl.ordina.jtech.hackadrone.core.io.AI
 
