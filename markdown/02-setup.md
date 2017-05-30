@@ -30,7 +30,7 @@
 - Klik op "Connect" om verbinding met de drone te maken
 - Klik op "Start Controls" om de toetsenbordbesturing in te schakelen
 - Klik op "Start Camera" om de camera in te schakelen
-- Klik op "Start Recorder" om een videoopname te maken
+- Klik op "Start Recorder" om een video-opname te maken
 - Klik op "Start AI" om de automatische piloot te starten
 
 
