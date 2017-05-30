@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 
 /**
- * Class representing a keyboard for the drone.
+ * Class representing the keyboard controls for a drone.
  *
  * @author Nils Berlijn
  * @version 1.0

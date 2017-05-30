@@ -11,7 +11,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 /**
- * Class representing the camera of a drone.
+ * Class representing the camera for a drone.
  *
  * @author Nils Berlijn
  * @version 1.0

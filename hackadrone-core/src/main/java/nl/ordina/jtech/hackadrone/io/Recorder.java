@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Class representing the video recorder of a drone.
+ * Class representing the video recorder for a drone.
  *
  * @author Nils Berlijn
  * @version 1.0

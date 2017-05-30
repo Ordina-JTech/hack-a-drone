@@ -3,7 +3,7 @@ package nl.ordina.jtech.hackadrone.io;
 import nl.ordina.jtech.hackadrone.models.Command;
 
 /**
- * Class representing an Automatic Intelligence (AI) for the drone.
+ * Class representing the Automatic Intelligence (AI) for a drone.
  *
  * @author Nils Berlijn
  * @version 1.0

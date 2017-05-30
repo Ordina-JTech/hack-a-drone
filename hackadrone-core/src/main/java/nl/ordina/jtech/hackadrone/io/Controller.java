@@ -6,7 +6,7 @@ import nl.ordina.jtech.hackadrone.net.CommandConnection;
 import java.io.IOException;
 
 /**
- * Class representing a controller for the drone.
+ * Class representing the controller for a drone.
  *
  * @author Nils Berlijn
  * @version 1.0
