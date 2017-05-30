@@ -3,6 +3,9 @@ package nl.ordina.jtech.hackadrone.models;
 /**
  * Class representing a command model.
  *
+ * This command model contains commands that are used to control a drone with.
+ * The commands pitch, yaw, roll, throttle, take off and land are available to use.
+ *
  * @author Nils Berlijn
  * @version 1.0
  * @since 1.0
@@ -10,32 +13,32 @@ package nl.ordina.jtech.hackadrone.models;
 public final class Command {
 
     /**
-     * The pitch number.
+     * The pitch number is used to move the drone forward or backward.
      */
     private int pitch;
 
     /**
-     * The yaw number.
+     * The yaw number is used to turn the drone to the left or the right.
      */
     private int yaw;
 
     /**
-     * The roll number.
+     * The roll number is used to move the drone to the left or the right.
      */
     private int roll;
 
     /**
-     * The throttle number.
+     * The throttle number is used to move the drone up or down.
      */
     private int throttle;
 
     /**
-     * The take off status.
+     * The take off status is used to take off the drone from the ground.
      */
     private boolean takeOff;
 
     /**
-     * The land status.
+     * The land status is used to let the drone land on the ground.
      */
     private boolean land;
 
@@ -49,10 +52,10 @@ public final class Command {
     /**
      * A command constructor.
      *
-     * @param pitch the pitch number
-     * @param yaw the yaw number
-     * @param roll the roll number
-     * @param throttle the throttle number
+     * @param pitch the pitch number is used to move the drone forward or backward
+     * @param yaw the yaw number is used to turn the drone to the left or the right
+     * @param roll the roll number is used to move the drone to the left or the right
+     * @param throttle the throttle number is used to move the drone up or down
      */
     private Command(int pitch, int yaw, int roll, int throttle) {
         this.pitch = pitch;
@@ -64,6 +67,9 @@ public final class Command {
     /**
      * Gets the pitch number.
      *
+     * The pitch number is used to move the drone forward or backward.
+     * A plus value will let the drone move forwards and a minus value will let the drone move backwards.
+     *
      * @return the pitch number
      */
     public int getPitch() {
@@ -72,6 +78,9 @@ public final class Command {
 
     /**
      * Sets the pitch number.
+     *
+     * The pitch number is used to move the drone forward or backward.
+     * A plus value will let the drone move forwards and a minus value will let the drone move backwards.
      *
      * @param pitch the pitch number
      */
@@ -88,6 +97,9 @@ public final class Command {
     /**
      * Gets the yaw number.
      *
+     * The yaw number is used to turn the drone to the left or the right.
+     * A plus value will let the drone turn to the right and a minus value will let the drone turn to the left.
+     *
      * @return the yaw number
      */
     public int getYaw() {
@@ -96,6 +108,9 @@ public final class Command {
 
     /**
      * Sets the yaw number.
+     *
+     * The yaw number is used to turn the drone to the left or the right.
+     * A plus value will let the drone turn to the right and a minus value will let the drone turn to the left.
      *
      * @param yaw sets the yaw number
      */
@@ -112,6 +127,9 @@ public final class Command {
     /**
      * Gets the roll number.
      *
+     * The roll number is used to move the drone to the left or the right.
+     * A plus value will let the drone move to the right and a minus value will let the drone move to the left.
+     *
      * @return the roll number
      */
     public int getRoll() {
@@ -120,6 +138,9 @@ public final class Command {
 
     /**
      * Sets the roll number.
+     *
+     * The roll number is used to move the drone to the left or the right.
+     * A plus value will let the drone move to the right and a minus value will let the drone move to the left.
      *
      * @param roll the roll number
      */
@@ -136,6 +157,9 @@ public final class Command {
     /**
      * Gets the throttle.
      *
+     * The throttle number is used to move the drone up or down.
+     * A plus value will let the drone move up and a minus value will let the drone move down.
+     *
      * @return the throttle
      */
     public int getThrottle() {
@@ -144,6 +168,9 @@ public final class Command {
 
     /**
      * Sets the throttle.
+     *
+     * The throttle number is used to move the drone up or down.
+     * A plus value will let the drone move up and a minus value will let the drone move down.
      *
      * @param throttle the throttle
      */
@@ -160,6 +187,9 @@ public final class Command {
     /**
      * Gets the take off status.
      *
+     * The take off status is used to take off the drone from the ground.
+     * A true value will let the drone take off from the ground and a false value will not let the drone take off from the ground.
+     *
      * @return the take off status
      */
     public boolean isTakeOff() {
@@ -168,6 +198,9 @@ public final class Command {
 
     /**
      * Sets the take off status.
+     *
+     * The take off status is used to take off the drone from the ground.
+     * A true value will let the drone take off from the ground and a false value will not let the drone take off from the ground.
      *
      * @param takeOff the take off status
      */
@@ -178,6 +211,9 @@ public final class Command {
     /**
      * Gets the land status.
      *
+     * The land status is used to let the drone land on the ground.
+     * A true value will let the drone land on the ground and a false value will not let the drone land on the ground.
+     *
      * @return the land status
      */
     public boolean isLand() {
@@ -186,6 +222,9 @@ public final class Command {
 
     /**
      * Sets the land status.
+     *
+     * The land status is used to let the drone land on the ground.
+     * A true value will let the drone land on the ground and a false value will not let the drone land on the ground.
      *
      * @param land the land status
      */

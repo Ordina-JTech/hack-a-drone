@@ -14,10 +14,10 @@ import java.io.InputStream;
 public final class ByteUtils {
 
     /**
-     * Generates a byte array from numbers.
+     * Generates bytes from numbers.
      *
      * @param values the values containing the numbers
-     * @return a byte array containing the numbers
+     * @return bytes containing the numbers
      */
     public static byte[] asUnsigned(int... values) {
         byte[] bytes = new byte[values.length];

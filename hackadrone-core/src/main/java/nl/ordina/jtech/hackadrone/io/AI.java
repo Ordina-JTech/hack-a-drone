@@ -3,7 +3,15 @@ package nl.ordina.jtech.hackadrone.io;
 import nl.ordina.jtech.hackadrone.models.Command;
 
 /**
- * Class representing the Automatic Intelligence (AI) for a drone.
+ * Class representing the artificial intelligence (AI) for a drone.
+ *
+ * The AI is part of a device and can be inserted into a controller.
+ * The AI uses a command listener to handle commands and uses the command model for the available commands.
+ * The controller uses the command listener to handle the triggered commands.
+ *
+ * @see Controller for more information about the working flow of the controller
+ * @see CommandListener for the interface that is used to handle commands
+ * @see Command for a more detailed explanation about using the commands
  *
  * @author Nils Berlijn
  * @version 1.0
@@ -23,6 +31,8 @@ public final class AI implements Device {
 
     /**
      * Starts the AI.
+     *
+     * TODO: Build an interesting and cool AI.
      *
      * A simple example is added to get started.
      * This example will simply take off the drone from the ground and will directly land the drone back to the ground.

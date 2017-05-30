@@ -58,10 +58,10 @@ public final class CommandConnection implements Execute {
     }
 
     /**
-     * Converts a command into a byte array.
+     * Converts a command into bytes.
      *
-     * @param command the command to convert into a byte array
-     * @return a byte array containing the command
+     * @param command the command to convert into bytes
+     * @return bytes containing the command
      */
     private byte[] asByteArray(Command command) {
         int pitch = command.getPitch() + 128;
