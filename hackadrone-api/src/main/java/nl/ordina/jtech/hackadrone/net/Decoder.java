@@ -12,10 +12,10 @@ import java.io.IOException;
 public interface Decoder extends Connection {
 
     /**
-     * Reads.
+     * Reads bytes.
      *
      * @return the read bytes
-     * @throws IOException if reading failed
+     * @throws IOException if reading the bytes failed
      */
     byte[] read() throws IOException;
 

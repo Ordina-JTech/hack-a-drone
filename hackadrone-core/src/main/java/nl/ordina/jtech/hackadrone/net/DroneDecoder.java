@@ -7,8 +7,18 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+/**
+ * Class representing the drone decoder for a drone.
+ *
+ * @author Nils Berlijn
+ * @version 1.0
+ * @since 1.0
+ */
 public final class DroneDecoder implements Decoder {
 
+    /**
+     * The ph containing unsigned bytes.
+     */
     private static byte[] PH = ByteUtils.asUnsigned(
             0x00, 0x00, 0x00, 0x19, 0xD0,
             0x02, 0x40, 0x02, 0x00, 0xBF,
@@ -18,19 +28,57 @@ public final class DroneDecoder implements Decoder {
             0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00);
 
+    /**
+     * The host of the drone decoder.
+     */
     private final String host;
+
+    /**
+     * The port of the drone decoder.
+     */
     private final int port;
+
+    /**
+     * The input stream of the drone decoder.
+     */
     private InputStream inputStream;
+
+    /**
+     * The output stream of the drone decoder.
+     */
     private OutputStream outputStream;
+
+    /**
+     * The socket of the drone decoder.
+     */
     private Socket socket;
+
+    /**
+     * If the data is saved.
+     */
     private boolean savedData = false;
+
+    /**
+     * If initialized.
+     */
     private boolean initialized = false;
 
-    public DroneDecoder(String host, int port) throws IOException {
+    /**
+     * A drone decoder constructor,.
+     *
+     * @param host the host of the drone decoder
+     * @param port the port of the drone decoder
+     */
+    public DroneDecoder(String host, int port) {
         this.host = host;
         this.port = port;
     }
 
+    /**
+     * Connects the drone decoder.
+     *
+     * @throws IOException if the connection failed
+     */
     @Override
     public void connect() throws IOException {
         InetAddress address = InetAddress.getByName(host);
@@ -39,6 +87,11 @@ public final class DroneDecoder implements Decoder {
         inputStream = new DataInputStream(socket.getInputStream());
     }
 
+    /**
+     * Disconnects the drone decoder.
+     *
+     * @throws IOException if the disconnection failed
+     */
     @Override
     public void disconnect() throws IOException {
         outputStream.close();
@@ -46,6 +99,12 @@ public final class DroneDecoder implements Decoder {
         socket.close();
     }
 
+    /**
+     * Reads bytes.
+     *
+     * @return the read bytes
+     * @throws IOException if reading the bytes failed
+     */
     @Override
     public byte[] read() throws IOException {
         if (!initialized) {
@@ -119,6 +178,12 @@ public final class DroneDecoder implements Decoder {
         }
     }
 
+    /**
+     * Replaces bytes to the correct bytes.
+     *
+     * @param nalA0 the bytes to replace
+     * @return replaced bytes
+     */
     private byte[] replace(byte[] nalA0) {
         byte[] out = new byte[32];
         byte[] params = ByteUtils.asUnsigned(0x01, 0x00, 0x00, 0x19, 0xD0, 0x02, 0x40, 0x02);
@@ -133,6 +198,13 @@ public final class DroneDecoder implements Decoder {
         return out;
     }
 
+    /**
+     * Reads data from the input stream.
+     *
+     * @param length the length to read
+     * @return buffered bytes
+     * @throws IOException if reading the data failed
+     */
     private byte[] readData(int length) throws IOException {
         int read = 0;
         ByteBuffer byteBuffer = ByteBuffer.allocate(length);

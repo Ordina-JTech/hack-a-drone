@@ -8,17 +8,48 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+/**
+ * Class representing the command connection for a drone.
+ *
+ * @author Nils Berlijn
+ * @version 1.0
+ * @since 1.0
+ */
 public final class CommandConnection implements Execute {
 
+    /**
+     * The socket of the command connection.
+     */
     private final DatagramSocket socket = new DatagramSocket();
+
+    /**
+     * The host of the command connection.
+     */
     private final InetAddress host;
+
+    /**
+     * The port of the command connection.
+     */
     private final int port;
 
+    /**
+     * A command connection constructor.
+     *
+     * @param host the host of the command connection
+     * @param port the port of the command connection
+     * @throws IOException if the connection failed
+     */
     public CommandConnection(String host, int port) throws IOException {
         this.host = InetAddress.getByName(host);
         this.port = port;
     }
 
+    /**
+     * Sends a command.
+     *
+     * @param command the command to send
+     * @throws IOException if sending the command failed
+     */
     @Override
     public void sendCommand(Command command) throws IOException {
         byte[] data = asByteArray(command);
@@ -26,6 +57,12 @@ public final class CommandConnection implements Execute {
         socket.send(packet);
     }
 
+    /**
+     * Converts a command into a byte array.
+     *
+     * @param command the command to convert into a byte array
+     * @return a byte array containing the command
+     */
     private byte[] asByteArray(Command command) {
         int pitch = command.getPitch() + 128;
         int yaw = command.getYaw() + 128;
@@ -55,6 +92,12 @@ public final class CommandConnection implements Execute {
         return data;
     }
 
+    /**
+     * Generates a digit representing the sum of the correct digits in a piece of transmitted digital data.
+     *
+     * @param bytes the bytes to check
+     * @return the sum
+     */
     private static byte checksum(byte[] bytes) {
         byte sum = 0;
 
