@@ -12,13 +12,15 @@
   - Wachtwoord: GuestAccess2012
 - Haal de Java code op van GitHub:
   - https://github.com/Ordina-JTech/hack-a-drone.git
-- Initialiseer de Java code in jouw favoriete IDE
+- Open de Java code in jouw favoriete IDE
 
 
 ## Verbinding maken met de drone
 
 - Zet de drone aan
 - Maak verbinding met de drone over WiFi
+  - Je herkent de drone aan de benaming "CX-10WD-******"
+  - Leg de drone dicht bij je laptop om hem makkelijk te vinden
 - Start de Java code op vanuit:
   - nl.ordina.jtech.hackadrone.gui.GUI
 

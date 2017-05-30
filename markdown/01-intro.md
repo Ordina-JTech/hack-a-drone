@@ -2,7 +2,7 @@
 
 ||
 | ------------- |:-------------
-| 17:00 – 17:15 | Inloop en kennismaking
+| 17:00 – 17:30 | Inloop en kennismaking
 | 17:15 – 17:30 | Drone uitpakken en opladen
 | 17:30 – 18:00 | Samen eten
 | 18:00 – 20:30 | Drone programmeren
@@ -23,7 +23,7 @@
 ## Doelstellingen
 
 - Uitpakken en opladen van de drone
-- Initialiseren van de Java code
+- Ophalen van de Java code
 - Het besturen van de drone met je toetsenbord
 - Automatische piloot programmeren met Java
 - Wedstrijd met jouw drone tegen andere drones
