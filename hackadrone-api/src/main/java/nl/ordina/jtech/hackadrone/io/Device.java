@@ -12,7 +12,7 @@ public interface Device extends Handler {
     /**
      * Sets the listener.
      *
-     * @param commandListener the command listener
+     * @param commandListener the command listener to set
      */
     void setListener(CommandListener commandListener);
 

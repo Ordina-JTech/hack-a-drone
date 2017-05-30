@@ -7,29 +7,95 @@ import nl.ordina.jtech.hackadrone.utils.ByteUtils;
 
 import java.io.IOException;
 
+/**
+ * Class representing a CX10 drone.
+ *
+ * @author Nils Berlijn
+ * @version 1.0
+ * @since 1.0
+ */
 public final class CX10 implements Drone {
 
+    /**
+     * The name of the drone.
+     */
     private static final String NAME = "Cheerson CX-10WD-TX Mini FPV Drone";
 
+    /**
+     * The host of the drone.
+     */
     private static final String DRONE_HOST = "172.16.10.1";
+
+    /**
+     * The port of the drone.
+     */
     private static final int DRONE_PORT = 8888;
 
+    /**
+     * The host of the IO.
+     */
     private static final String IO_HOST = "172.16.10.1";
+
+    /**
+     * The port of the IO.
+     */
     private static final int IO_PORT = 8895;
 
-    private static final String VIDEO_HOST = "127.0.0.1";
-    private static final int VIDEO_PORT = 8889;
+    /**
+     * The host of the camera.
+     */
+    private static final String CAMERA_HOST = "127.0.0.1";
 
+    /**
+     * The port of the camera.
+     */
+    private static final int CAMERA_PORT = 8889;
+
+    /**
+     * The host of the recorder.
+     */
     private static final String RECORDER_HOST = "127.0.0.1";
+
+    /**
+     * The port of the recorder.
+     */
     private static final int RECORDER_PORT = 8890;
 
+    /**
+     * The transport connection with the drone.
+     */
     private TransportConnection transportConnection;
+
+    /**
+     * The controller.
+     */
     private Controller controller;
+
+    /**
+     * The heartbeat.
+     */
     private Heartbeat heartbeat;
+
+    /**
+     * The camera handler.
+     */
     private Handler camera;
+
+    /**
+     * The recorder handler.
+     */
     private Handler recorder;
+
+    /**
+     * The AI controller.
+     */
     private Controller ai;
 
+    /**
+     * Connects.
+     *
+     * @throws DroneException if the connection failed
+     */
     @Override
     public void connect() throws DroneException {
         try {
@@ -43,6 +109,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Disconnects.
+     *
+     * @throws DroneException if the disconnection failed
+     */
     @Override
     public void disconnect() throws DroneException {
         try {
@@ -52,6 +123,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Sends messages.
+     *
+     * @throws DroneException if sending the messages failed
+     */
     @Override
     public void sendMessages() throws DroneException {
         try {
@@ -65,6 +141,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Starts the heartbeat.
+     *
+     * @throws DroneException if starting the heartbeat failed
+     */
     @Override
     public void startHeartbeat() throws DroneException {
         if (heartbeat == null) {
@@ -75,6 +156,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Stops the heartbeat.
+     *
+     * @throws DroneException if stopping the heartbeat failed
+     */
     @Override
     public void stopHeartbeat() throws DroneException {
         if (heartbeat != null) {
@@ -85,6 +171,12 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Starts the controls.
+     *
+     * @param device the device to use the controls from
+     * @throws DroneException if starting the controls failed
+     */
     @Override
     public void startControls(Device device) throws DroneException {
         try {
@@ -98,6 +190,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Stops the controls.
+     *
+     * @throws DroneException if stopping the controls failed
+     */
     @Override
     public void stopControls() throws DroneException {
         if (controller != null) {
@@ -108,16 +205,26 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Starts the camera.
+     *
+     * @throws DroneException if starting the camera failed
+     */
     @Override
     public void startCamera() throws DroneException {
         if (camera == null) {
-            camera = new Camera(DRONE_HOST, DRONE_PORT, VIDEO_HOST, VIDEO_PORT);
+            camera = new Camera(DRONE_HOST, DRONE_PORT, CAMERA_HOST, CAMERA_PORT);
             camera.start();
         } else {
             throw new DroneException("Starting the camera of the " + NAME + " failed!");
         }
     }
 
+    /**
+     * Stops the camera.
+     *
+     * @throws DroneException if stopping the camera failed
+     */
     @Override
     public void stopCamera() throws DroneException {
         if (camera != null) {
@@ -128,6 +235,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Starts the recorder.
+     *
+     * @throws DroneException if starting the recorder failed
+     */
     @Override
     public void startRecorder() throws DroneException {
         if (recorder == null) {
@@ -138,6 +250,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Stops the recorder.
+     *
+     * @throws DroneException if stopping the recorder failed
+     */
     @Override
     public void stopRecorder() throws DroneException {
         if (recorder != null) {
@@ -148,6 +265,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Starts the AI.
+     *
+     * @throws DroneException if starting the AI failed
+     */
     @Override
     public void startAi() throws DroneException {
         try {
@@ -161,6 +283,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Stops the AI.
+     *
+     * @throws DroneException if stopping the AI failed
+     */
     @Override
     public void stopAi() throws DroneException {
         if (ai != null) {
@@ -171,6 +298,11 @@ public final class CX10 implements Drone {
         }
     }
 
+    /**
+     * Gets the name of the drone.
+     *
+     * @return the name of the drone
+     */
     @Override
     public String getName() {
         return NAME;

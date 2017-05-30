@@ -10,27 +10,78 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+/**
+ * Class representing the camera of a drone.
+ *
+ * @author Nils Berlijn
+ * @version 1.0
+ * @since 1.0
+ */
 public final class Camera implements Handler {
 
+    /**
+     * The video resource path.
+     */
     private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
 
+    /**
+     * The host of the drone.
+     */
     private final String droneHost;
-    private final int dronePort;
-    private final String videoHost;
-    private final int videoPort;
 
+    /**
+     * The port of the drone.
+     */
+    private final int dronePort;
+
+    /**
+     * The host of the camera.
+     */
+    private final String cameraHost;
+
+    /**
+     * The port of the camera.
+     */
+    private final int cameraPort;
+
+    /**
+     * The video player.
+     */
     private Process videoPlayer;
+
+    /**
+     * The video socket.
+     */
     private Socket videoSocket;
+
+    /**
+     * The video output stream.
+     */
     private OutputStream videoOutputStream;
+
+    /**
+     * The video decoder.
+     */
     private Decoder decoder;
 
-    public Camera(String droneHost, int dronePort, String videoHost, int videoPort) {
+    /**
+     * A command constructor.
+     *
+     * @param droneHost the host of the drone
+     * @param dronePort the port of the drone
+     * @param cameraHost the host of the camera
+     * @param cameraPort the port of the camera
+     */
+    public Camera(String droneHost, int dronePort, String cameraHost, int cameraPort) {
         this.droneHost = droneHost;
         this.dronePort = dronePort;
-        this.videoHost = videoHost;
-        this.videoPort = videoPort;
+        this.cameraHost = cameraHost;
+        this.cameraPort = cameraPort;
     }
 
+    /**
+     * Starts the video camera.
+     */
     @Override
     public void start() {
         try {
@@ -42,7 +93,7 @@ public final class Camera implements Handler {
 
             Thread.sleep(1000);
 
-            videoSocket = new Socket(InetAddress.getByName(videoHost), videoPort);
+            videoSocket = new Socket(InetAddress.getByName(cameraHost), cameraPort);
             videoOutputStream = new BufferedOutputStream(videoSocket.getOutputStream());
 
             startVideo();
@@ -51,6 +102,9 @@ public final class Camera implements Handler {
         }
     }
 
+    /**
+     * Stops the video camera.
+     */
     @Override
     public void stop() {
         if (videoPlayer != null) {
@@ -71,8 +125,13 @@ public final class Camera implements Handler {
         }
     }
 
+    /**
+     * Starts the video camera.
+     *
+     * @throws IOException if starting the video camera failed
+     */
     private void startVideoCamera() throws IOException {
-        String output = "tcp://" + videoHost + ":" + videoPort + "?listen";
+        String output = "tcp://" + cameraHost + ":" + cameraPort + "?listen";
 
         switch (OS.getOS()) {
             case "win":
@@ -87,6 +146,11 @@ public final class Camera implements Handler {
         }
     }
 
+    /**
+     * Starts the video.
+     *
+     * @throws IOException if starting the video failed
+     */
     private void startVideo() throws IOException {
         if (decoder != null) {
             throw new IOException("Starting the video stream failed!");

@@ -12,27 +12,78 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Class representing the video recorder of a drone.
+ *
+ * @author Nils Berlijn
+ * @version 1.0
+ * @since 1.0
+ */
 public final class Recorder implements Handler {
 
+    /**
+     * The video resource path.
+     */
     private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
 
+    /**
+     * The host of the drone.
+     */
     private final String droneHost;
-    private final int dronePort;
-    private final String recordHost;
-    private final int recordPort;
 
+    /**
+     * The port of the drone.
+     */
+    private final int dronePort;
+
+    /**
+     * The host of the recorder.
+     */
+    private final String recorderHost;
+
+    /**
+     * The port of the recorder.
+     */
+    private final int recorderPort;
+
+    /**
+     * The recorder.
+     */
     private Process recorder;
-    private Socket recordSocket;
-    private OutputStream recordOutputStream;
+
+    /**
+     * The recorder socket.
+     */
+    private Socket recorderSocket;
+
+    /**
+     * The recorder output stream.
+     */
+    private OutputStream recorderOutputStream;
+
+    /**
+     * The decoder.
+     */
     private Decoder decoder;
 
-    public Recorder(String droneHost, int dronePort, String recordHost, int recordPort) {
+    /**
+     * A recorder constructor.
+     *
+     * @param droneHost the host of the drone
+     * @param dronePort the port of the drone
+     * @param recorderHost the recorder of the drone
+     * @param recorderPort the recorder of the drone
+     */
+    public Recorder(String droneHost, int dronePort, String recorderHost, int recorderPort) {
         this.droneHost = droneHost;
         this.dronePort = dronePort;
-        this.recordHost = recordHost;
-        this.recordPort = recordPort;
+        this.recorderHost = recorderHost;
+        this.recorderPort = recorderPort;
     }
 
+    /**
+     * Starts the video recorder.
+     */
     @Override
     public void start() {
         try {
@@ -44,8 +95,8 @@ public final class Recorder implements Handler {
 
             Thread.sleep(1000);
 
-            recordSocket = new Socket(InetAddress.getByName(recordHost), recordPort);
-            recordOutputStream = new BufferedOutputStream(recordSocket.getOutputStream());
+            recorderSocket = new Socket(InetAddress.getByName(recorderHost), recorderPort);
+            recorderOutputStream = new BufferedOutputStream(recorderSocket.getOutputStream());
 
             startRecorder();
         } catch (IOException | InterruptedException e) {
@@ -53,6 +104,9 @@ public final class Recorder implements Handler {
         }
     }
 
+    /**
+     * Stops the video recorder.
+     */
     @Override
     public void stop() {
         if (recorder != null) {
@@ -60,21 +114,26 @@ public final class Recorder implements Handler {
             recorder = null;
         }
 
-        if (recordOutputStream != null && recordSocket != null) {
+        if (recorderOutputStream != null && recorderSocket != null) {
             try {
-                recordOutputStream.close();
-                recordSocket.close();
+                recorderOutputStream.close();
+                recorderSocket.close();
             } catch (IOException e) {
                 System.err.println("Unable to stop recording a video");
             }
 
-            recordOutputStream = null;
-            recordSocket = null;
+            recorderOutputStream = null;
+            recorderSocket = null;
         }
     }
 
+    /**
+     * Starts the video recorder.
+     *
+     * @throws IOException if starting the video recorder failed
+     */
     private void startVideoRecorder() throws IOException {
-        String output = "tcp://" + recordHost + ":" + recordPort + "?listen";
+        String output = "tcp://" + recorderHost + ":" + recorderPort + "?listen";
         String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         String fileName = ("record-" + timestamp + ".mp4");
 
@@ -91,6 +150,11 @@ public final class Recorder implements Handler {
         }
     }
 
+    /**
+     * Start the recorder.
+     *
+     * @throws IOException if starting the recorder failed
+     */
     private void startRecorder() throws IOException {
         if (decoder != null) {
             throw new IOException("Starting recording a video failed!");
@@ -106,11 +170,11 @@ public final class Recorder implements Handler {
                 try {
                     data = decoder.read();
 
-                    if (recordOutputStream != null) {
-                        recordOutputStream.write(data);
+                    if (recorderOutputStream != null) {
+                        recorderOutputStream.write(data);
                     }
 
-                    if (recordOutputStream == null) {
+                    if (recorderOutputStream == null) {
                         decoder.disconnect();
                         break;
                     }

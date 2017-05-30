@@ -9,7 +9,7 @@ import java.awt.*;
  * @version 1.0
  * @since 1.0
  */
-class MainWindowModel {
+final class MainWindowModel {
 
     /**
      * The status of the connect button.
@@ -128,7 +128,7 @@ class MainWindowModel {
     /**
      * Sets the status of the connect button.
      *
-     * @param btnConnectEnabled the status of the connect button
+     * @param btnConnectEnabled the status of the connect button to set
      */
     void setBtnConnectEnabled(boolean btnConnectEnabled) {
         this.btnConnectEnabled = btnConnectEnabled;
@@ -146,7 +146,7 @@ class MainWindowModel {
     /**
      * Sets the text of the connect button.
      *
-     * @param btnConnectText the text of the connect button
+     * @param btnConnectText the text of the connect button to set
      */
     void setBtnConnectText(String btnConnectText) {
         this.btnConnectText = btnConnectText;
@@ -155,8 +155,8 @@ class MainWindowModel {
     /**
      * Sets the context of the connect button
      *
-     * @param btnConnectEnabled the status of the connect button
-     * @param btnConnectText the text of the connect buttion
+     * @param btnConnectEnabled the status of the connect button to set
+     * @param btnConnectText the text of the connect button to set
      */
     void setBtnConnectContext(boolean btnConnectEnabled, String btnConnectText) {
         this.btnConnectEnabled = btnConnectEnabled;
@@ -175,7 +175,7 @@ class MainWindowModel {
     /**
      * Sets the status of the controls button.
      *
-     * @param btnControlsEnabled the status of the controls button
+     * @param btnControlsEnabled the status of the controls button to set
      */
     void setBtnControlsEnabled(boolean btnControlsEnabled) {
         this.btnControlsEnabled = btnControlsEnabled;
@@ -193,7 +193,7 @@ class MainWindowModel {
     /**
      * Sets the text of the controls button.
      *
-     * @param btnControlsText the text of the controls button
+     * @param btnControlsText the text of the controls button to set
      */
     void setBtnControlsText(String btnControlsText) {
         this.btnControlsText = btnControlsText;
@@ -202,8 +202,8 @@ class MainWindowModel {
     /**
      * Sets the context of the controls button
      *
-     * @param btnControlsEnabled the status of the controls button
-     * @param btnControlsText the text of the controls button
+     * @param btnControlsEnabled the status of the controls button to set
+     * @param btnControlsText the text of the controls button to set
      */
     void setBtnControlsContext(boolean btnControlsEnabled, String btnControlsText) {
         this.btnControlsEnabled = btnControlsEnabled;
@@ -222,7 +222,7 @@ class MainWindowModel {
     /**
      * Sets the status of the camera button.
      *
-     * @param btnCameraEnabled the status of the camera button
+     * @param btnCameraEnabled the status of the camera button to set
      */
     void setBtnCameraEnabled(boolean btnCameraEnabled) {
         this.btnCameraEnabled = btnCameraEnabled;
@@ -240,7 +240,7 @@ class MainWindowModel {
     /**
      * Sets the text of the camera button.
      *
-     * @param btnCameraText the text of the camera button
+     * @param btnCameraText the text of the camera button to set
      */
     void setBtnCameraText(String btnCameraText) {
         this.btnCameraText = btnCameraText;
@@ -249,8 +249,8 @@ class MainWindowModel {
     /**
      * Sets the context of the camera button.
      *
-     * @param btnCameraEnabled the status of the camera button
-     * @param btnCameraText the text of the camera button
+     * @param btnCameraEnabled the status of the camera button to set
+     * @param btnCameraText the text of the camera button to set
      */
     void setBtnCameraContext(boolean btnCameraEnabled, String btnCameraText) {
         this.btnCameraEnabled = btnCameraEnabled;
@@ -269,7 +269,7 @@ class MainWindowModel {
     /**
      * Sets the status of the recorder button.
      *
-     * @param btnRecorderEnabled the status of the recorder button.
+     * @param btnRecorderEnabled the status of the recorder button to set
      */
     void setBtnRecorderEnabled(boolean btnRecorderEnabled) {
         this.btnRecorderEnabled = btnRecorderEnabled;
@@ -278,7 +278,7 @@ class MainWindowModel {
     /**
      * Gets the text of the recorder button.
      *
-     * @return the text of the recorder button.
+     * @return the text of the recorder button
      */
     String getBtnRecorderText() {
         return btnRecorderText;
@@ -287,7 +287,7 @@ class MainWindowModel {
     /**
      * Sets the text of the recorder button.
      *
-     * @param btnRecorderText the text of the recorder text.
+     * @param btnRecorderText the text of the recorder text to set
      */
     void setBtnRecorderText(String btnRecorderText) {
         this.btnRecorderText = btnRecorderText;
@@ -296,8 +296,8 @@ class MainWindowModel {
     /**
      * Sets the context of the recorder button.
      *
-     * @param btnRecorderEnabled the status of the recorder button
-     * @param btnRecorderText the text of the recorder button
+     * @param btnRecorderEnabled the status of the recorder button to set
+     * @param btnRecorderText the text of the recorder button to set
      */
     void setBtnRecorderContext(boolean btnRecorderEnabled, String btnRecorderText) {
         this.btnRecorderEnabled = btnRecorderEnabled;
@@ -316,7 +316,7 @@ class MainWindowModel {
     /**
      * Sets the status of the AI button.
      *
-     * @param btnAiEnabled the status of the AI button.
+     * @param btnAiEnabled the status of the AI button to set
      */
     void setBtnAiEnabled(boolean btnAiEnabled) {
         this.btnAiEnabled = btnAiEnabled;
@@ -334,7 +334,7 @@ class MainWindowModel {
     /**
      * Sets the text of the AI button.
      *
-     * @param btnAiText the text of the AI button
+     * @param btnAiText the text of the AI button to set
      */
     void setBtnAiText(String btnAiText) {
         this.btnAiText = btnAiText;
@@ -343,8 +343,8 @@ class MainWindowModel {
     /**
      * Sets the context of the AI button.
      *
-     * @param btnAiEnabled the status of the AI button
-     * @param btnAiText the text of the AI button
+     * @param btnAiEnabled the status of the AI button to set
+     * @param btnAiText the text of the AI button to set
      */
     void setBtnAiContext(boolean btnAiEnabled, String btnAiText) {
         this.btnAiEnabled = btnAiEnabled;
@@ -363,7 +363,7 @@ class MainWindowModel {
     /**
      * Sets the status of the status label.
      *
-     * @param lblStatusEnabled the status of the status label
+     * @param lblStatusEnabled the status of the status label to set
      */
     void setLblStatusEnabled(boolean lblStatusEnabled) {
         this.lblStatusEnabled = lblStatusEnabled;
@@ -381,7 +381,7 @@ class MainWindowModel {
     /**
      * Sets the the foreground color of the status label.
      *
-     * @param lblStatusForeground the foreground color of the status label
+     * @param lblStatusForeground the foreground color of the status label to set
      */
     void setLblStatusForeground(Color lblStatusForeground) {
         this.lblStatusForeground = lblStatusForeground;
@@ -399,7 +399,7 @@ class MainWindowModel {
     /**
      * Sets the text of the status label.
      *
-     * @param lblStatusText the text of the status label
+     * @param lblStatusText the text of the status label to set
      */
     void setLblStatusText(String lblStatusText) {
         this.lblStatusText = lblStatusText;
@@ -408,8 +408,8 @@ class MainWindowModel {
     /**
      * Sets the context of the status label.
      *
-     * @param lblStatusForeground the status of the status label
-     * @param lblStatusText the text of the status label
+     * @param lblStatusForeground the status of the status label to set
+     * @param lblStatusText the text of the status label to set
      */
     void setLblStatusContext(Color lblStatusForeground, String lblStatusText) {
         this.lblStatusForeground = lblStatusForeground;
