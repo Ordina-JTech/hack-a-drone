@@ -33,8 +33,8 @@
 
 - Een drone
 - Laptop met daarop geïnstalleerd:
-  - Java
-  - Maven
+  - Java 8
+  - Maven 3
   - IDE
 - Java code om de drone aan te sturen
 
