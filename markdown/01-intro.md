@@ -25,7 +25,7 @@
 - Uitpakken en opladen van de drone
 - Ophalen van de Java code
 - Het besturen van de drone met je toetsenbord
-- Automatische piloot programmeren met Java
+- Je eigen AI programmeren met Java
 - Wedstrijd met jouw drone tegen andere drones
 
 
