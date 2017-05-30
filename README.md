@@ -1,7 +1,7 @@
 # Hack a Drone
 
 - Bijhorende [presentatie] slides
-- Gebaseerd op de [voorbeeldapplicatie] van Otacon
+- Gebaseerd op de [voorbeeldapplicatie] van [Orfeo Ciano]
 - Werkend en getest op Windows, Unix en OSX
 
 
@@ -77,3 +77,4 @@
 
 [presentatie]: https://ordina-jtech.github.io/hack-a-drone
 [voorbeeldapplicatie]: https://github.com/Otacon/wifi_china_drone_controller
+[Orfeo Ciano]: https://github.com/Otacon
