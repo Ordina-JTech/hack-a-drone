@@ -11,7 +11,7 @@
   - Van 19:30 tot 20:30
 - Behendigheid wedstrijd op een parcours
   - Besturing via toetsenbord, App of controller
-  - Degene met de recordtijd wint en krijgt een prijs
+  - Degene met de recordtijd wint en krijgt een prijs!
 
 
 ## Let op!
