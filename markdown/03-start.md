@@ -16,7 +16,9 @@
 
 ## Let op!
 
-- Let op de mensen om je heen
+- Let op de mensen om je heen als je vliegt met de drone
+- Houd een beetje afstand van elkaar
 - Zet de drone applicatie direct uit indien je de controle kwijt raakt
+- Werk eventueel met zijn tweeën i.v.m. met het opladen van de drone
 
 ![logo](images/drone-head.jpg)
