@@ -39,7 +39,8 @@
 
 - Gebruik de linker pijltjestoets om op te stijgen
 - Gebruik de rechter pijltjestoets om te landen
-- Gebruik de bovenste en onderste pijltjestoetsen om omhoog of omlaag te gaan
+- Gebruik de bovenste pijltjestoets om omhoog te gaan
+- Gebruik de onderste pijltjestoets om omlaag te gaan
 - Gebruik de toetsen W en S om voor- of achteruit te gaan
 - Gebruik de toetsen A en D om links of rechts te gaan
 - Gebruik de toetsen Q en E om links- of rechtsom te draaien
