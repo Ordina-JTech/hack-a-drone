@@ -7,7 +7,7 @@
 
 ## Drone wedstrijd
 
-- Als je het leuk vind kan je aan de drone wedstrijd mee doen
+- Als je het leuk vindt kan je aan de drone wedstrijd mee doen
   - Van 19:30 tot 20:30
 - Behendigheid wedstrijd op een parcours
   - Besturing via toetsenbord, App of controller
