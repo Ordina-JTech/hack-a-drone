@@ -60,10 +60,8 @@ public final class AI implements Device {
         command.setTakeOff(true);
         commandListener.onCommandReceived(command);
 
-        for (int i = 0; i < 25; i++) {
-            command.setThrottle(-127);
-            commandListener.onCommandReceived(command);
-        }
+        command.setLand(true);
+        commandListener.onCommandReceived(command);
     }
 
     /**
