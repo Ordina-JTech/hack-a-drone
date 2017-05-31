@@ -1,3 +1,13 @@
+## Wie zijn wij?
+
+||
+| ------------- |:-------------
+| ![headshot](images/us/erik-berndt.jpg) | Erik-Berndt Scheper <!-- .element: style="vertical-align: middle;" -->
+| ![headshot](images/us/johanhutting.png) | Johan Hutting    <!-- .element: style="vertical-align: middle;" -->
+| ![headshot](images/us/thomas.png)      | Thomas Lodewijk     <!-- .element: style="vertical-align: middle;" -->
+| ![headshot](images/us/nils.jpg)      | Nils Berlijn    <!-- .element: style="vertical-align: middle;" -->
+
+
 ## Agenda
 
 ||
@@ -10,20 +20,10 @@
 | 20:30 – 21:00 | Borrel en napraten
 
 
-## Wie zijn wij?
-
-||
-| ------------- |:-------------
-| ![headshot](images/us/erik-berndt.jpg) | Erik-Berndt Scheper <!-- .element: style="vertical-align: middle;" -->
-| ![headshot](images/us/johanhutting.png) | Johan Hutting    <!-- .element: style="vertical-align: middle;" -->
-| ![headshot](images/us/thomas.png)      | Thomas Lodewijk     <!-- .element: style="vertical-align: middle;" -->
-| ![headshot](images/us/nils.jpg)      | Nils Berlijn    <!-- .element: style="vertical-align: middle;" -->
-
-
 ## Doelstellingen
 
 - Uitpakken en opladen van de drone
-- Ophalen van de Java code
+- De Java code ophalen van GitHub
 - Het besturen van de drone met je toetsenbord
 - Je eigen AI programmeren met Java
 - Wedstrijd met jouw drone tegen andere drones

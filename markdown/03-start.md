@@ -7,10 +7,16 @@
 
 ## Drone wedstrijd
 
-- Indien gewenst kan je aan de wedstrijd mee doen
-  - Opgeven voor 19:30
+- Als je het leuk vind kan je aan de drone wedstrijd mee doen
   - Van 19:30 tot 20:30
-- Wedstrijd 1 tegen 1
-  - Besturing via toetsenbord, AI, App of controller
-  - Deelnemers worden opgesplist in groepen per besturing
-  - De winnaar per groep krijgt een prijs!
+- Behendigheid wedstrijd op een parcours
+  - Besturing via toetsenbord, App of controller
+  - Degene met de recordtijd wint en krijgt een prijs
+
+
+## Let op!
+
+- Let op de mensen om je heen
+- Zet de drone applicatie direct uit indien je de controle kwijt raakt
+
+![logo](images/drone-head.jpg)

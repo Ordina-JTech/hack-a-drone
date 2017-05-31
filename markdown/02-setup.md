@@ -4,6 +4,7 @@
 - Laad de drone op via USB met de meegeleverde kabel
   - Het opladen duurt ongeveer 20 minuten
 - Laat de drone nog even uitstaan!
+  - We gaan nu eerst eten!
 
 
 ## De Java code
@@ -38,6 +39,6 @@
 
 - Gebruik de linker pijltjestoets om op te stijgen
 - Gebruik de rechter pijltjestoets om te landen
-- Gebruik de toetsen W en A om voor- of achteruit te gaan
+- Gebruik de toetsen W en S om voor- of achteruit te gaan
 - Gebruik de toetsen A en D om links of rechts te gaan
 - Gebruik de toetsen Q en E om links- of rechtsom te draaien
