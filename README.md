@@ -31,8 +31,6 @@
 
 ## De Java code
 
-- Maak verbinding met Ordina WiFi "Public"
-  - Wachtwoord: GuestAccess2012
 - Haal de Java code op van GitHub:
   - https://github.com/Ordina-JTech/hack-a-drone.git
 - Open de Java code in jouw favoriete IDE
