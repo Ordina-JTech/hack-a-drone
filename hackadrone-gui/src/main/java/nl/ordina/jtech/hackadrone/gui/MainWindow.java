@@ -24,6 +24,7 @@ import nl.ordina.jtech.hackadrone.utils.ANSI;
 import nl.ordina.jtech.hackadrone.utils.SpecialColor;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,7 +39,7 @@ import java.util.function.Consumer;
  * @version 1.0
  * @since 1.0
  */
-public final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
+final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
 
     /**
      * The width of the main window.
@@ -61,39 +62,43 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
     private MainWindowModel model = new MainWindowModel();
 
     /**
-     * The default panel.
+     * The main panel.
      */
-    private JPanel panel;
+    private JPanel mainPanel = new JPanel();
+
+    private JPanel buttonsPanel = new JPanel();
+
+    private JPanel statusPanel = new JPanel();
 
     /**
      * The connect button.
      */
-    private JButton btnConnect;
+    private JButton btnConnect = new JButton("Connect");
 
     /**
      * The controls button.
      */
-    private JButton btnControls;
+    private JButton btnControls = new JButton("Start Controls");
 
     /**
      * The camera button.
      */
-    private JButton btnCamera;
+    private JButton btnCamera = new JButton("Start Camera");
 
     /**
      * The recorder button.
      */
-    private JButton btnRecorder;
+    private JButton btnRecorder = new JButton("Start Recorder");
 
     /**
      * The AI button.
      */
-    private JButton btnAi;
+    private JButton btnAi = new JButton("Start AI");
 
     /**
-     * The status button.
+     * The status label.
      */
-    private JLabel lblStatus;
+    private JLabel lblStatus = new JLabel();
 
     /**
      * The connected status.
@@ -132,32 +137,53 @@ public final class MainWindow extends JFrame implements Frame, ActionListener, C
      */
     @Override
     public void init() {
+        setTitle(cx10.getName());
+        setSize(WIDTH, HEIGHT);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLocationByPlatform(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setContentPane(mainPanel);
+
+        btnConnect.setPreferredSize(new Dimension(125, 25));
         btnConnect.setEnabled(true);
+        btnConnect.addActionListener(this);
+
+        btnControls.setPreferredSize(new Dimension(125, 25));
         btnControls.setEnabled(false);
+        btnControls.addActionListener(this);
+
+        btnCamera.setPreferredSize(new Dimension(125, 25));
         btnCamera.setEnabled(false);
+        btnCamera.addActionListener(this);
+
+        btnRecorder.setPreferredSize(new Dimension(125, 25));
         btnRecorder.setEnabled(false);
+        btnRecorder.addActionListener(this);
+
+        btnAi.setPreferredSize(new Dimension(125, 25));
         btnAi.setEnabled(false);
+        btnAi.addActionListener(this);
 
         lblStatus.setEnabled(true);
 
-        btnConnect.addActionListener(this);
-        btnControls.addActionListener(this);
-        btnCamera.addActionListener(this);
-        btnRecorder.addActionListener(this);
-        btnAi.addActionListener(this);
+        buttonsPanel.add(btnConnect);
+        buttonsPanel.add(btnControls);
+        buttonsPanel.add(btnCamera);
+        buttonsPanel.add(btnRecorder);
+        buttonsPanel.add(btnAi);
+
+        statusPanel.add(lblStatus);
+
+        mainPanel.setLayout(new GridLayout(2, 1));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        mainPanel.add(buttonsPanel);
+        mainPanel.add(statusPanel);
 
         initModel();
 
-        add(panel);
-        setTitle(cx10.getName());
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        setAlwaysOnTop(true);
-        setLocationByPlatform(true);
-        panel.setVisible(true);
         setVisible(true);
-        pack();
 
         System.out.println(ANSI.BLUE + "Welcome to the " + cx10.getName() + " Graphical User Interface (GUI)" + ANSI.RESET);
     }
