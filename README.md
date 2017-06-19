@@ -12,7 +12,7 @@
   - Java 8
   - Maven 3
   - IDE
-- Java code om de drone aan te sturen
+- Java-code om de drone aan te sturen
 
 
 ## De drone
@@ -29,11 +29,11 @@
 
 # Opzetten
 
-## De Java code
+## De Java-code
 
-- Haal de Java code op van GitHub:
+- Haal de Java-code op van GitHub:
   - https://github.com/Ordina-JTech/hack-a-drone.git
-- Open de Java code in jouw favoriete IDE
+- Open de code in jouw favoriete IDE
 
 
 ## Verbinding maken met de drone
@@ -42,7 +42,7 @@
 - Maak verbinding met de drone over WiFi
   - Je herkent de drone aan de benaming "CX-10WD-******"
   - Leg de drone dicht bij je laptop om hem makkelijk te vinden
-- Start de Java code op vanuit:
+- Start de Java-code op vanuit:
   - nl.ordina.jtech.hackadrone.gui.GUI
 
 
@@ -71,7 +71,7 @@
 ## Uitbreiden van de drone
 
 - Schrijf je eigen AI om de drone aan te sturen
-- Gebruik hiervoor de basis Java code van de AI:
+- Gebruik hiervoor de basis Java-code van de AI:
   - nl.ordina.jtech.hackadrone.core.io.AI
 
 
