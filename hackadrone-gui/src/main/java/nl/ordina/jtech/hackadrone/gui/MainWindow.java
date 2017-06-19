@@ -66,8 +66,14 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
      */
     private JPanel mainPanel = new JPanel();
 
+    /**
+     * The buttons panel.
+     */
     private JPanel buttonsPanel = new JPanel();
 
+    /**
+     * The status panel.
+     */
     private JPanel statusPanel = new JPanel();
 
     /**
