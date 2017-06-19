@@ -1,6 +1,6 @@
 # Hack a Drone
 
-- Bijhorende [presentatie] slides
+- Bijbehorende [presentatie] slides
 - Gebaseerd op de [voorbeeldapplicatie] van [Orfeo Ciano]
 - Werkend en getest op Windows, Unix en OSX
 
