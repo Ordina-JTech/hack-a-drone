@@ -1,4 +1,4 @@
-# Hack a Drone presentation.
+# Hack a Drone presentation
 
 Test this page using
 
@@ -13,5 +13,3 @@ And kill it using
 docker rm -f hackadrone-ws-site && \
 docker rmi -f hackadrone-ws
 ```
-
-

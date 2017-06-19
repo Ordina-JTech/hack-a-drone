@@ -1,7 +1,7 @@
 ## Uitbreiden van de drone
 
 - Schrijf je eigen AI om de drone aan te sturen
-- Gebruik hiervoor de basis Java code van de AI:
+- Gebruik hiervoor de basis Java-code van de AI:
   - nl.ordina.jtech.hackadrone.core.io.AI
 
 
@@ -10,7 +10,7 @@
 - Als je het leuk vindt kan je aan de drone wedstrijd mee doen
   - Van 19:30 tot 20:30
 - Behendigheid wedstrijd op een parcours
-  - Besturing via toetsenbord, App of controller
+  - Besturing via het toetsenbord, de App of de controller
   - Degene met de recordtijd wint en krijgt een prijs!
 
 

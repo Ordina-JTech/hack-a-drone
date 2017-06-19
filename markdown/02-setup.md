@@ -7,13 +7,13 @@
 - We gaan nu eerst even samen eten
 
 
-## De Java code
+## De Java-code
 
 - Maak verbinding met Ordina WiFi "Public"
   - Wachtwoord: GuestAccess2012
-- Haal de Java code op van GitHub:
+- Haal de Java-code op van GitHub:
   - https://github.com/Ordina-JTech/hack-a-drone.git
-- Open de Java code in jouw favoriete IDE
+- Open de code in jouw favoriete IDE
 
 
 ## Verbinding maken met de drone
@@ -22,7 +22,7 @@
 - Maak verbinding met de drone over WiFi
   - Je herkent de drone aan de benaming "CX-10WD-******"
   - Leg de drone dicht bij je laptop om hem makkelijk te vinden
-- Start de Java code op vanuit:
+- Start de Java-code op vanuit:
   - nl.ordina.jtech.hackadrone.gui.GUI
 
 

@@ -2,10 +2,9 @@
 
 ||
 | ------------- |:-------------
-| ![headshot](images/us/erik-berndt.jpg) | Erik-Berndt Scheper <!-- .element: style="vertical-align: middle;" -->
-| ![headshot](images/us/johanhutting.png) | Johan Hutting    <!-- .element: style="vertical-align: middle;" -->
-| ![headshot](images/us/thomas.png)      | Thomas Lodewijk     <!-- .element: style="vertical-align: middle;" -->
-| ![headshot](images/us/nils.jpg)      | Nils Berlijn    <!-- .element: style="vertical-align: middle;" -->
+| ![headshot](images/us/nils.jpg) | Nils Berlijn <!-- .element: style="vertical-align: middle;" -->
+| ![headshot](images/us/johan.png) | Johan Hutting <!-- .element: style="vertical-align: middle;" -->
+| ![headshot](images/us/remco.jpg) | Remco Runge <!-- .element: style="vertical-align: middle;" -->
 
 
 ## Agenda
@@ -23,7 +22,7 @@
 ## Doelstellingen
 
 - Uitpakken en opladen van de drone
-- De Java code ophalen van GitHub
+- De Java-code ophalen van GitHub
 - Het besturen van de drone met je toetsenbord
 - Je eigen AI programmeren met Java
 - Wedstrijd met jouw drone tegen andere drones
@@ -36,7 +35,7 @@
   - Java 8
   - Maven 3
   - IDE
-- Java code om de drone aan te sturen
+- Java-code om de drone aan te sturen
 
 
 ## De drone
