@@ -183,7 +183,7 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
         statusPanel.add(lblStatus);
 
         mainPanel.setLayout(new GridLayout(2, 1));
-        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
         mainPanel.add(buttonsPanel);
         mainPanel.add(statusPanel);
 
