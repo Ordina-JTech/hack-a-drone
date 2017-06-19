@@ -127,14 +127,4 @@
       </grid>
     </children>
   </grid>
-  <buttonGroups>
-    <group name="ControlsRadioGroup">
-      <member id="d9f15"/>
-      <member id="20282"/>
-    </group>
-    <group name="buttonGroupSO">
-      <member id="195a1"/>
-      <member id="284ba"/>
-    </group>
-  </buttonGroups>
 </form>
