@@ -22,13 +22,13 @@ import nl.ordina.jtech.hackadrone.models.Command;
 /**
  * Class representing the artificial intelligence (AI) for a drone.
  *
- * The AI is part of a device and can be inserted into a controller.
+ * The AI is part of a device and can be inserted into an AI controller.
  * The AI uses a command listener to handle commands and uses the command model for the available commands.
  * The controller uses the command listener to handle the triggered commands.
  *
- * @see AiController for more information about the working flow of the controller
+ * @see AiController for more information about the working flow of the AI controller
  * @see CommandListener for the interface that is used to handle commands
- * @see Command for a more detailed explanation about using the commands
+ * @see Command for a more detailed explanation about the available commands
  *
  * @author Nils Berlijn
  * @author Nanne Huiges
