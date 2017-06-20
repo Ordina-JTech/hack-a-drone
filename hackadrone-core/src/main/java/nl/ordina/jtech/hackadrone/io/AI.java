@@ -16,6 +16,7 @@
 
 package nl.ordina.jtech.hackadrone.io;
 
+import nl.ordina.jtech.hackadrone.controllers.AiController;
 import nl.ordina.jtech.hackadrone.models.Command;
 
 /**
@@ -25,7 +26,7 @@ import nl.ordina.jtech.hackadrone.models.Command;
  * The AI uses a command listener to handle commands and uses the command model for the available commands.
  * The controller uses the command listener to handle the triggered commands.
  *
- * @see Controller for more information about the working flow of the controller
+ * @see AiController for more information about the working flow of the controller
  * @see CommandListener for the interface that is used to handle commands
  * @see Command for a more detailed explanation about using the commands
  *
@@ -63,19 +64,19 @@ public final class AI implements Device {
     @Override
     public void start() {
         // Take off
-        chill(5000);
+        chill(500);
         takeOff();
 
         // Turn around
-        chill(3000);
+        chill(500);
         yaw(127, 1000);
 
         // Move backwards
-        chill(3000);
+        chill(500);
         pitch(-100, 1000);
 
         // Land
-        chill(3000);
+        chill(250);
         land();
     }
 
@@ -186,7 +187,7 @@ public final class AI implements Device {
     private void takeOff() {
         Command takeOffCommand = new Command();
         takeOffCommand.setTakeOff(true);
-        runCommandFor(takeOffCommand, 5000);
+        runCommandFor(takeOffCommand, 500);
     }
 
     /**
@@ -197,7 +198,7 @@ public final class AI implements Device {
     private void land() {
         Command landCommand = new Command();
         landCommand.setLand(true);
-        runCommandFor(landCommand, 5000);
+        runCommandFor(landCommand, 10000);
     }
 
     /**

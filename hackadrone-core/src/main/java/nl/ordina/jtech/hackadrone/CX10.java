@@ -17,6 +17,8 @@
 package nl.ordina.jtech.hackadrone;
 
 import nl.ordina.jtech.hackadrone.io.*;
+import nl.ordina.jtech.hackadrone.controllers.AiController;
+import nl.ordina.jtech.hackadrone.controllers.ControlsController;
 import nl.ordina.jtech.hackadrone.net.CommandConnection;
 import nl.ordina.jtech.hackadrone.net.TransportConnection;
 import nl.ordina.jtech.hackadrone.utils.ByteUtils;
@@ -84,9 +86,9 @@ public final class CX10 implements Drone {
     private TransportConnection transportConnection;
 
     /**
-     * The controller.
+     * The controls controller.
      */
-    private Controller controller;
+    private ControlsController controls;
 
     /**
      * The heartbeat.
@@ -106,7 +108,7 @@ public final class CX10 implements Drone {
     /**
      * The AI controller.
      */
-    private Controller ai;
+    private AiController ai;
 
     /**
      * Connects.
@@ -197,11 +199,11 @@ public final class CX10 implements Drone {
     @Override
     public void startControls(Device device) throws DroneException {
         try {
-            if (controller == null) {
-                controller = new Controller(device, new CommandConnection(IO_HOST, IO_PORT));
+            if (controls == null) {
+                controls = new ControlsController(device, new CommandConnection(IO_HOST, IO_PORT));
             }
 
-            controller.start();
+            controls.start();
         } catch (IOException | IllegalThreadStateException e) {
             throw new DroneException("Starting the controls of the " + NAME + " failed!");
         }
@@ -214,9 +216,9 @@ public final class CX10 implements Drone {
      */
     @Override
     public void stopControls() throws DroneException {
-        if (controller != null) {
-            controller.interrupt();
-            controller = null;
+        if (controls != null) {
+            controls.interrupt();
+            controls = null;
         } else {
             throw new DroneException("Stopping the controls of the " + NAME + " failed!");
         }
@@ -291,7 +293,7 @@ public final class CX10 implements Drone {
     public void startAi() throws DroneException {
         try {
             if (ai == null) {
-                ai = new Controller(new AI(), new CommandConnection(IO_HOST, IO_PORT));
+                ai = new AiController(new AI(), new CommandConnection(IO_HOST, IO_PORT));
             }
 
             ai.start();
