@@ -64,16 +64,28 @@ public final class AI implements Device {
     @Override
     public void start() {
         // Take off
-        chill(500);
+        chill(250);
         takeOff();
 
-        // Turn around
+        // Move forward
         chill(500);
-        yaw(127, 1000);
+        pitch(100, 2000);
 
-        // Move backwards
+        // Brake
+        chill(250);
+        pitch(-50, 250);
+
+        // Turn around
+        chill(1000);
+        yaw(127, 2000);
+
+        // Move backward
         chill(500);
-        pitch(-100, 1000);
+        pitch(-100, 500);
+
+        // Brake
+        chill(250);
+        pitch(-50, 250);
 
         // Land
         chill(250);
