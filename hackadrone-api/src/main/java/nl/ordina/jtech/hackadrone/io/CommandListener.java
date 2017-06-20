@@ -22,6 +22,7 @@ import nl.ordina.jtech.hackadrone.models.Command;
  * Interface representing a command listener.
  *
  * @author Nils Berlijn
+ * @author Nanne Huiges
  * @version 1.0
  * @since 1.0
  */
@@ -33,5 +34,12 @@ public interface CommandListener {
      * @param command the command to handle
      */
     void onCommandReceived(Command command);
+
+    /**
+     * Gets the delay between commands in ms.
+     *
+     * @return the delay between commands in ms
+     */
+    int getDelay();
 
 }

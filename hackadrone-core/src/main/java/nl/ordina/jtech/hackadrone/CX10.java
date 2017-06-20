@@ -27,6 +27,7 @@ import java.io.IOException;
  * Class representing a CX10 drone.
  *
  * @author Nils Berlijn
+ * @author Nanne Huiges
  * @version 1.0
  * @since 1.0
  */
