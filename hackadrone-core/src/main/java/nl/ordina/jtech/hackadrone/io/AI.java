@@ -69,7 +69,7 @@ public final class AI implements Device {
 
         // Move forward
         chill(500);
-        pitch(100, 2000);
+        pitch(100, 1000);
 
         // Brake
         chill(250);
