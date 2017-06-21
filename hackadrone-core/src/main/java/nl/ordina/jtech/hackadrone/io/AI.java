@@ -171,7 +171,7 @@ public final class AI implements Device {
      */
     private void roll(int roll, int ms) {
         Command rollCommand = new Command();
-        rollCommand.setYaw(roll);
+        rollCommand.setRoll(roll);
         runCommandFor(rollCommand, ms);
     }
 
@@ -187,7 +187,7 @@ public final class AI implements Device {
      */
     private void throttle(int throttle, int ms) {
         Command throttleCommand = new Command();
-        throttleCommand.setYaw(throttle);
+        throttleCommand.setThrottle(throttle);
         runCommandFor(throttleCommand, ms);
     }
 
