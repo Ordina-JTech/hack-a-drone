@@ -4,7 +4,6 @@
 - Laad de drone op via USB met de meegeleverde kabel
   - Het opladen duurt ongeveer 20 minuten
 - Laat de drone nog even uitstaan!
-- We gaan nu eerst even samen eten
 
 
 ## De Java-code
