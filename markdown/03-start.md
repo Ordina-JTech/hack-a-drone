@@ -5,15 +5,6 @@
   - nl.ordina.jtech.hackadrone.core.io.AI
 
 
-## Drone wedstrijd
-
-- Als je het leuk vindt kan je aan de drone wedstrijd mee doen
-  - Van 19:30 tot 20:30
-- Behendigheid wedstrijd op een parcours
-  - Besturing via het toetsenbord, de App of de controller
-  - Degene met de recordtijd wint en krijgt een prijs!
-
-
 ## Let op!
 
 - Let op de mensen om je heen als je vliegt met de drone

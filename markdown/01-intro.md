@@ -15,8 +15,7 @@
 | 17:15 – 17:30 | Drone uitpakken en opladen
 | 17:30 – 18:00 | Samen eten
 | 18:00 – 20:30 | Drone programmeren
-| 19:30 – 20:30 | Drone wedstrijd
-| 20:30 – 21:00 | Borrel en napraten
+| 20:30 – 21:00 | Afronding en napraten
 
 
 ## Doelstellingen
@@ -25,7 +24,6 @@
 - De Java-code ophalen van GitHub
 - Het besturen van de drone met je toetsenbord
 - Je eigen AI programmeren met Java
-- Wedstrijd met jouw drone tegen andere drones
 
 
 ## Benodigdheden
