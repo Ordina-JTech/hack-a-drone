@@ -16,10 +16,6 @@
 
 package nl.ordina.jtech.hackadrone.io;
 
-import nl.ordina.jtech.hackadrone.net.Decoder;
-import nl.ordina.jtech.hackadrone.net.DroneDecoder;
-import nl.ordina.jtech.hackadrone.utils.OS;
-
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,19 +24,18 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import nl.ordina.jtech.hackadrone.net.DroneDecoder;
+import nl.ordina.jtech.hackadrone.utils.OS;
+
 /**
  * Class representing the video recorder for a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class Recorder implements Handler {
 
     /**
      * The video resource path.
      */
-    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
+    private static final String VIDEO_PATH = "hackadrone-persistence/target/classes/video";
 
     /**
      * The host of the drone.
@@ -80,7 +75,7 @@ public final class Recorder implements Handler {
     /**
      * The decoder.
      */
-    private Decoder decoder;
+    private DroneDecoder decoder;
 
     /**
      * A recorder constructor.
@@ -116,7 +111,7 @@ public final class Recorder implements Handler {
 
             startRecorder();
         } catch (IOException | InterruptedException e) {
-            System.err.println("Unable to start recording a video");
+            System.err.println("Unable to start recording a video" + e);
         }
     }
 
@@ -176,33 +171,11 @@ public final class Recorder implements Handler {
             throw new IOException("Starting recording a video failed!");
         }
 
-        decoder = new DroneDecoder(droneHost, dronePort);
-        decoder.connect();
+        decoder = new DroneDecoder(droneHost, dronePort, recorderOutputStream);
 
-        final Thread thread = new Thread(() -> {
-            byte[] data = null;
+        Thread decoderThread = new Thread(decoder);
+        decoderThread.start();
 
-            do {
-                try {
-                    data = decoder.read();
-
-                    if (recorderOutputStream != null) {
-                        recorderOutputStream.write(data);
-                    }
-
-                    if (recorderOutputStream == null) {
-                        decoder.disconnect();
-                        break;
-                    }
-                } catch (IOException e) {
-                    System.err.println("Unable to read record output stream");
-                }
-            } while (data != null);
-
-            decoder = null;
-        });
-
-        thread.start();
     }
 
 }

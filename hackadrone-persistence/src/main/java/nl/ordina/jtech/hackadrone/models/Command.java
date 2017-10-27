@@ -21,10 +21,6 @@ package nl.ordina.jtech.hackadrone.models;
  *
  * This command model contains commands that are used to control a drone with.
  * The commands pitch, yaw, roll, throttle, take off and land are available to use.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class Command {
 

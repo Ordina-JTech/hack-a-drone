@@ -27,17 +27,16 @@
     <parent>
         <groupId>nl.ordina.jtech</groupId>
         <artifactId>hackadrone-parent</artifactId>
-        <version>1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../hackadrone-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>hackadrone-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>Hackadrone Core</name>
 
     <dependencies>
+        <!-- internal dependencies -->
         <dependency>
             <groupId>nl.ordina.jtech</groupId>
             <artifactId>hackadrone-api</artifactId>
@@ -45,6 +44,26 @@
         <dependency>
             <groupId>nl.ordina.jtech</groupId>
             <artifactId>hackadrone-utils</artifactId>
+        </dependency>
+
+        <!-- external dependencies -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <!-- deeplearning -->
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-zoo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-native-platform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-core</artifactId>
         </dependency>
     </dependencies>
 

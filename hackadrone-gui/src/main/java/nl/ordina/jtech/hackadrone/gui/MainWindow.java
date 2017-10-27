@@ -16,6 +16,22 @@
 
 package nl.ordina.jtech.hackadrone.gui;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.function.Consumer;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
+
 import nl.ordina.jtech.hackadrone.CX10;
 import nl.ordina.jtech.hackadrone.Drone;
 import nl.ordina.jtech.hackadrone.DroneException;
@@ -23,28 +39,15 @@ import nl.ordina.jtech.hackadrone.io.Keyboard;
 import nl.ordina.jtech.hackadrone.utils.ANSI;
 import nl.ordina.jtech.hackadrone.utils.SpecialColor;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.function.Consumer;
-
 /**
  * Class representing a main window that exists within a Graphical User Interface (GUI).
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 final class MainWindow extends JFrame implements Frame, ActionListener, ClickEvent {
 
     /**
      * The width of the main window.
      */
-    private static final int WIDTH = 750;
+    private static final int WIDTH = 1000;
 
     /**
      * The height of the main window.
@@ -97,9 +100,14 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
     private JButton btnRecorder = new JButton("Start Recorder");
 
     /**
-     * The AI button.
+     * The AutoPilot button.
      */
-    private JButton btnAi = new JButton("Start AI");
+    private JButton btnAutoPilot = new JButton("Start AutoPilot");
+
+    /**
+     * The DeepLearning button.
+     */
+    private JButton btnDeepLearning = new JButton("Start DeepLearning");
 
     /**
      * The status label.
@@ -127,9 +135,14 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
     private boolean isRecording = false;
 
     /**
-     * The AI status.
+     * The AutoPilot status.
      */
-    private boolean isAi = false;
+    private boolean isAutoPilotOn = false;
+
+    /**
+     * The DeepLearning status.
+     */
+    private boolean isDeepLearningOn = false;
 
     /**
      * A main window constructor.
@@ -168,9 +181,13 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
         btnRecorder.setEnabled(false);
         btnRecorder.addActionListener(this);
 
-        btnAi.setPreferredSize(new Dimension(125, 25));
-        btnAi.setEnabled(false);
-        btnAi.addActionListener(this);
+        btnAutoPilot.setPreferredSize(new Dimension(125, 25));
+        btnAutoPilot.setEnabled(false);
+        btnAutoPilot.addActionListener(this);
+
+        btnDeepLearning.setPreferredSize(new Dimension(150, 25));
+        btnDeepLearning.setEnabled(false);
+        btnDeepLearning.addActionListener(this);
 
         lblStatus.setEnabled(true);
 
@@ -178,7 +195,8 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
         buttonsPanel.add(btnControls);
         buttonsPanel.add(btnCamera);
         buttonsPanel.add(btnRecorder);
-        buttonsPanel.add(btnAi);
+        buttonsPanel.add(btnAutoPilot);
+        buttonsPanel.add(btnDeepLearning);
 
         statusPanel.add(lblStatus);
 
@@ -208,8 +226,10 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
                 onCameraClicked();
             } else if (actionEvent.getSource() == btnRecorder) {
                 onRecorderClicked();
-            } else if (actionEvent.getSource() == btnAi) {
-                onAiClicked();
+            } else if (actionEvent.getSource() == btnAutoPilot) {
+                onAutoPilotBtnClicked();
+            } else if (actionEvent.getSource() == btnDeepLearning) {
+                onDeepLearningBtnClicked();
             }
         }).start();
     }
@@ -263,14 +283,25 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
     }
 
     /**
-     * Handles AI button.
+     * Handles AutoPilot button.
      */
     @Override
-    public void onAiClicked() {
-        if (!isAi) {
-            startAi();
+    public void onAutoPilotBtnClicked() {
+        if (!isAutoPilotOn) {
+            startAutoPilot();
         } else {
-            stopAi();
+            stopAutoPilot();
+        }
+    }
+
+    /**
+     * Handles the DeepLearning button.
+     */
+    private void onDeepLearningBtnClicked() {
+        if (!isDeepLearningOn) {
+            startDeepLearning();
+        } else {
+            stopDeepLearning();
         }
     }
 
@@ -297,7 +328,8 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
                 model.setBtnControlsEnabled(true);
                 model.setBtnCameraEnabled(true);
                 model.setBtnRecorderEnabled(true);
-                model.setBtnAiEnabled(true);
+                model.setBtnAutoPilotEnabled(true);
+                model.setBtnDeepLearningEnabled(true);
                 model.setLblStatusContext(SpecialColor.GREEN, "Connection successfully established");
             });
 
@@ -327,7 +359,8 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
             stopRecorder();
             stopCamera();
             stopControls();
-            stopAi();
+            stopAutoPilot();
+            stopDeepLearning();
 
             cx10.stopHeartbeat();
             cx10.disconnect();
@@ -339,7 +372,8 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
                 model.setBtnControlsContext(false, "Start Controls");
                 model.setBtnCameraContext(false, "Start Camera");
                 model.setBtnRecorderContext(false, "Start Recorder");
-                model.setBtnAiContext(false, "Start AI");
+                model.setBtnAutoPilotContext(false, "Start AutoPilot");
+                model.setBtnDeepLearningContext(false, "Start DeepLearning");
                 model.setLblStatusContext(SpecialColor.GREEN, "Disconnection successful");
             });
 
@@ -363,7 +397,7 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
 
             updateModel(model -> {
                 model.setBtnControlsContext(false, "Starting controls...");
-                model.setBtnAiEnabled(false);
+                model.setBtnAutoPilotEnabled(false);
                 model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start the controls...");
             });
 
@@ -380,7 +414,7 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
         } catch (IOException e) {
             updateModel(model -> {
                 model.setBtnControlsContext(true, "Start Controls");
-                model.setBtnAiEnabled(true);
+                model.setBtnAutoPilotEnabled(true);
                 model.setLblStatusContext(SpecialColor.RED, "Starting the controls failed!");
             });
 
@@ -406,7 +440,7 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
 
             updateModel(model -> {
                 model.setBtnControlsContext(true, "Start Controls");
-                model.setBtnAiEnabled(true);
+                model.setBtnAutoPilotEnabled(true);
                 model.setLblStatusContext(SpecialColor.GREEN, "Controls successfully stopped");
             });
 
@@ -556,69 +590,136 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
     }
 
     /**
-     * Starts the AI.
+     * Starts the AutoPilot.
      */
-    private void startAi() {
+    private void startAutoPilot() {
         try {
-            System.out.println(ANSI.YELLOW + "Trying to start the AI..." + ANSI.RESET);
+            System.out.println(ANSI.YELLOW + "Trying to start the AutoPilot..." + ANSI.RESET);
 
             updateModel(model -> {
                 model.setBtnControlsEnabled(false);
-                model.setBtnAiContext(false, "Starting AI...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start AI...");
+                model.setBtnAutoPilotContext(false, "Starting AutoPilot...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start AutoPilot...");
             });
 
-            cx10.startAi();
+            cx10.startAutoPilot();
 
-            isAi = true;
+            isAutoPilotOn = true;
 
             updateModel(model -> {
-                model.setBtnAiContext(true, "Stop AI");
-                model.setLblStatusContext(SpecialColor.GREEN, "Starting AI successfully started");
+                model.setBtnAutoPilotContext(true, "Stop AutoPilot");
+                model.setLblStatusContext(SpecialColor.GREEN, "Starting AutoPilot successfully started");
             });
 
-            System.out.println(ANSI.GREEN + "Starting AI successfully started" + ANSI.RESET);
+            System.out.println(ANSI.GREEN + "Starting AutoPilot successfully started" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
                 model.setBtnControlsEnabled(true);
-                model.setBtnAiContext(true, "Start AI");
-                model.setLblStatusContext(SpecialColor.RED, "Starting AI failed!");
+                model.setBtnAutoPilotContext(true, "Start AutoPilot");
+                model.setLblStatusContext(SpecialColor.RED, "Starting AutoPilot failed!");
             });
 
-            System.out.println(ANSI.RED + "Starting AI failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Starting AutoPilot failed!" + ANSI.RESET);
         }
     }
 
     /**
-     * Stops the AI.
+     * Stops the AutoPilot.
      */
-    private void stopAi() {
+    private void stopAutoPilot() {
         try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the AI..." + ANSI.RESET);
+            System.out.println(ANSI.YELLOW + "Trying to stop the AutoPilot..." + ANSI.RESET);
 
             updateModel(model -> {
-                model.setBtnAiContext(false, "Stopping AI...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the AI.");
+                model.setBtnAutoPilotContext(false, "Stopping AutoPilot...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the AutoPilot.");
             });
 
-            cx10.stopAi();
+            cx10.stopAutoPilot();
 
-            isAi = false;
+            isAutoPilotOn = false;
 
             updateModel(model -> {
                 model.setBtnControlsEnabled(true);
-                model.setBtnAiContext(true, "Start AI");
-                model.setLblStatusContext(SpecialColor.GREEN, "AI successfully stopped");
+                model.setBtnAutoPilotContext(true, "Start AutoPilot");
+                model.setLblStatusContext(SpecialColor.GREEN, "AutoPilot successfully stopped");
             });
 
-            System.out.println(ANSI.GREEN + "AI successfully stopped" + ANSI.RESET);
+            System.out.println(ANSI.GREEN + "AutoPilot successfully stopped" + ANSI.RESET);
         } catch (DroneException e) {
             updateModel(model -> {
-                model.setBtnAiContext(true, "Stop AI");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping the AI failed!");
+                model.setBtnAutoPilotContext(true, "Stop AutoPilot");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping the AutoPilot failed!");
             });
 
-            System.out.println(ANSI.RED + "Stopping the AI failed!" + ANSI.RESET);
+            System.out.println(ANSI.RED + "Stopping the AutoPilot failed!" + ANSI.RESET);
+        }
+    }
+
+    /**
+     * Starts DeepLearning.
+     */
+    private void startDeepLearning() {
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to start DeepLearning..." + ANSI.RESET);
+
+            updateModel(model -> {
+                model.setBtnControlsEnabled(false);
+                model.setBtnDeepLearningContext(false, "Starting DeepLearning..");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to start DeepLearning...");
+            });
+
+            cx10.startDeepLearning();
+
+            isDeepLearningOn = true;
+
+            updateModel(model -> {
+                model.setBtnDeepLearningContext(true, "Stop DeepLearning");
+                model.setLblStatusContext(SpecialColor.GREEN, "DeepLearning successfully started");
+            });
+
+            System.out.println(ANSI.GREEN + "DeepLearning successfully started" + ANSI.RESET);
+        } catch (DroneException e) {
+            updateModel(model -> {
+                model.setBtnControlsEnabled(true);
+                model.setBtnDeepLearningContext(true, "Start DeepLearning");
+                model.setLblStatusContext(SpecialColor.RED, "Starting DeepLearning failed!");
+            });
+
+            System.out.println(ANSI.RED + "Starting DeepLearning failed!" + ANSI.RESET);
+        }
+    }
+
+    /**
+     * Stops DeepLearning.
+     */
+    private void stopDeepLearning() {
+        try {
+            System.out.println(ANSI.YELLOW + "Trying to stop the DeepLearning..." + ANSI.RESET);
+
+            updateModel(model -> {
+                model.setBtnDeepLearningContext(false, "Stopping DeepLearning...");
+                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop DeepLearning.");
+            });
+
+            cx10.stopDeepLearning();
+
+            isDeepLearningOn = false;
+
+            updateModel(model -> {
+                model.setBtnControlsEnabled(true);
+                model.setBtnDeepLearningContext(true, "Start DeepLearning");
+                model.setLblStatusContext(SpecialColor.GREEN, "DeepLearning successfully stopped");
+            });
+
+            System.out.println(ANSI.GREEN + "DeepLearning successfully stopped" + ANSI.RESET);
+        } catch (DroneException e) {
+            updateModel(model -> {
+                model.setBtnDeepLearningContext(true, "Stop DeepLearning");
+                model.setLblStatusContext(SpecialColor.RED, "Stopping DeepLearning failed!");
+            });
+
+            System.out.println(ANSI.RED + "Stopping DeepLearning failed!" + ANSI.RESET);
         }
     }
 
@@ -638,8 +739,11 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
         model.setBtnRecorderEnabled(btnRecorder.isEnabled());
         model.setBtnRecorderText(btnRecorder.getText());
 
-        model.setBtnAiEnabled(btnAi.isEnabled());
-        model.setBtnAiText(btnAi.getText());
+        model.setBtnAutoPilotEnabled(btnAutoPilot.isEnabled());
+        model.setBtnAutoPilotText(btnAutoPilot.getText());
+
+        model.setBtnDeepLearningEnabled(btnDeepLearning.isEnabled());
+        model.setBtnDeepLearningText(btnDeepLearning.getText());
 
         model.setLblStatusEnabled(lblStatus.isEnabled());
         model.setLblStatusText(lblStatus.getText());
@@ -677,8 +781,11 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
             btnRecorder.setEnabled(model.isBtnRecorderEnabled());
             btnRecorder.setText(model.getBtnRecorderText());
 
-            btnAi.setEnabled(model.isBtnAiEnabled());
-            btnAi.setText(model.getBtnAiText());
+            btnAutoPilot.setEnabled(model.isBtnAutoPilotEnabled());
+            btnAutoPilot.setText(model.getBtnAutoPilotText());
+
+            btnDeepLearning.setEnabled(model.isBtnDeepLearningEnabled());
+            btnDeepLearning.setText(model.getBtnDeepLearningText());
 
             lblStatus.setEnabled(model.isLblStatusEnabled());
             lblStatus.setText(model.getLblStatusText());

@@ -16,17 +16,17 @@
 
 package nl.ordina.jtech.hackadrone.io;
 
-import nl.ordina.jtech.hackadrone.utils.ByteUtils;
-
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
+
+import nl.ordina.jtech.hackadrone.utils.ByteUtils;
 
 /**
  * Class representing the heartbeat of a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class Heartbeat extends Thread {
 

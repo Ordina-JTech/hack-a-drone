@@ -20,10 +20,6 @@ import java.io.IOException;
 
 /**
  * Interface representing a transport.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public interface Transport {
 

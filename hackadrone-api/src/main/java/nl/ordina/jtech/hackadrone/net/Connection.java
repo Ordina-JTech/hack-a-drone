@@ -20,10 +20,6 @@ import java.io.IOException;
 
 /**
  * Interface representing a connection.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public interface Connection {
 

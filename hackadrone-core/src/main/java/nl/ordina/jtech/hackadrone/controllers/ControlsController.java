@@ -16,19 +16,15 @@
 
 package nl.ordina.jtech.hackadrone.controllers;
 
+import java.io.IOException;
+
 import nl.ordina.jtech.hackadrone.io.Controller;
 import nl.ordina.jtech.hackadrone.io.Device;
 import nl.ordina.jtech.hackadrone.models.Command;
 import nl.ordina.jtech.hackadrone.net.CommandConnection;
 
-import java.io.IOException;
-
 /**
  * Class representing the controls controller for a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class ControlsController extends Controller {
 

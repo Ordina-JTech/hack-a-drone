@@ -17,11 +17,7 @@
 package nl.ordina.jtech.hackadrone.io;
 
 /**
- * Interface representing a device.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
+ * Interface representing a handler.
  */
 public interface Device extends Handler {
 

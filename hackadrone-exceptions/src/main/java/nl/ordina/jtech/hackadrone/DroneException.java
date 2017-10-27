@@ -20,10 +20,6 @@ import java.io.IOException;
 
 /**
  * Class representing a drone exception.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class DroneException extends IOException {
 

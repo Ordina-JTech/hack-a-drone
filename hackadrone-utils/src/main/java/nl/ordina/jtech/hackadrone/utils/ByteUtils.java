@@ -22,10 +22,6 @@ import java.io.InputStream;
 
 /**
  * Class representing byte utils.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class ByteUtils {
 

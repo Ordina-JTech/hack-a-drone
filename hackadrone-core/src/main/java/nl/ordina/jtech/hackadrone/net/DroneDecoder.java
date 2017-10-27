@@ -16,21 +16,21 @@
 
 package nl.ordina.jtech.hackadrone.net;
 
-import nl.ordina.jtech.hackadrone.utils.ByteUtils;
-
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+import nl.ordina.jtech.hackadrone.utils.ByteUtils;
+
 /**
  * Class representing the drone decoder for a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
-public final class DroneDecoder implements Decoder {
+public final class DroneDecoder implements Decoder, Runnable {
 
     /**
      * The ph containing unsigned bytes.
@@ -60,9 +60,14 @@ public final class DroneDecoder implements Decoder {
     private InputStream inputStream;
 
     /**
-     * The output stream of the drone decoder.
+     * The output stream to drone.
      */
     private OutputStream outputStream;
+
+    /**
+     * The output stream to host application.
+     */
+    private OutputStream videoOutputStream;
 
     /**
      * The socket of the drone decoder.
@@ -80,14 +85,51 @@ public final class DroneDecoder implements Decoder {
     private boolean initialized = false;
 
     /**
+     * If the parent requested the thread to be stopped.
+     */
+    private boolean stopRequested = false;
+
+    /**
      * A drone decoder constructor,.
      *
      * @param host the host of the drone decoder
      * @param port the port of the drone decoder
      */
-    public DroneDecoder(String host, int port) {
+    public DroneDecoder(String host, int port, OutputStream videoOutputStream) {
         this.host = host;
         this.port = port;
+        this.videoOutputStream = videoOutputStream;
+    }
+
+    @Override
+    public void run() {
+        stopRequested = false;
+        byte[] data = null;
+
+        try {
+            connect();
+        } catch (IOException e) {
+            System.err.println("Unable to read video output stream");
+        }
+
+        while (!stopRequested) {
+            try {
+                data = read();
+                if (videoOutputStream != null && data != null) {
+                    videoOutputStream.write(data);
+                } else {
+                    disconnect();
+                    break;
+                }
+            } catch (IOException e) {
+                System.err.println("Unable to read video output stream");
+            }
+        }
+        try {
+            disconnect();
+        } catch (IOException e) {
+            System.err.println("Unable to disconnect decoder");
+        }
     }
 
     /**
@@ -236,4 +278,7 @@ public final class DroneDecoder implements Decoder {
         return byteBuffer.array();
     }
 
+    public void requestStop() {
+        stopRequested = true;
+    }
 }

@@ -20,11 +20,6 @@ import nl.ordina.jtech.hackadrone.models.Command;
 
 /**
  * Interface representing a command listener.
- *
- * @author Nils Berlijn
- * @author Nanne Huiges
- * @version 1.0
- * @since 1.0
  */
 public interface CommandListener {
 

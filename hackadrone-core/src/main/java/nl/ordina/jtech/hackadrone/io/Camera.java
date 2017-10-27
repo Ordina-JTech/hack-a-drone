@@ -16,24 +16,33 @@
 
 package nl.ordina.jtech.hackadrone.io;
 
-import nl.ordina.jtech.hackadrone.net.Decoder;
-import nl.ordina.jtech.hackadrone.net.DroneDecoder;
-import nl.ordina.jtech.hackadrone.utils.OS;
-
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import javax.imageio.ImageIO;
+
+import nl.ordina.jtech.hackadrone.net.DroneDecoder;
+import nl.ordina.jtech.hackadrone.utils.OS;
+
 /**
  * Class representing the camera for a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class Camera implements Handler {
+
+    /**
+     * Frame rate used by FFMPEG might need to be adjusted based on the available system resources
+     */
+    private static final int NR_OF_FRAMES_PER_SECOND = 10;
+
+    private static final int NUMBER_OF_FRAMES_PER_RECOGNITION = NR_OF_FRAMES_PER_SECOND * 6;
 
     /**
      * The video resource path.
@@ -74,11 +83,30 @@ public final class Camera implements Handler {
      * The video output stream.
      */
     private OutputStream videoOutputStream;
-
+    /**
+     * Image file format spec. Last two bytes should have the following values: FF D9
+     */
+    private static final int JPEG_FILE_EOF_NEXT_TO_LAST = 255; //FF
+    /**
+     * Image file format spec. Last two bytes should have the following values: FF D9
+     */
+    private static final int JPEG_FILE_EOF_LAST = 217;//D9
     /**
      * The video decoder.
      */
-    private Decoder decoder;
+    private DroneDecoder decoder;
+    /**
+     * Flag for the video display thread.
+     */
+    private boolean stopVideoThread;
+    /**
+     * Video frame.
+     */
+    private VideoFrame videoFrame;
+    /**
+     * Deep learning reference
+     */
+    private DeepLearning deepLearning;
 
     /**
      * A command constructor.
@@ -88,11 +116,12 @@ public final class Camera implements Handler {
      * @param cameraHost the host of the camera
      * @param cameraPort the port of the camera
      */
-    public Camera(String droneHost, int dronePort, String cameraHost, int cameraPort) {
+    public Camera(String droneHost, int dronePort, String cameraHost, int cameraPort, VideoFrame videoFrame) {
         this.droneHost = droneHost;
         this.dronePort = dronePort;
         this.cameraHost = cameraHost;
         this.cameraPort = cameraPort;
+        this.videoFrame = videoFrame;
     }
 
     /**
@@ -105,6 +134,7 @@ public final class Camera implements Handler {
                 stop();
             }
 
+            stopVideoThread = false;
             startVideoCamera();
 
             Thread.sleep(1000);
@@ -113,6 +143,8 @@ public final class Camera implements Handler {
             videoOutputStream = new BufferedOutputStream(videoSocket.getOutputStream());
 
             startVideo();
+
+            videoFrame.showFrame();
         } catch (IOException | InterruptedException e) {
             System.err.println("Unable to start the video player");
         }
@@ -123,15 +155,20 @@ public final class Camera implements Handler {
      */
     @Override
     public void stop() {
+        videoFrame.hideFrame();
+
         if (videoPlayer != null) {
             videoPlayer.destroy();
             videoPlayer = null;
         }
 
-        if (videoOutputStream != null && videoSocket != null) {
+        stopVideoThread = true;
+
+        if (videoOutputStream != null && videoSocket != null && decoder != null) {
             try {
                 videoOutputStream.close();
                 videoSocket.close();
+                decoder.requestStop();
             } catch (IOException e) {
                 System.err.println("Unable to stop the video player");
             }
@@ -151,13 +188,15 @@ public final class Camera implements Handler {
 
         switch (OS.getOS()) {
             case "win":
-                videoPlayer = new ProcessBuilder("cmd", "/c", "start", VIDEO_PATH + "/win/ffplay.exe", "-probesize", "64", "-sync", "ext", output).start();
+                videoPlayer =
+                        new ProcessBuilder("cmd", "/c", VIDEO_PATH + "/win/ffmpeg.exe", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1")
+                                .start();
                 break;
             case "unix":
-                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/unix/ffplay", "-fflags", "nobuffer", output).start();
+                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/unix/ffmpeg", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
                 break;
             case "osx":
-                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/osx/ffplay", "-fflags", "nobuffer", output).start();
+                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/osx/ffmpeg", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
                 break;
         }
     }
@@ -168,37 +207,68 @@ public final class Camera implements Handler {
      * @throws IOException if starting the video failed
      */
     private void startVideo() throws IOException {
-        if (decoder != null) {
-            throw new IOException("Starting the video stream failed!");
+        if (decoder == null) {
+            decoder = new DroneDecoder(droneHost, dronePort, videoOutputStream);
         }
 
-        decoder = new DroneDecoder(droneHost, dronePort);
-        decoder.connect();
+        Thread decoderThread = new Thread(decoder);
+        decoderThread.start();
 
-        final Thread thread = new Thread(() -> {
-            byte[] data = null;
+        final Thread frameWatcherThread = new Thread(() -> {
+            InputStream is = new BufferedInputStream(videoPlayer.getInputStream());
+            int index = NUMBER_OF_FRAMES_PER_RECOGNITION;
+            int currentByte;
+            int preLastByte = -2;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            //Grab all of the bytes until we see the end of a jpeg file
+            try {
+                while ((currentByte = is.read()) != -1 && !stopVideoThread) {
+                    out.write(currentByte);
 
-            do {
-                try {
-                    data = decoder.read();
-
-                    if (videoOutputStream != null) {
-                        videoOutputStream.write(data);
+                    if (preLastByte == JPEG_FILE_EOF_NEXT_TO_LAST && currentByte == JPEG_FILE_EOF_LAST) {
+                        // no in output you get the image as a binary array. You can efficiently save it in the database, memcached or file
+                        InputStream inputStream = new ByteArrayInputStream(out.toByteArray());
+                        BufferedImage bImageFromConvert = ImageIO.read(inputStream);
+                        videoFrame.updateVideoFrame(bImageFromConvert);
+                        if (deepLearning != null && index % 60 == 0) {
+                            deepLearning.setVideoFrame(videoFrame);
+                            deepLearning.updateLabels(bImageFromConvert);
+                            index = 0;
+                        }
+                        out.reset();
                     }
-
-                    if (videoOutputStream == null) {
-                        decoder.disconnect();
-                        break;
-                    }
-                } catch (IOException e) {
-                    System.err.println("Unable to read video output stream");
+                    preLastByte = currentByte;
+                    index++;
                 }
-            } while (data != null);
-
-            decoder = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+        frameWatcherThread.start();
 
-        thread.start();
+        final Thread errorThread = new Thread(() -> {
+            InputStream errorInputStream = new BufferedInputStream(videoPlayer.getErrorStream());
+            int currentByte;
+            try {
+                while ((currentByte = errorInputStream.read()) != -1) {
+                    // FFmpeg output
+                    System.err.print((char) currentByte);
+                }
+            } catch (IOException e) {
+                if (!stopVideoThread) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        errorThread.start();
+
     }
 
+    public DeepLearning getDeepLearning() {
+        return deepLearning;
+    }
+
+    public void setDeepLearning(DeepLearning deepLearning) {
+        this.deepLearning = deepLearning;
+    }
 }

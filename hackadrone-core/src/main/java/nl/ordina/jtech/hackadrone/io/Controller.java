@@ -20,11 +20,6 @@ import nl.ordina.jtech.hackadrone.net.CommandConnection;
 
 /**
  * Class representing the controller for a drone.
- *
- * @author Nils Berlijn
- * @author Nanne Huiges
- * @version 1.0
- * @since 1.0
  */
 public abstract class Controller extends Thread implements CommandListener {
 

@@ -16,22 +16,23 @@
 
 package nl.ordina.jtech.hackadrone;
 
-import nl.ordina.jtech.hackadrone.io.*;
-import nl.ordina.jtech.hackadrone.controllers.AiController;
+import java.io.IOException;
+
+import nl.ordina.jtech.hackadrone.controllers.ApController;
 import nl.ordina.jtech.hackadrone.controllers.ControlsController;
+import nl.ordina.jtech.hackadrone.io.AutoPilot;
+import nl.ordina.jtech.hackadrone.io.Camera;
+import nl.ordina.jtech.hackadrone.io.DeepLearning;
+import nl.ordina.jtech.hackadrone.io.Device;
+import nl.ordina.jtech.hackadrone.io.Heartbeat;
+import nl.ordina.jtech.hackadrone.io.Recorder;
+import nl.ordina.jtech.hackadrone.io.VideoFrame;
 import nl.ordina.jtech.hackadrone.net.CommandConnection;
 import nl.ordina.jtech.hackadrone.net.TransportConnection;
 import nl.ordina.jtech.hackadrone.utils.ByteUtils;
 
-import java.io.IOException;
-
 /**
  * Class representing a CX10 drone.
- *
- * @author Nils Berlijn
- * @author Nanne Huiges
- * @version 1.0
- * @since 1.0
  */
 public final class CX10 implements Drone {
 
@@ -98,17 +99,27 @@ public final class CX10 implements Drone {
     /**
      * The camera handler.
      */
-    private Handler camera;
+    private Camera camera;
+
+    /**
+     * DeepLearning handler.
+     */
+    private DeepLearning deepLearning;
 
     /**
      * The recorder handler.
      */
-    private Handler recorder;
+    private Recorder recorder;
 
     /**
-     * The AI controller.
+     * The AutoPilot controller.
      */
-    private AiController ai;
+    private ApController ap;
+
+    /**
+     * Video frame
+     */
+    private VideoFrame videoFrame;
 
     /**
      * Connects.
@@ -232,11 +243,10 @@ public final class CX10 implements Drone {
     @Override
     public void startCamera() throws DroneException {
         if (camera == null) {
-            camera = new Camera(DRONE_HOST, DRONE_PORT, CAMERA_HOST, CAMERA_PORT);
-            camera.start();
-        } else {
-            throw new DroneException("Starting the camera of the " + NAME + " failed!");
+            camera = new Camera(DRONE_HOST, DRONE_PORT, CAMERA_HOST, CAMERA_PORT, createVideoFrame());
         }
+
+        camera.start();
     }
 
     /**
@@ -246,12 +256,7 @@ public final class CX10 implements Drone {
      */
     @Override
     public void stopCamera() throws DroneException {
-        if (camera != null) {
-            camera.stop();
-            camera = null;
-        } else {
-            throw new DroneException("Stopping the camera of the " + NAME + " failed!");
-        }
+        camera.stop();
     }
 
     /**
@@ -285,35 +290,61 @@ public final class CX10 implements Drone {
     }
 
     /**
-     * Starts the AI.
+     * Starts the AutoPilot.
      *
-     * @throws DroneException if starting the AI failed
+     * @throws DroneException if starting the AutoPilot failed
      */
     @Override
-    public void startAi() throws DroneException {
+    public void startAutoPilot() throws DroneException {
         try {
-            if (ai == null) {
-                ai = new AiController(new AI(), new CommandConnection(IO_HOST, IO_PORT));
+            if (ap == null) {
+                ap = new ApController(new AutoPilot(), new CommandConnection(IO_HOST, IO_PORT));
             }
 
-            ai.start();
+            ap.start();
         } catch (IOException | IllegalThreadStateException e) {
-            throw new DroneException("Starting the AI of the " + NAME + " failed!");
+            throw new DroneException("Starting the AutoPilot of the " + NAME + " failed!");
         }
     }
 
     /**
-     * Stops the AI.
+     * Stops the AutoPilot.
      *
-     * @throws DroneException if stopping the AI failed
+     * @throws DroneException if stopping the AutoPilot failed
      */
     @Override
-    public void stopAi() throws DroneException {
-        if (ai != null) {
-            ai.interrupt();
-            ai = null;
+    public void stopAutoPilot() throws DroneException {
+        if (ap != null) {
+            ap.interrupt();
+            ap = null;
         } else {
-            throw new DroneException("Stopping AI of the " + NAME + " failed!");
+            throw new DroneException("Stopping AutoPilot of the " + NAME + " failed!");
+        }
+    }
+
+    @Override
+    public void startDeepLearning() throws DroneException {
+        if (deepLearning == null) {
+            if (camera == null) {
+                camera = new Camera(DRONE_HOST, DRONE_PORT, CAMERA_HOST, CAMERA_PORT, createVideoFrame());
+                camera.start();
+            }
+            deepLearning = new DeepLearning();
+            camera.setDeepLearning(deepLearning);
+        } else {
+            throw new DroneException("Starting the deepLearning of the " + NAME + " failed!");
+        }
+    }
+
+    @Override
+    public void stopDeepLearning() throws DroneException {
+        if (deepLearning != null) {
+            if (camera.getDeepLearning() != null) {
+                camera.setDeepLearning(null);
+            }
+            deepLearning = null;
+        } else {
+            throw new DroneException("Stopping deepLearning of the " + NAME + " failed!");
         }
     }
 
@@ -325,6 +356,19 @@ public final class CX10 implements Drone {
     @Override
     public String getName() {
         return NAME;
+    }
+
+    /**
+     * Create a shared video frame.
+     *
+     * @return
+     */
+    private VideoFrame createVideoFrame() {
+        if (videoFrame == null) {
+            return (this.videoFrame = new VideoFrame());
+        } else {
+            return this.videoFrame;
+        }
     }
 
 }

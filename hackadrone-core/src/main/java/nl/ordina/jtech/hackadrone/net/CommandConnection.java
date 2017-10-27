@@ -16,20 +16,16 @@
 
 package nl.ordina.jtech.hackadrone.net;
 
-import nl.ordina.jtech.hackadrone.models.Command;
-import nl.ordina.jtech.hackadrone.utils.ByteUtils;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import nl.ordina.jtech.hackadrone.models.Command;
+import nl.ordina.jtech.hackadrone.utils.ByteUtils;
+
 /**
  * Class representing the command connection for a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class CommandConnection implements Execute {
 

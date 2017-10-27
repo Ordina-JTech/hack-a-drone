@@ -21,10 +21,6 @@ import nl.ordina.jtech.hackadrone.net.Connection;
 
 /**
  * Interface representing a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public interface Drone extends Connection {
 
@@ -109,18 +105,32 @@ public interface Drone extends Connection {
     void stopRecorder() throws DroneException;
 
     /**
-     * Starts the AI.
+     * Starts the AutoPilot.
      *
-     * @throws DroneException if starting the AI failed
+     * @throws DroneException if starting the AutoPilot failed
      */
-    void startAi() throws DroneException;
+    void startAutoPilot() throws DroneException;
 
     /**
-     * Stops the AI.
+     * Stops the AutoPilot.
      *
-     * @throws DroneException if stopping the AI failed
+     * @throws DroneException if stopping the AutoPilot failed
      */
-    void stopAi() throws DroneException;
+    void stopAutoPilot() throws DroneException;
+
+    /**
+     * Starts DeepLearning.
+     *
+     * @throws DroneException if starting DeepLearning has failed
+     */
+    void startDeepLearning() throws DroneException;
+
+    /**
+     * Stops DeepLearning.
+     *
+     * @throws DroneException if stopping the DeepLearning has failed
+     */
+    void stopDeepLearning() throws DroneException;
 
     /**
      * Gets the name of the drone.

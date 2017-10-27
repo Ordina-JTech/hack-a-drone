@@ -16,23 +16,18 @@
 
 package nl.ordina.jtech.hackadrone.controllers;
 
+import java.io.IOException;
+import java.util.LinkedList;
+
 import nl.ordina.jtech.hackadrone.io.Controller;
 import nl.ordina.jtech.hackadrone.io.Device;
 import nl.ordina.jtech.hackadrone.models.Command;
 import nl.ordina.jtech.hackadrone.net.CommandConnection;
 
-import java.io.IOException;
-import java.util.LinkedList;
-
 /**
- * Class representing the AI controller for a drone.
- *
- * @author Nils Berlijn
- * @author Nanne Huiges
- * @version 1.0
- * @since 1.0
+ * Class representing the AutoPilot controller for a drone.
  */
-public final class AiController extends Controller {
+public final class ApController extends Controller {
 
     /**
      * The list with commands.
@@ -40,17 +35,17 @@ public final class AiController extends Controller {
     private LinkedList<Command> commandList = new LinkedList<>();
 
     /**
-     * An AI controller constructor.
+     * An AutoPilot controller constructor.
      *
-     * @param device the device to control the drone with
+     * @param device            the device to control the drone with
      * @param commandConnection the command connection with the drone
      */
-    public AiController(Device device, CommandConnection commandConnection) {
+    public ApController(Device device, CommandConnection commandConnection) {
         super(device, commandConnection);
     }
 
     /**
-     * Starts running the AI controller.
+     * Starts running the AutoPilot controller.
      */
     @Override
     public void run() {

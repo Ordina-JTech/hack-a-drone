@@ -18,10 +18,6 @@ package nl.ordina.jtech.hackadrone.utils;
 
 /**
  * Class representing OS utils.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class OS {
 

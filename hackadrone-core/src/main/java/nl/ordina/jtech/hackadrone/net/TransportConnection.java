@@ -24,10 +24,6 @@ import java.net.Socket;
 
 /**
  * Class representing the transport connection for a drone.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class TransportConnection implements Connection, Transport {
 

@@ -16,14 +16,10 @@
 
 package nl.ordina.jtech.hackadrone.utils;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Class representing special colors.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 public final class SpecialColor {
 

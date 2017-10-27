@@ -16,14 +16,10 @@
 
 package nl.ordina.jtech.hackadrone.gui;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Class representing a main window model for a main window.
- *
- * @author Nils Berlijn
- * @version 1.0
- * @since 1.0
  */
 final class MainWindowModel {
 
@@ -68,14 +64,24 @@ final class MainWindowModel {
     private String btnRecorderText;
 
     /**
-     * The status of the AI button.
+     * The status of the AutoPilot button.
      */
-    private boolean btnAiEnabled;
+    private boolean btnAutoPilotEnabled;
 
     /**
-     * The text of the AI button.
+     * The text of the AutoPilot button.
      */
-    private String btnAiText;
+    private String btnAutoPilotText;
+
+    /**
+     * The status of the DeepLearning button.
+     */
+    private boolean btnDeepLearningEnabled;
+
+    /**
+     * The text of the AutoPilot button.
+     */
+    private String btnDeepLearningText;
 
     /**
      * The status of the status label.
@@ -110,13 +116,17 @@ final class MainWindowModel {
      * @param btnCameraText the text of the camera button
      * @param btnRecorderEnabled the status of the recorder button
      * @param btnRecorderText the text of the recorder button
-     * @param btnAiEnabled the status of the AI button
-     * @param btnAiText the text of the AI button
+     * @param btnAutoPilotEnabled the status of the AutoPilot button
+     * @param btnAutoPilotText the text of the AutoPilot button
+     * @param btnDeepLearningEnabled the status of the DeepLearning button
+     * @param btnDeepLearningText the text of the DeepLearning button
      * @param lblStatusEnabled the status of the status label
      * @param lblStatusForeground the foreground color of the status label
      * @param lblStatusText the text of the status label
      */
-    private MainWindowModel(boolean btnConnectEnabled, String btnConnectText, boolean btnControlsEnabled, String btnControlsText, boolean btnCameraEnabled, String btnCameraText, boolean btnRecorderEnabled, String btnRecorderText, boolean btnAiEnabled, String btnAiText, boolean lblStatusEnabled, Color lblStatusForeground, String lblStatusText) {
+    private MainWindowModel(boolean btnConnectEnabled, String btnConnectText, boolean btnControlsEnabled, String btnControlsText, boolean btnCameraEnabled, String btnCameraText,
+            boolean btnRecorderEnabled, String btnRecorderText, boolean btnAutoPilotEnabled, String btnAutoPilotText, boolean btnDeepLearningEnabled, String btnDeepLearningText,
+            boolean lblStatusEnabled, Color lblStatusForeground, String lblStatusText) {
         this.btnConnectEnabled = btnConnectEnabled;
         this.btnConnectText = btnConnectText;
         this.btnControlsEnabled = btnControlsEnabled;
@@ -125,8 +135,10 @@ final class MainWindowModel {
         this.btnCameraText = btnCameraText;
         this.btnRecorderEnabled = btnRecorderEnabled;
         this.btnRecorderText = btnRecorderText;
-        this.btnAiEnabled = btnAiEnabled;
-        this.btnAiText = btnAiText;
+        this.btnAutoPilotEnabled = btnAutoPilotEnabled;
+        this.btnAutoPilotText = btnAutoPilotText;
+        this.btnDeepLearningEnabled = btnDeepLearningEnabled;
+        this.btnDeepLearningText = btnDeepLearningText;
         this.lblStatusEnabled = lblStatusEnabled;
         this.lblStatusForeground = lblStatusForeground;
         this.lblStatusText = lblStatusText;
@@ -321,50 +333,97 @@ final class MainWindowModel {
     }
 
     /**
-     * Gets the status of the AI button.
+     * Gets the status of the AutoPilot button.
      *
-     * @return the status of the AI button
+     * @return the status of the AutoPilot button
      */
-    boolean isBtnAiEnabled() {
-        return btnAiEnabled;
+    boolean isBtnAutoPilotEnabled() {
+        return btnAutoPilotEnabled;
     }
 
     /**
-     * Sets the status of the AI button.
+     * Sets the status of the AutoPilot button.
      *
-     * @param btnAiEnabled the status of the AI button to set
+     * @param btnAutoPilotEnabled the status of the AutoPilot button to set
      */
-    void setBtnAiEnabled(boolean btnAiEnabled) {
-        this.btnAiEnabled = btnAiEnabled;
+    void setBtnAutoPilotEnabled(boolean btnAutoPilotEnabled) {
+        this.btnAutoPilotEnabled = btnAutoPilotEnabled;
     }
 
     /**
-     * Gets the text of the AI button.
+     * Gets the text of the AutoPilot button.
      *
-     * @return the text of the AI button
+     * @return the text of the AutoPilot button
      */
-    String getBtnAiText() {
-        return btnAiText;
+    String getBtnAutoPilotText() {
+        return btnAutoPilotText;
     }
 
     /**
-     * Sets the text of the AI button.
+     * Sets the text of the AutoPilot button.
      *
-     * @param btnAiText the text of the AI button to set
+     * @param btnAutoPilotText the text of the AutoPilot button to set
      */
-    void setBtnAiText(String btnAiText) {
-        this.btnAiText = btnAiText;
+    void setBtnAutoPilotText(String btnAutoPilotText) {
+        this.btnAutoPilotText = btnAutoPilotText;
     }
 
     /**
-     * Sets the context of the AI button.
+     * Sets the context of the AutoPilot button.
      *
-     * @param btnAiEnabled the status of the AI button to set
-     * @param btnAiText the text of the AI button to set
+     * @param btnAutoPilotEnabled the status of the AutoPilot button to set
+     * @param btnAutoPilotText the text of the AutoPilot button to set
      */
-    void setBtnAiContext(boolean btnAiEnabled, String btnAiText) {
-        this.btnAiEnabled = btnAiEnabled;
-        this.btnAiText = btnAiText;
+    void setBtnAutoPilotContext(boolean btnAutoPilotEnabled, String btnAutoPilotText) {
+        this.btnAutoPilotEnabled = btnAutoPilotEnabled;
+        this.btnAutoPilotText = btnAutoPilotText;
+    }
+
+    /**
+     * Get the status of the DeepLearning button.
+     *
+     * @return the status of the DeepLearning button.
+     */
+    boolean isBtnDeepLearningEnabled() {
+        return btnDeepLearningEnabled;
+    }
+
+    /**
+     * Sets the status of the DeepLearning button.
+     *
+     * @param btnDeepLearningEnabled the status of the DeepLearning button to set.
+     */
+    void setBtnDeepLearningEnabled(boolean btnDeepLearningEnabled) {
+        this.btnDeepLearningEnabled = btnDeepLearningEnabled;
+    }
+
+    /**
+     * Get the text of the DeepLearning button.
+     *
+     * @return the text of the DeepLearning button.
+     */
+    String getBtnDeepLearningText() {
+        return btnDeepLearningText;
+    }
+
+    /**
+     * Sets the text of the DeepLearning button.
+     *
+     * @param btnDeepLearningText the text of the DeepLearning button to set.
+     */
+    void setBtnDeepLearningText(String btnDeepLearningText) {
+        this.btnDeepLearningText = btnDeepLearningText;
+    }
+
+    /**
+     * Sets the context of the DeepLearning button.
+     *
+     * @param btnDeepLearningEnabled the status of the DeepLearning button to set.
+     * @param btnDeepLearningText    the text of the DeepLearning button to set.
+     */
+    void setBtnDeepLearningContext(boolean btnDeepLearningEnabled, String btnDeepLearningText) {
+        this.btnDeepLearningEnabled = btnDeepLearningEnabled;
+        this.btnDeepLearningText = btnDeepLearningText;
     }
 
     /**
@@ -446,9 +505,7 @@ final class MainWindowModel {
                 btnCameraEnabled,
                 btnCameraText,
                 btnRecorderEnabled,
-                btnRecorderText,
-                btnAiEnabled,
-                btnAiText,
+                btnRecorderText, btnAutoPilotEnabled, btnAutoPilotText, btnDeepLearningEnabled, btnDeepLearningText,
                 lblStatusEnabled,
                 lblStatusForeground,
                 lblStatusText

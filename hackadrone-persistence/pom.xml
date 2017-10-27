@@ -27,14 +27,12 @@
     <parent>
         <groupId>nl.ordina.jtech</groupId>
         <artifactId>hackadrone-parent</artifactId>
-        <version>1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../hackadrone-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>hackadrone-persistence</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>Hackadrone Persistence</name>
 
 </project>

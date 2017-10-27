@@ -26,7 +26,7 @@
 
     <groupId>nl.ordina.jtech</groupId>
     <artifactId>hackadrone-parent</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Hackadrone Parent</name>
@@ -41,28 +41,23 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <id>nberlijn</id>
-            <name>Nils Berlijn</name>
-            <email>nils.berlijn@ordina.nl</email>
-            <url>https://github.com/nberlijn</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:https://github.com/nberlijn/hackadrone.git</connection>
-        <developerConnection>scm:git:git@github.com:nberlijn/hackadrone.git</developerConnection>
-        <url>https://github.com/nberlijn/hackadrone</url>
-        <tag>HEAD</tag>
-    </scm>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.java.version>1.8</project.java.version>
+        <project.local.repository.location>${project.basedir}/../local_lib</project.local.repository.location>
+
+        <commons-io.version>2.5</commons-io.version>
+        <org.deeplearning4j.version>0.9.0</org.deeplearning4j.version>
+        <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
+
     </properties>
 
     <repositories>
+        <repository>
+            <id>maven-repository</id>
+            <url>file:///${project.local.repository.location}</url>
+        </repository>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -71,35 +66,60 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- internal dependencies-->
             <dependency>
                 <groupId>nl.ordina.jtech</groupId>
                 <artifactId>hackadrone-api</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.ordina.jtech</groupId>
                 <artifactId>hackadrone-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.ordina.jtech</groupId>
                 <artifactId>hackadrone-persistence</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.ordina.jtech</groupId>
                 <artifactId>hackadrone-exceptions</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.ordina.jtech</groupId>
                 <artifactId>hackadrone-utils</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.ordina.jtech</groupId>
                 <artifactId>hackadrone-gui</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- common -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <!-- deeplearning -->
+            <dependency>
+                <groupId>org.deeplearning4j</groupId>
+                <artifactId>deeplearning4j-zoo</artifactId>
+                <version>${org.deeplearning4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.nd4j</groupId>
+                <artifactId>nd4j-native-platform</artifactId>
+                <version>${org.deeplearning4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.deeplearning4j</groupId>
+                <artifactId>deeplearning4j-core</artifactId>
+                <version>${org.deeplearning4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -109,13 +129,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <testSource>1.8</testSource>
-                    <testTarget>1.8</testTarget>
+                    <source>${project.java.version}</source>
+                    <target>${project.java.version}</target>
+                    <testSource>${project.java.version}</testSource>
+                    <testTarget>${project.java.version}</testTarget>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                            <outputDirectory>${project.local.repository.location}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
