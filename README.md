@@ -27,7 +27,7 @@ The goal of this manual is to give a short and easy to follow overview of the JT
 - Charging time 20–30 minutes
 
 
-# Opzetten
+# Set up
 
 ## The Java-code
 
