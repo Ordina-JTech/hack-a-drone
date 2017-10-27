@@ -29,13 +29,6 @@ The goal of this manual is to give a short and easy to follow overview of the JT
 
 # Set up
 
-## The Java-code
-
-- Haal de Java-code op van GitHub:
-  - https://github.com/Ordina-JTech/hack-a-drone.git
-- Open de code in jouw favoriete IDE
-
-
 ## Drone WiFi connection
 
 - Turn the drone on
