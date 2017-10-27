@@ -1,9 +1,8 @@
 # Introduction
 The goal of this manual is to give a short and easy to follow overview of the JTech Hack-A-Drone project. As of now, in this project, the drone can be controlled via the app or the Java Hack-A-Drone project. In the Java code the user can created a fixed path for the drone to fly or control the drone via the computer with either a keyboard or controller. The drone works on windows, unix and  OSX.
 
-- Bijbehorende [presentatie] slides
-- Gebaseerd op de [voorbeeldapplicatie] van [Orfeo Ciano]
-- Werkend en getest op Windows, Unix en OSX
+- Added [presentatie] slides
+- Based on [voorbeeldapplicatie] van [Orfeo Ciano]
 
 
 ## Requirements
@@ -37,10 +36,10 @@ The goal of this manual is to give a short and easy to follow overview of the JT
 - Open de code in jouw favoriete IDE
 
 
-## Verbinding maken met de drone
+## Drone WiFi connection
 
 - Turn the drone on
-- Connect to the wifi of the drone
+- Connect to the WiFi of the drone
   - The drone can be recognized with the name: "CX-10WD-******"
   - Set the drone close the laptop for easy detection
 - Start the Java-code with nl.ordina.jtech.hackadrone.gui.GUI
@@ -72,8 +71,6 @@ The goal of this manual is to give a short and easy to follow overview of the JT
 - Use the E key to turn right
 
 # Future goals
-
-## Uitbreiden van de drone
 
 - Write a functional AI component
   - Try this with: nl.ordina.jtech.hackadrone.core.io.AI
