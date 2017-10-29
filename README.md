@@ -1,7 +1,6 @@
 # Introduction
-The goal of this manual is to give a short and easy to follow overview of the JTech Hack-A-Drone project. As of now, in this project, the drone can be controlled via the app or the Java Hack-A-Drone project. In the Java code the user can created a fixed path for the drone to fly or control the drone via the computer with either a keyboard or controller. The drone works on windows, unix and  OSX.
+The goal of this manual is to give a short and easy to follow overview of the JTech Hack-A-Drone project. As of now, in this project, the drone can be controlled through the app or with the Java Hack-A-Drone project. In the Java code the user can create a fixed path for the drone to fly or control the drone through the computer with either a keyboard or controller. The software is compatible with windows, unix and OSX.
 
-- Added [presentatie] slides
 - Based on [voorbeeldapplicatie] van [Orfeo Ciano]
 
 
@@ -47,13 +46,13 @@ The goal of this manual is to give a short and easy to follow overview of the JT
 - Click on "Start Controls" to controle the drone with the keyboard
 - Click on "Start Camera" to activate the camera
 - Click on "Start Recorder" to record camera images
-- Click on "Start AP" to start the auto pilot
+- Click on "Start Auto Pilot" to start the auto pilot
 - Click on "Start Deep Learning" activate the deep learning function
 
 ## Drone controles
 
 - Use the left arrow to take off
-- Use the right  arrow to land
+- Use the right arrow to land
 - Use the up arrow to increase the hight during flight
 - Use the down arrow to decrease the hight during the flight
 - Use the W key to go forward
@@ -66,9 +65,7 @@ The goal of this manual is to give a short and easy to follow overview of the JT
 # Future goals
 
 - Write a functional AI component
-  - Try this with: nl.ordina.jtech.hackadrone.core.io.AI
 - Apply swarm theory to drone
 
-[presentatie]: https://ordina-jtech.github.io/hack-a-drone
 [voorbeeldapplicatie]: https://github.com/Otacon/wifi_china_drone_controller
 [Orfeo Ciano]: https://github.com/Otacon
