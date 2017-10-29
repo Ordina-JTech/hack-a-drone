@@ -10,3 +10,5 @@ target
 .settings
 .project
 .classpath
+/deeplearning/VGG16.zip
+/local_lib/
