@@ -77,12 +77,6 @@ public class DeepLearning {
      */
     private void loadDataModel() {
         //TODO Deep Learning Challenge Part 1: load existing data model
-        try {
-            this.computationGraphVGG16 = ModelSerializer.restoreComputationGraph("deeplearning/VGG16.zip");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Could not find 'VGG16.zip'  folder.");
-        }
     }
 
     /**
@@ -92,11 +86,9 @@ public class DeepLearning {
         //TODO Deep Learning Challenge Part 3: Classify the image and return a top 5
         INDArray processedImage = processImage(cropImageToSquare(bufferedImage));
 
-        INDArray[] output = computationGraphVGG16.output(false, processedImage);
+//        List<Prediction> predictions = decodePredictions(output[0]);
 
-        List<Prediction> predictions = decodePredictions(output[0]);
-
-        return predictions;
+        return null;
     }
 
     /**
@@ -105,11 +97,7 @@ public class DeepLearning {
     private INDArray processImage(BufferedImage bufferedImage) {
         //TODO Deep Learning Challenge Part 2: Normalize the Image
         INDArray imageMatrix = null;
-        try {
-            imageMatrix = nativeImageLoader.asMatrix(bufferedImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         normalizeImage(imageMatrix);
 
         return imageMatrix;
