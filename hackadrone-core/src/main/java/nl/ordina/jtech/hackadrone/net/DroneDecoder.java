@@ -104,6 +104,7 @@ public final class DroneDecoder implements Decoder, Runnable {
     @Override
     public void run() {
         stopRequested = false;
+        initialized = false;
         byte[] data = null;
 
         try {
