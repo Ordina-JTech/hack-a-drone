@@ -11,7 +11,6 @@ import nl.ordina.jtech.hackadrone.io.recognition.Prediction;
 
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.graph.ComputationGraph;
-import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
 import org.nd4j.linalg.dataset.api.preprocessor.VGG16ImagePreProcessor;
@@ -83,12 +82,12 @@ public class DeepLearning {
      * Classify images
      */
     private List<Prediction> classify(BufferedImage bufferedImage) {
-        //TODO Deep Learning Challenge Part 3: Classify the image and return a top 5
+
         INDArray processedImage = processImage(cropImageToSquare(bufferedImage));
 
-//        List<Prediction> predictions = decodePredictions(output[0]);
-
-        return null;
+        //TODO Deep Learning Challenge Part 3: Classify the image and return a top 5
+        List<Prediction> predictions = null;
+        return predictions;
     }
 
     /**
