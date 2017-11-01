@@ -40,6 +40,37 @@ public class DeepLearning {
     }
 
     /**
+     * Load the dataset and the computational graph for deep learning
+     */
+    private void loadDataModel() {
+        //TODO Deep Learning Challenge Part 1: load existing data model
+    }
+
+    /**
+     * Pre process the image to create a matrix
+     */
+    private INDArray processImage(BufferedImage bufferedImage) {
+        //TODO Deep Learning Challenge Part 2: Normalize the Image
+        INDArray imageMatrix = null;
+
+        normalizeImage(imageMatrix);
+
+        return imageMatrix;
+    }
+
+    /**
+     * Classify images
+     */
+    private List<Prediction> classify(BufferedImage bufferedImage) {
+
+        INDArray processedImage = processImage(cropImageToSquare(bufferedImage));
+
+        //TODO Deep Learning Challenge Part 3: Classify the image and return a top 5
+        List<Prediction> predictions = null;
+        return predictions;
+    }
+
+    /**
      * Map each name of the output node to a human readable name from the imagenet class json
      */
     private static ArrayList<String> getLabels() {
@@ -69,37 +100,6 @@ public class DeepLearning {
 
     void setVideoFrame(VideoFrame videoFrame) {
         this.videoFrame = videoFrame;
-    }
-
-    /**
-     * Load the dataset and the computational graph for deep learning
-     */
-    private void loadDataModel() {
-        //TODO Deep Learning Challenge Part 1: load existing data model
-    }
-
-    /**
-     * Classify images
-     */
-    private List<Prediction> classify(BufferedImage bufferedImage) {
-
-        INDArray processedImage = processImage(cropImageToSquare(bufferedImage));
-
-        //TODO Deep Learning Challenge Part 3: Classify the image and return a top 5
-        List<Prediction> predictions = null;
-        return predictions;
-    }
-
-    /**
-     * Pre process the image to create a matrix
-     */
-    private INDArray processImage(BufferedImage bufferedImage) {
-        //TODO Deep Learning Challenge Part 2: Normalize the Image
-        INDArray imageMatrix = null;
-
-        normalizeImage(imageMatrix);
-
-        return imageMatrix;
     }
 
     private void normalizeImage(final INDArray image) {
