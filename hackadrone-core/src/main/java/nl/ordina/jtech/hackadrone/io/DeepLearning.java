@@ -43,13 +43,8 @@ public class DeepLearning {
      * Load the dataset and the computational graph for deep learning
      */
     private void loadDataModel() {
-        //try {
         //TODO Deep Learning Challenge Part 1: load existing data model
         computationGraphVGG16 = null;
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
-
     }
 
     /**
