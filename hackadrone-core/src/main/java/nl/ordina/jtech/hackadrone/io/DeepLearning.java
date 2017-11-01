@@ -43,7 +43,13 @@ public class DeepLearning {
      * Load the dataset and the computational graph for deep learning
      */
     private void loadDataModel() {
+        //try {
         //TODO Deep Learning Challenge Part 1: load existing data model
+        computationGraphVGG16 = null;
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+
     }
 
     /**
@@ -53,8 +59,8 @@ public class DeepLearning {
         //TODO Deep Learning Challenge Part 2: Normalize the Image
         INDArray imageMatrix = null;
 
-        normalizeImage(imageMatrix);
 
+        normalizeImage(imageMatrix);
         return imageMatrix;
     }
 
@@ -65,8 +71,12 @@ public class DeepLearning {
 
         INDArray processedImage = processImage(cropImageToSquare(bufferedImage));
 
-        //TODO Deep Learning Challenge Part 3: Classify the image and return a top 5
+        //TODO Deep Learning Challenge Part 3: Classify the image
+        INDArray[] output = null;
+
+        //TODO Deep Learning Challenge Part 4: Ranking the predictions
         List<Prediction> predictions = null;
+
         return predictions;
     }
 
