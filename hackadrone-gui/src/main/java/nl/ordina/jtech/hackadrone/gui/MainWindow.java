@@ -426,32 +426,34 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
      * Stops the controls.
      */
     private void stopControls() {
-        try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
+        if (isControlled) {
+            try {
+                System.out.println(ANSI.YELLOW + "Trying to stop the controls..." + ANSI.RESET);
 
-            updateModel(model -> {
-                model.setBtnControlsContext(false, "Stopping controls...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the controls...");
-            });
+                updateModel(model -> {
+                    model.setBtnControlsContext(false, "Stopping controls...");
+                    model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the controls...");
+                });
 
-            cx10.stopControls();
+                cx10.stopControls();
 
-            isControlled = false;
+                isControlled = false;
 
-            updateModel(model -> {
-                model.setBtnControlsContext(true, "Start Controls");
-                model.setBtnAutoPilotEnabled(true);
-                model.setLblStatusContext(SpecialColor.GREEN, "Controls successfully stopped");
-            });
+                updateModel(model -> {
+                    model.setBtnControlsContext(true, "Start Controls");
+                    model.setBtnAutoPilotEnabled(true);
+                    model.setLblStatusContext(SpecialColor.GREEN, "Controls successfully stopped");
+                });
 
-            System.out.println(ANSI.GREEN + "Controls successfully stopped" + ANSI.RESET);
-        } catch (DroneException e) {
-            updateModel(model -> {
-                model.setBtnControlsContext(true, "Stop Controls");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping the controls failed!");
-            });
+                System.out.println(ANSI.GREEN + "Controls successfully stopped" + ANSI.RESET);
+            } catch (DroneException e) {
+                updateModel(model -> {
+                    model.setBtnControlsContext(true, "Stop Controls");
+                    model.setLblStatusContext(SpecialColor.RED, "Stopping the controls failed!");
+                });
 
-            System.out.println(ANSI.RED + "Stopping the controls failed!" + ANSI.RESET);
+                System.out.println(ANSI.RED + "Stopping the controls failed!" + ANSI.RESET);
+            }
         }
     }
 
@@ -493,32 +495,34 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
      * Stops the camera.
      */
     private void stopCamera() {
-        try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the camera..." + ANSI.RESET);
+        if (isStreaming) {
+            try {
+                System.out.println(ANSI.YELLOW + "Trying to stop the camera..." + ANSI.RESET);
 
-            updateModel(model -> {
-                model.setBtnCameraContext(false, "Stopping camera...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the camera...");
-            });
+                updateModel(model -> {
+                    model.setBtnCameraContext(false, "Stopping camera...");
+                    model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the camera...");
+                });
 
-            cx10.stopCamera();
+                cx10.stopCamera();
 
-            isStreaming = false;
+                isStreaming = false;
 
-            updateModel(model -> {
-                model.setBtnCameraContext(true, "Start Camera");
-                model.setBtnRecorderEnabled(true);
-                model.setLblStatusContext(SpecialColor.GREEN, "Camera successfully stopped");
-            });
+                updateModel(model -> {
+                    model.setBtnCameraContext(true, "Start Camera");
+                    model.setBtnRecorderEnabled(true);
+                    model.setLblStatusContext(SpecialColor.GREEN, "Camera successfully stopped");
+                });
 
-            System.out.println(ANSI.GREEN + "Camera successfully stopped" + ANSI.RESET);
-        } catch (DroneException e) {
-            updateModel(model -> {
-                model.setBtnCameraContext(true, "Stop Camera");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping the camera failed!");
-            });
+                System.out.println(ANSI.GREEN + "Camera successfully stopped" + ANSI.RESET);
+            } catch (DroneException e) {
+                updateModel(model -> {
+                    model.setBtnCameraContext(true, "Stop Camera");
+                    model.setLblStatusContext(SpecialColor.RED, "Stopping the camera failed!");
+                });
 
-            System.out.println(ANSI.RED + "Stopping the camera failed!" + ANSI.RESET);
+                System.out.println(ANSI.RED + "Stopping the camera failed!" + ANSI.RESET);
+            }
         }
     }
 
@@ -560,32 +564,34 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
      * Stops the recorder.
      */
     private void stopRecorder() {
-        try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the recorder..." + ANSI.RESET);
+        if (isRecording) {
+            try {
+                System.out.println(ANSI.YELLOW + "Trying to stop the recorder..." + ANSI.RESET);
 
-            updateModel(model -> {
-                model.setBtnRecorderContext(false, "Stopping recorder...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the recorder.");
-            });
+                updateModel(model -> {
+                    model.setBtnRecorderContext(false, "Stopping recorder...");
+                    model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the recorder.");
+                });
 
-            cx10.stopRecorder();
+                cx10.stopRecorder();
 
-            isRecording = false;
+                isRecording = false;
 
-            updateModel(model -> {
-                model.setBtnCameraEnabled(true);
-                model.setBtnRecorderContext(true, "Start Recorder");
-                model.setLblStatusContext(SpecialColor.GREEN, "Recorder successfully stopped");
-            });
+                updateModel(model -> {
+                    model.setBtnCameraEnabled(true);
+                    model.setBtnRecorderContext(true, "Start Recorder");
+                    model.setLblStatusContext(SpecialColor.GREEN, "Recorder successfully stopped");
+                });
 
-            System.out.println(ANSI.GREEN + "Recorder successfully stopped" + ANSI.RESET);
-        } catch (DroneException e) {
-            updateModel(model -> {
-                model.setBtnRecorderContext(true, "Stop Recorder");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping the recorder failed!");
-            });
+                System.out.println(ANSI.GREEN + "Recorder successfully stopped" + ANSI.RESET);
+            } catch (DroneException e) {
+                updateModel(model -> {
+                    model.setBtnRecorderContext(true, "Stop Recorder");
+                    model.setLblStatusContext(SpecialColor.RED, "Stopping the recorder failed!");
+                });
 
-            System.out.println(ANSI.RED + "Stopping the recorder failed!" + ANSI.RESET);
+                System.out.println(ANSI.RED + "Stopping the recorder failed!" + ANSI.RESET);
+            }
         }
     }
 
@@ -627,32 +633,34 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
      * Stops the AutoPilot.
      */
     private void stopAutoPilot() {
-        try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the AutoPilot..." + ANSI.RESET);
+        if (isAutoPilotOn) {
+            try {
+                System.out.println(ANSI.YELLOW + "Trying to stop the AutoPilot..." + ANSI.RESET);
 
-            updateModel(model -> {
-                model.setBtnAutoPilotContext(false, "Stopping AutoPilot...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the AutoPilot.");
-            });
+                updateModel(model -> {
+                    model.setBtnAutoPilotContext(false, "Stopping AutoPilot...");
+                    model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop the AutoPilot.");
+                });
 
-            cx10.stopAutoPilot();
+                cx10.stopAutoPilot();
 
-            isAutoPilotOn = false;
+                isAutoPilotOn = false;
 
-            updateModel(model -> {
-                model.setBtnControlsEnabled(true);
-                model.setBtnAutoPilotContext(true, "Start AutoPilot");
-                model.setLblStatusContext(SpecialColor.GREEN, "AutoPilot successfully stopped");
-            });
+                updateModel(model -> {
+                    model.setBtnControlsEnabled(true);
+                    model.setBtnAutoPilotContext(true, "Start AutoPilot");
+                    model.setLblStatusContext(SpecialColor.GREEN, "AutoPilot successfully stopped");
+                });
 
-            System.out.println(ANSI.GREEN + "AutoPilot successfully stopped" + ANSI.RESET);
-        } catch (DroneException e) {
-            updateModel(model -> {
-                model.setBtnAutoPilotContext(true, "Stop AutoPilot");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping the AutoPilot failed!");
-            });
+                System.out.println(ANSI.GREEN + "AutoPilot successfully stopped" + ANSI.RESET);
+            } catch (DroneException e) {
+                updateModel(model -> {
+                    model.setBtnAutoPilotContext(true, "Stop AutoPilot");
+                    model.setLblStatusContext(SpecialColor.RED, "Stopping the AutoPilot failed!");
+                });
 
-            System.out.println(ANSI.RED + "Stopping the AutoPilot failed!" + ANSI.RESET);
+                System.out.println(ANSI.RED + "Stopping the AutoPilot failed!" + ANSI.RESET);
+            }
         }
     }
 
@@ -694,32 +702,34 @@ final class MainWindow extends JFrame implements Frame, ActionListener, ClickEve
      * Stops DeepLearning.
      */
     private void stopDeepLearning() {
-        try {
-            System.out.println(ANSI.YELLOW + "Trying to stop the DeepLearning..." + ANSI.RESET);
+        if (isDeepLearningOn) {
+            try {
+                System.out.println(ANSI.YELLOW + "Trying to stop the DeepLearning..." + ANSI.RESET);
 
-            updateModel(model -> {
-                model.setBtnDeepLearningContext(false, "Stopping DeepLearning...");
-                model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop DeepLearning.");
-            });
+                updateModel(model -> {
+                    model.setBtnDeepLearningContext(false, "Stopping DeepLearning...");
+                    model.setLblStatusContext(SpecialColor.YELLOW, "Trying to stop DeepLearning.");
+                });
 
-            cx10.stopDeepLearning();
+                cx10.stopDeepLearning();
 
-            isDeepLearningOn = false;
+                isDeepLearningOn = false;
 
-            updateModel(model -> {
-                model.setBtnControlsEnabled(true);
-                model.setBtnDeepLearningContext(true, "Start DeepLearning");
-                model.setLblStatusContext(SpecialColor.GREEN, "DeepLearning successfully stopped");
-            });
+                updateModel(model -> {
+                    model.setBtnControlsEnabled(true);
+                    model.setBtnDeepLearningContext(true, "Start DeepLearning");
+                    model.setLblStatusContext(SpecialColor.GREEN, "DeepLearning successfully stopped");
+                });
 
-            System.out.println(ANSI.GREEN + "DeepLearning successfully stopped" + ANSI.RESET);
-        } catch (DroneException e) {
-            updateModel(model -> {
-                model.setBtnDeepLearningContext(true, "Stop DeepLearning");
-                model.setLblStatusContext(SpecialColor.RED, "Stopping DeepLearning failed!");
-            });
+                System.out.println(ANSI.GREEN + "DeepLearning successfully stopped" + ANSI.RESET);
+            } catch (DroneException e) {
+                updateModel(model -> {
+                    model.setBtnDeepLearningContext(true, "Stop DeepLearning");
+                    model.setLblStatusContext(SpecialColor.RED, "Stopping DeepLearning failed!");
+                });
 
-            System.out.println(ANSI.RED + "Stopping DeepLearning failed!" + ANSI.RESET);
+                System.out.println(ANSI.RED + "Stopping DeepLearning failed!" + ANSI.RESET);
+            }
         }
     }
 
