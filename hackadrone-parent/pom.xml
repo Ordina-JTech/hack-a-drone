@@ -57,10 +57,6 @@
             <id>maven-repository</id>
             <url>file:///${project.local.repository.location}</url>
         </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
     </repositories>
 
     <dependencyManagement>
