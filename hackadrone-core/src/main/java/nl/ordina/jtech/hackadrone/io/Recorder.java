@@ -35,7 +35,7 @@ public final class Recorder implements Handler {
     /**
      * The video resource path.
      */
-    private static final String VIDEO_PATH = "hackadrone-persistence/target/classes/video";
+    private static final String VIDEO_PATH = "hackadrone-core/target/classes/video";
 
     /**
      * The host of the drone.
