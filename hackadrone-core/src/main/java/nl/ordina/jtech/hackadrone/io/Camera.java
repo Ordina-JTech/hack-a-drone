@@ -47,7 +47,7 @@ public final class Camera implements Handler {
     /**
      * The video resource path.
      */
-    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
+    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/video";
 
     /**
      * The host of the drone.
@@ -147,6 +147,7 @@ public final class Camera implements Handler {
             videoFrame.showFrame();
         } catch (IOException | InterruptedException e) {
             System.err.println("Unable to start the video player");
+            System.err.println(e);
         }
     }
 
