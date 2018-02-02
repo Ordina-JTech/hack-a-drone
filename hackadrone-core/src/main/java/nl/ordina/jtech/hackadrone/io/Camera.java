@@ -21,12 +21,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -182,7 +182,7 @@ public final class Camera implements Handler {
      */
     private void startVideoCamera() throws IOException {
         final String output = "tcp://" + cameraHost + ":" + cameraPort + "?listen";
-        final File videoPath = new File("video").getAbsoluteFile();
+        final String videoPath = Paths.get("video").toAbsolutePath().toString();
 
         switch (OS.getOS()) {
             case "win":

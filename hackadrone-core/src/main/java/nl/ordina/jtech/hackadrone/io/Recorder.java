@@ -17,11 +17,11 @@
 package nl.ordina.jtech.hackadrone.io;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -143,7 +143,7 @@ public final class Recorder implements Handler {
         final String output = "tcp://" + recorderHost + ":" + recorderPort + "?listen";
         final String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         final String fileName = ("record-" + timestamp + ".mp4");
-        final File videoPath = new File("video").getAbsoluteFile();
+        final String videoPath = Paths.get("video").toAbsolutePath().toString();
 
         switch (OS.getOS()) {
             case "win":
