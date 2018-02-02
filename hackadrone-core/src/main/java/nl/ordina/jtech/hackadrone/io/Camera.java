@@ -21,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,11 +44,6 @@ public final class Camera implements Handler {
     private static final int NR_OF_FRAMES_PER_SECOND = 10;
 
     private static final int NUMBER_OF_FRAMES_PER_RECOGNITION = NR_OF_FRAMES_PER_SECOND * 6;
-
-    /**
-     * The video resource path.
-     */
-    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/video";
 
     /**
      * The host of the drone.
@@ -185,20 +181,21 @@ public final class Camera implements Handler {
      * @throws IOException if starting the video camera failed
      */
     private void startVideoCamera() throws IOException {
-        String output = "tcp://" + cameraHost + ":" + cameraPort + "?listen";
+        final String output = "tcp://" + cameraHost + ":" + cameraPort + "?listen";
+        final File videoPath = new File("video").getAbsoluteFile();
 
         switch (OS.getOS()) {
             case "win":
-                videoPlayer =
-                        new ProcessBuilder("cmd", "/c", VIDEO_PATH + "/win/ffmpeg.exe", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1")
-                                .start();
+                videoPlayer = new ProcessBuilder("cmd", "/c", videoPath + "/win/ffmpeg.exe", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
                 break;
             case "unix":
-                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/unix/ffmpeg", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
+                videoPlayer = new ProcessBuilder(videoPath + "/unix/ffmpeg", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
                 break;
             case "osx":
-                videoPlayer = new ProcessBuilder(VIDEO_PATH + "/osx/ffmpeg", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
+                videoPlayer = new ProcessBuilder(videoPath + "/osx/ffmpeg", "-i", output, "-r", String.valueOf(NR_OF_FRAMES_PER_SECOND), "-f", "image2pipe", "pipe:1").start();
                 break;
+            default:
+                throw new IllegalArgumentException("your OS is not supported for our video");
         }
     }
 

@@ -17,6 +17,7 @@
 package nl.ordina.jtech.hackadrone.io;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -31,11 +32,6 @@ import nl.ordina.jtech.hackadrone.utils.OS;
  * Class representing the video recorder for a drone.
  */
 public final class Recorder implements Handler {
-
-    /**
-     * The video resource path.
-     */
-    private static final String VIDEO_PATH = "hackadrone-core/target/classes/video";
 
     /**
      * The host of the drone.
@@ -144,20 +140,23 @@ public final class Recorder implements Handler {
      * @throws IOException if starting the video recorder failed
      */
     private void startVideoRecorder() throws IOException {
-        String output = "tcp://" + recorderHost + ":" + recorderPort + "?listen";
-        String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        String fileName = ("record-" + timestamp + ".mp4");
+        final String output = "tcp://" + recorderHost + ":" + recorderPort + "?listen";
+        final String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        final String fileName = ("record-" + timestamp + ".mp4");
+        final File videoPath = new File("video").getAbsoluteFile();
 
         switch (OS.getOS()) {
             case "win":
-                recorder = new ProcessBuilder("cmd", "/c", "start", VIDEO_PATH + "/win/ffmpeg.exe", "-f", "h264", "-i", output, "-vcodec", "copy", "-r", "25", fileName).start();
+                recorder = new ProcessBuilder("cmd", "/c", "start", videoPath + "/win/ffmpeg.exe", "-f", "h264", "-i", output, "-vcodec", "copy", "-r", "25", fileName).start();
                 break;
             case "unix":
-                recorder = new ProcessBuilder(VIDEO_PATH + "/unix/ffmpeg", "-f", "h264", "-i", output, "-vcodec", "copy", "-r", "25", fileName).start();
+                recorder = new ProcessBuilder(videoPath + "/unix/ffmpeg", "-f", "h264", "-i", output, "-vcodec", "copy", "-r", "25", fileName).start();
                 break;
             case "osx":
-                recorder = new ProcessBuilder(VIDEO_PATH + "/osx/ffmpeg", "-f", "h264", "-i", output, "-vcodec", "copy", "-r", "25", fileName).start();
+                recorder = new ProcessBuilder(videoPath + "/osx/ffmpeg", "-f", "h264", "-i", output, "-vcodec", "copy", "-r", "25", fileName).start();
                 break;
+            default:
+                throw new IllegalArgumentException("your OS is not supported for our video");
         }
     }
 
