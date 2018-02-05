@@ -53,15 +53,14 @@ public final class ApController extends Controller {
         device.start();
 
         Command defaultCommand = new Command();
-
         while (!isInterrupted()) {
             try {
                 if (commandList.isEmpty()) {
                     commandConnection.sendCommand(defaultCommand);
                 } else {
-                    commandConnection.sendCommand(commandList.remove());
+                    commandConnection.sendCommand(commandList.getFirst());
+                    commandList.remove();
                 }
-
                 Thread.sleep(this.delay);
             } catch (IOException e) {
                 System.err.println("Unable to send command");
