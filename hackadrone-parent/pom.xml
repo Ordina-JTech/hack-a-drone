@@ -48,7 +48,7 @@
         <project.local.repository.location>${project.basedir}/../local_lib</project.local.repository.location>
 
         <commons-io.version>2.5</commons-io.version>
-        <org.deeplearning4j.version>0.9.0</org.deeplearning4j.version>
+        <org.deeplearning4j.version>0.9.1</org.deeplearning4j.version>
         <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
     </properties>
 
@@ -58,6 +58,12 @@
             <url>file:///${project.local.repository.location}</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-plugin-repository</id>
+            <url>file:///${project.local.repository.location}</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
